@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+<meta charset="utf-8">
+<title>Login page</title>
+<link rel="stylesheet" type="text/css" href="/css/landingPage.css" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type=""></script>
+<script type="text/javascript" src="/scripts/sortable.js"></script>
+<script type="text/javascript" src="/scripts/colors.js"></script>
+<script type="text/javascript" src="/bazsocket/socket.io.js"></script>
+
+</script>
+
+</head>
+<body>
+<div class="container">
+    <section id="content">
+        <form action="" onsubmit="return false">
+            <h1>Welcome</h1>
+            
+                <input type="text" id="textbox" placeholder="Please enter a name" required="" />
+                <input type="button" id="myButton" value="Enter" />
+            </form><!-- form -->
+        
+    </section><!-- content -->
+	
+</div><!-- container  -->
+<script>
+    // const host = "http://127.0.0.1";
+    const host = "http://rebo4ai.know-center.tugraz.at";
+    
+    
+    // Behzad: This is data for all rooms which will be created by this landing page
+    var path = window.location.pathname;
+    var page_name = path.split("/").pop();
+    const sender = page_name;
+    const prefix_room = '';
+    const suffix_room = '';
+    const manner_or_roomtype = 'RANDOM';
+    const max_number = 1;	
+
+    const socket = io({
+            path: '/bazsocket'
+        });
+
+	function redirect()
+	{
+        socket.emit('show_this_in_console', '------ CLIENT: NEW REQUEST ------');
+
+		if((document.getElementById('textbox').value.trim()).length==0){
+			alert ('You need to have a name.');
+			return false
+        }
+        if((document.getElementById('textbox').value.trim()).toLowerCase() == 'rebo4ai'){
+            alert ('Please select another name.');
+            return false
+        }
+
+		join_into_this_room();
+    }; 
+    function join_into_this_room (){
+        socket.emit('find_a_proper_room', sender, prefix_room, suffix_room, manner_or_roomtype, function(roomname_and_type){
+            socket.emit('show_this_in_console', 'CLIENT: Get the result from server: message ' + roomname_and_type);
+            //socket.emit('show_this_in_console', 'CLIENT: Get the result from server: message[0] ' + message[0]);
+            //localStorage.setItem("landing_page_idsai_assignment_1","1");
+            //socket.emit('show_this_in_console', message);
+            // BEhzad IMPORTANT : the "2" in the url means that we redirect to location.href from this html
+            // this helps us that when refresh or backward, the correct page will be shown. 
+            // sometimes , we need to back to landing_page_random.html and some other times we need to back to landing_page_idsai_assignment_1.html
+            // this number or id is added to the end of the roomname 
+            //random_part = random_part.substring(0, random_part.indexOf('/')) + '-2' + random_part.substring(random_part.indexOf('/'))
+            socket.emit('show_this_in_console', 'CLIENT:redirect '+ document.getElementById("textbox").value.trim() + ' to this room: '+ roomname_and_type);
+
+            location.href = host + "/bazaar/chat/" + roomname_and_type + document.getElementById("textbox").value.trim();
+            //join_into_this_room(message);
+        });
+        //Behzad the 3 means the page is called from a hyperlink in essay room or chatroom. NOT from random pages 
+        //location.href = host + "/bazaar/chat/IDSAI_CHATBOT_"+makeid(15)+ "-3" + "/chatbot/"+document.getElementById("textbox").value.trim();
+
+	};
+	// function join_into_this_room (data){
+		
+	// 	if (data === 'NONE')  {
+	// 		var data        = makeid(15);
+	// 		location.href = host + "/bazaar/chat/"+ prefix_room + data + "/chatroom/" + document.getElementById("textbox").value.trim();
+	// 		//make the room available (When first one joined to a new room)
+	// 		//.emit('change_room_status', 1, prefix_room + data);
+	// 	} 
+	// 	else {
+	// 		location.href = host + "/bazaar/chat/"+ data +"/chatroom/"+document.getElementById("textbox").value.trim();
+	// 		// make the room unavailable (When the second one joined to a available room)
+	// 		//socket.emit('change_room_status', 0, data);	
+	// 	}	
+	// };
+    function makeid(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+    };
+    /*function redirect()
+    {
+            if((document.getElementById('textbox').value.trim()).length==0){
+                alert ('You need to have a name.');
+                return false
+            }
+        var room_name        = makeid(15);
+            var a = Math.random();
+            if (a < 0.5)  {
+                location.href = host + "/bazaar/chat/IDSAI_ESSAY_"+room_name+"/essay/"+document.getElementById("textbox").value.trim();
+            } 
+            else {
+                location.href = host + "/bazaar/chat/IDSAI_CHATBOT_"+room_name+"/chatbot/"+document.getElementById("textbox").value.trim();
+            }
+    };
+    */
+    document.getElementById("textbox")
+        .addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            redirect();
+        }
+    });
+
+
+    document.getElementById("myButton").onclick = function () {
+
+            redirect();
+    };
+
+
+
+</script>
+</body>
+</html>

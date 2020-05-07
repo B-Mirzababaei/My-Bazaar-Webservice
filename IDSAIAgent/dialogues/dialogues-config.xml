@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dialogs>
+	<dialog concept="IDSAI" scenario="scenario-idsai">
+		<intro>Hi, I'm Rebo4AI; a prototype conversational agent. With me, you can currently discuss only about intelligence. Is that OK with you; do you want to start a conversation? (please answer: yes)</intro>
+		<accept annotation="YES"></accept>
+		<cancel annotation="NO">OK, no problem; I currently am not able to discuss about anything else - if you are interested in talking to me any time in the future, please go again to IDSAI_ASSIGNMENT_1_LANDING_PAGE. Bye!</cancel>
+    </dialog> 
+</dialogs>

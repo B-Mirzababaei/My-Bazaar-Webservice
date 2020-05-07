@@ -1,0 +1,54 @@
+Dear Behzad,
+ 
+And here is a dialogue structure that we could trial based on the introductory lecture I give in IDSAI (March 5 I think) – it contains definitions of intelligence.
+I also attach to you the preliminary slides for the 1st lecture.
+ 
+I think you should focus, in implementation, on making this dialogue work. I think it’s a reasonable example, will be interesting for the students, and is concrete enough to really be able to work on, and to study.
+ 
+Please let me know if you have questions, or reservations on the dialogue structure below!
+I think a good strategy is to first implement the static dialogue structure, then the simple adaptivity using keyword lists, then try out with one, two, three nice users; identify where the agent “fails” in giving the right answer, and then go to the stuff that is new – figuring out how to draw the example from an input file; and having the study setup ready (landing page, random generation of room).
+ 
+As soon as you have sth to show – send me a short email/skype message; I’ll be offline most of Thursday, and Friday, but online enough to at least be able to asynchronously see, and think things over.
+ 
+ 
+R: are lines that Rebo would always ask
+-> are lines that Rebo would only conditionally ask
+===
+R: Hi, I'm Rebo4AI; I'm a prototype conversational agent.
+R: You have learned in the Introduction to Data Science and Artificial Intelligence different definitions of intelligence; I have not been able to follow!
+R: But I'm curious: Is a <fish> now intelligent or not?
+ 
+-> detect yes/no
+-> detect four concepts: ACT (first keywords: act, behaviour), THINK (first keywords: think, brain), HUMAN (first keywords: human), RATIONAL (first keywords: rational, goal-oriented)
+-> if none are detected: I'm not sure I understood - which definition of intelligence did you make in deciding that a <fish> is (not) intelligent
+ 
+R: Are you personally satisfied with this decision and definition - and if not, what would you change in the definition?
+ 
+-> detect yes/no, change in definition
+ 
+R: How interesting is it for you to know whether a <fish> is intelligent or not?
+ 
+R: What in your life would change, depending on whether you see a <fish> as intelligent or not?
+ 
+R: Interesting! Thanks!
+ 
+I’m thinking we need a file to draw examples from:
+Fish
+Table
+Search engine
+Autonomously driving car
+Baby
+…
+ 
+ 
+What would be great is, if the dialogue structure as above could be made to work like that:
+ 
+User gets a link / QR code to a landing page.
+Where you can enter your username (whatever), and on clicking a button you enter a random room, with your username
+… and then you get to go through the above dialogue. At the end of the dialogue, the room “shuts down” (gets inactivated), but users can download their conversation, and copy the URL to go back later of course.
+ 
+Please also have a look at how to implement this!
+ 
+I think a content analysis of the argumentations, but especially also of what difference this makes in life would be interesting; outside the mechanics of making the above adaptivity work (but that should be feasible).
+ 
+Viktoria

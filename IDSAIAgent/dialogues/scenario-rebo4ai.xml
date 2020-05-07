@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scenario SYSTEM "TuTalkScenario.dtd">
+<scenario default-language="en" scenario-name="scenario-rebo4ai">
+	<configuration>
+		
+		<!-- It *is* possible to hook up a LightSide classifier to TuTalk, 
+		such that the predicted labels are treated as concepts. 
+		but not today. -->
+			
+		<!-- 	
+		<module kind="model" name="animals"
+			classname="edu.cmu.cs.lti.tutalk.module.SidePredictor">
+			<param key="path" value="models/animals.ser" />
+		</module> 
+		-->
+
+	</configuration>
+
+	<!-- I'm not entirely sure what these are used for. -->
+	<transitions>
+		<transition ack-type="agree" floor-status="neutral">
+			<tphrase> yes </tphrase>
+			<tphrase> okay </tphrase>
+		</transition>
+	
+		<transition ack-type="none">
+			<tphrase> moving on... </tphrase>
+		</transition>
+	</transitions>
+	
+	<!-- 'Concepts' define things that students might say,
+	     AND things that the tutor might say back. 
+	     Tutor concepts should take the form of phrase lists.
+		 Student concepts can be phrase lists, 
+		 regular expressions, or lists of annotations,
+	     but only one of these at a time. -->
+		
+	<concepts>
+	
+		<concept label="startConversation">
+			<phrase>My name is Rebo4AI and I'm here to find out what you know about AI. 
+I hope you have read the AI essential course</phrase>
+			<phrase>My name is Rebo4AI. Let's see how much you know about AI.</phrase>
+			<phrase>My name is Rebo4AI, but can call me Rebo.
+We're going to discuss about AI and the impact of it in our personal life.</phrase>
+			<phrase>I'm Rebo4AI and we are here to have a conversation about ups and downs of AI and how it's affected our life.</phrase>
+			<phrase>I'm Rebo4AI and here to talk about various perspectives on how AI is important in your life, the impact of AI on your life, and your own role in interacting with AI-based technologies.</phrase>
+		</concept>
+		
+		<concept label="emotions">
+			<phrase>Now, do you have a good feeling about AI?</phrase>
+		</concept>
+		<concept label="rebo_emotions_positive_exp">
+			<phrase>Great to hear! | What did you particularly enjoy doing the experience? Why?</phrase>
+		</concept>
+		<concept label="emotions_negative_exp">
+			<phrase>Oh dear! | What didn't you particularly enjoy doing the experience? Why?</phrase>
+		</concept>
+		<concept label="emotions_unknown_exp">
+			<phrase>Could you explain more about your feeling? Why do you like or dislike it?</phrase>
+		</concept>
+		
+	
+		<concept label="judgement">
+			<phrase>How do you see AI affecting you in the future?</phrase>
+		</concept>
+		<concept label="judgement_optimistic_exp">
+			<phrase>You are optimistic! | What about negative consequences, Do you think it maybe has bad effects?</phrase>
+		</concept>
+		<concept label="judgement_pessimistic_exp">
+			<phrase>Don‘t be gloomy! | Do you really think AI can not have any positive effects on our life?</phrase>
+		</concept>
+		<concept label="judgement_unknown_exp">
+			<phrase>Could you talk about a positive and a negative consequence of AI?</phrase>
+		</concept>
+
+
+		<concept label="learning">
+			<phrase>What did you learn from this course?</phrase>
+		</concept>
+		
+		<concept label="planning">
+			<phrase>What will you pay special attention next time you read or hear about AI?</phrase>
+		</concept>
+		<concept label="planning_positive_exp">
+			<phrase>It seems you figure it out.</phrase>
+		</concept>
+		<concept label="planning_negative_exp">
+			<phrase>Wasn't there something interesting for you?</phrase>
+		</concept>
+		<concept label="planning_unknown_exp">
+			<phrase>Based on the new things that you learned from the course, what is the first thing that comes to your mind when read or hear about AI?</phrase>
+		</concept>
+
+		<concept label="closing">
+			<phrase>Thank you for discussing this with me!</phrase>
+		</concept>
+
+		<concept label="goodbye">
+			<phrase>See you next time :)</phrase>
+			<phrase>Have a nice day and see you soon!</phrase>
+			<phrase>And bye :-)</phrase>
+			<phrase>Until the days!</phrase>
+			<phrase>Thank you and see you next time;)</phrase>
+			<phrase>Have a nice day :)</phrase>
+			<phrase>See you soon!</phrase>
+			<phrase>See you next time!</phrase>
+		</concept>
+		
+		<!-- these match against external (MessageAnnotator) annotations. -->
+		<concept label="pos_annotation" type="annotation">
+			<phrase>REBO_EMOTION_POSITIVE_ANNOTATION</phrase>
+		</concept>
+			
+		<concept label="neg_annotation" type="annotation">
+			<phrase>REBO_EMOTION_NEGATIVE_ANNOTATION</phrase>
+		</concept>
+		<!-- Behzad: This capital name (OPTIMISTIC) refers to the name of file (dictionary) in which a list of phrases were typed. These phrases will use to classify a response whether it is "optimistic" or not. -->
+		<concept label="optimistic_annotation" type="annotation">
+			<phrase>REBO_JUDGEMENT_ON_IMPLICATION_OPTIMISTIC_ANNOTATION</phrase>
+		</concept>	
+		<concept label="pessimistic_annotation" type="annotation">
+			<phrase>REBO_JUDGEMENT_ON_IMPLICATION_PESSIMISTIC_ANNOTATION</phrase>
+		</concept>	
+		<concept label="planning_annotation" type="annotation">
+			<phrase>REBO_PLANNING_DETAILED_HAVE_PLAN_ANNOTATION</phrase>
+		</concept>
+		
+		<concept label="wplanning_annotation" type="annotation">
+			<phrase>REBO_PLANNING_DETAILED_NO_PLAN_ANNOTATION</phrase>
+		</concept>
+		
+		<concept label="unanticipated-response">
+			<phrase>anything else</phrase>
+		</concept>
+		
+	</concepts>
+
+	
+	<!-- This is the meat of the hierarchical dialogue - 
+		 one main goal with multiple steps, and subgoals that it may reference. -->
+	<script>
+		<goal name="start" difficulty="1">
+			<step>
+				<initiation>startConversation</initiation>
+			</step>
+			<step>
+				<initiation>emotions</initiation>
+				<!-- Behzad -
+					Bot says what is written in "say" then go to this phase "elicitate1" 
+				<response push="elicitate1" say="response1_2">unanticipated-response</response> 
+				
+				We can use regex in phrases. It this pattern mathes with a reasponse, it is considered as label of "answer2"
+				<concept label="answer2" type="regex">
+					<phrase>pointer|arrow</phrase>
+				</concept>
+				-->
+				
+				
+				<response push="emotions_positive">pos_annotation</response>
+				<response push="emotions_negative">neg_annotation</response>
+				<response push="emotions_unknown">unanticipated-response</response>
+			</step>
+			
+			<step>
+				<initiation>judgement</initiation>
+				<response push="judgement_optimistic">optimistic_annotation</response>
+				<response push="judgement_pessimistic">pessimistic_annotation</response>
+				<response push="judgement_unknown">unanticipated-response</response>
+			</step>
+			
+			<step>
+				<initiation>learning</initiation>
+				<response>unanticipated-response</response>
+			</step>
+
+			<step>
+				<initiation>planning</initiation>
+				<response push="planning_positive">planning_annotation</response>
+				<response push="planning_negative">wplanning_annotation</response>
+				<response push="planning_unknown">unanticipated-response</response>
+			</step>
+			
+			<step>
+				<initiation>closing</initiation>
+				<response>unanticipated-response</response>
+			</step>
+			
+			<step>
+				<initiation>goodbye</initiation>
+			</step>
+		</goal>
+
+		<!-- Behzad Goals are referenced by their names. "difficulty" is meaningless for now. -->
+
+		<goal name="emotions_positive" difficulty="1">
+			<step>
+				<initiation>emotions_positive_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="emotions_negative" difficulty="1">
+			<step>
+				<initiation>emotions_negative_exp</initiation>
+				<response>unanticipated-response</response>
+				<!-- <response push="goalNegAskFurther">unanticipated-response</response>-->
+			</step>
+		</goal>
+		<goal name="emotions_unknown" difficulty="1">
+			<step>
+				<initiation>emotions_unknown_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="judgement_optimistic" difficulty="1">
+			<step>
+				<initiation>judgement_optimistic_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="judgement_pessimistic" difficulty="1">
+			<step>
+				<initiation>judgement_pessimistic_exp</initiation>
+				<response>unanticipated-response</response>
+				<!-- <response push="goalNegAskFurther">unanticipated-response</response>-->
+			</step>
+		</goal>
+		<goal name="judgement_unknown" difficulty="1">
+			<step>
+				<response push="judgement_optimistic">optimistic_annotation</response>
+				<response push="judgement_pessimistic">pessimistic_annotation</response>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		
+		<goal name="planning_positive" difficulty="1">
+			<step>
+				<initiation>planning_positive_exp</initiation>
+			</step>
+		</goal>
+		<goal name="planning_negative" difficulty="1">
+			<step>
+				<initiation>planning_negative_exp</initiation>
+				<response push="planning_unknown">unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="planning_unknown" difficulty="1">
+			<step>
+				<initiation>planning_unknown_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+	</script>
+
+</scenario>

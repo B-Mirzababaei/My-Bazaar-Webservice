@@ -1,4 +1,4 @@
-/*CREATE DATABASE `nodechat` !40100 DEFAULT CHARACTER SET utf8; */
+/*CREATE DATABASE `nodechat` !40100 DEFAULT CHARACTER SET utf8mb4_general_ci; */
 CREATE TABLE `message` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `roomid` int(11) NOT NULL,
@@ -17,8 +17,12 @@ CREATE TABLE `room` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL COMMENT 'The name of the chat room',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified` timestamp NULL DEFAULT NULL COMMENT 'The last time this room was entered by a chat user.',
+  `modified` timestamp NULL DEFAULT NULL COMMENT 'The last time this room was entered by a chat user.', 
   `comment` varchar(10000) DEFAULT NULL,
+  `num_users` int(5) NOT NULL DEFAULT 0 COMMENT 'The number of users who joined in this room',
+  `available_for_chatroom` int(1) NOT NULL DEFAULT 0 COMMENT 'It is 1 if it is available for chat.',
+  `type` varchar(45) NOT NULL COMMENT 'Type of the room',
+  `created_by` varchar(100) NOT NULL COMMENT 'the landing page that creates this room',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)
 ) AUTO_INCREMENT=316 DEFAULT CHARSET=utf8;

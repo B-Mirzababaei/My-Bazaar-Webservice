@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scenario SYSTEM "TuTalkScenario.dtd">
+<scenario default-language="en" scenario-name="scenario-general_ai">
+	<configuration>
+		
+		
+		<!-- It *is* possible to hook up a LightSide classifier to TuTalk, 
+		such that the predicted labels are treated as concepts. 
+		but not today. -->
+			
+		<!-- 	
+		<module kind="model" name="animals"
+			classname="edu.cmu.cs.lti.tutalk.module.SidePredictor">
+			<param key="path" value="models/animals.ser" />
+		</module> 
+		-->
+
+	</configuration>
+
+	<!-- I'm not entirely sure what these are used for. -->
+	<transitions>
+		<transition ack-type="agree" floor-status="neutral">
+			<tphrase> yes </tphrase>
+			<tphrase> okay </tphrase>
+		</transition>
+	
+		<transition ack-type="none">
+			<tphrase> moving on... </tphrase>
+		</transition>
+	</transitions>
+	
+	<!-- 'Concepts' define things that students might say,
+	     AND things that the tutor might say back. 
+	     Tutor concepts should take the form of phrase lists.
+		 Student concepts can be phrase lists, 
+		 regular expressions, or lists of annotations,
+	     but only one of these at a time. -->
+		
+	<concepts>
+	
+		<concept label="start_conversation">
+			<phrase>Let's see in what extent you encounter AI on your personal life or professional career and how much AI changes our life.</phrase>
+			<phrase>We're going to discuss AI and the its impact on your personal or professional life .</phrase>
+			<phrase>We are here to have a conversation about ups and downs of AI and how it affects our life.</phrase>
+			<phrase>We are going to talk about various perspectives on how AI is important in your life, the impact of AI on your life, and your own role in interacting with AI-based technologies.</phrase>
+		</concept>
+		<concept label="introduction1">
+			<phrase>I'm here to find out what you know about AI.</phrase>
+		</concept>
+		<concept label="introduction2">
+			<phrase>I hope you have read the AI essential course. Because we are going to talk about how you use AI-based systems and also talk about their impact on your daily life</phrase>
+		</concept>
+		
+		<concept label="review_AI_essential_course">
+			<phrase>You can use this link [https://www.elementsofai.com] to skim it if you want.</phrase>
+		</concept>
+		
+
+		<concept label="judgement_on_relevance">
+			<phrase>In your daily life, where or how do you encounter artificial intelligence? Please name some concrete examples which you use such as Google's search engine, Youtube, GoogleMap, or ridesharing apps.</phrase>
+			<phrase>What Do you think about how many times and how you use an AI-based system in a week? Please name some concrete examples which you use such as Google's search engine, Youtube, GoogleMap, or ridesharing apps.</phrase>
+			<phrase>Can you tell me which AI-based systems you usually use? And how? Please name some concrete examples which you use such as Google's search engine, Youtube, GoogleMap, or ridesharing apps.</phrase>
+			<phrase>Can you tell me how you use an AI-based systems in your daily life? Please name some concrete examples which you use such as Google's search engine, Youtube, GoogleMap, or ridesharing apps.</phrase>
+			<phrase>How many times and how you use an AI-based system in a day or week? Please name some concrete examples which you use such as Google's search engine, Youtube, GoogleMap, or ridesharing apps.</phrase>
+			<phrase>What kind of AI-based systems do you use in a day or week? How? Please name some concrete examples which you use such as Google's search engine, Youtube, GoogleMap, or ridesharing apps.</phrase>
+		</concept>
+		
+		<concept label="judgement_on_relevance_2">
+			<phrase>In your response, it would be better if you could talk about concrete examples, namely Google's search engine, Youtube, GoogleMap, or ridesharing apps.</phrase>
+		</concept>
+		
+		<concept label="judgement_on_relevance_positive_exp">
+			<phrase>Good to hear that! So you are familiar with these kinds of stuff.</phrase>
+		</concept>
+		
+		<concept label="judgement_on_relevance_negative_try_now_exp">
+			<phrase>It's OK. You can do it right now, just click on this link then you will be able to use Google's search engine, which is an AI-based system. | Type whatever you want to see the results.</phrase>
+			<phrase>So lets try it together. Just [click on this link to go to Youtube's website] OR [open a new tab then go to Youtube's website]. You can find whatever you want.</phrase>
+		</concept>
+		
+		<concept label="judgement_on_relevance_negative_exp">
+			<phrase>As far as I know, Google and Youtube are the most well-known companies in which many AI-based systems are used in order to facilitate accessing the content that we look for. | So, if you try at least one of these, you definitely gain from AI in daily life.</phrase>
+			<phrase>If you have an email address, play online video games, or at least have access to the Internet, you directly or indirectly derive the benefit from AI-based systems. There are many well-known websites and companies that use AI-based components, such as Youtube, Google, Microsoft.</phrase>
+		</concept>
+		
+		<concept label="judgement_on_relevance_unknown_exp">
+			<phrase>As far as I know, Google and Youtube are the most well-known companies in which many AI-based systems are used in order to make it more convenient for us accessing the content that we look for. | So, if you try at least one of these, you definitely deal with AI in your life.</phrase>
+		</concept>
+
+		<concept label="judgement_on_implication">
+			<phrase>What is the effect of such artificial intelligence systems or issues on your own life (professional or private)?</phrase>
+			<phrase>How do you see AI affecting on your life (personal or professional) in the future? Could you talk about positive or negative effects?</phrase>
+			<phrase>What is the effects, positive or negative one, of such artificial intelligence systems or issues on your own life (professional or private)?</phrase>
+			<phrase>How is AI likely to change your personal life or job? Do You think these changes lead to a better life or make our life more complicated?</phrase>
+			<phrase>Could you talk about advantages and disadvantages of these kinds of systems?</phrase>
+			<phrase>Could you address some drawbacks or benefits of these kinds of systems? How these systems affect on what you do in your personal or professional life?</phrase>
+		</concept>
+		<concept label="judgement_on_implication_optimistic_exp">
+			<phrase>That's very optimistic! Do you think there are any negative side-effects as well?</phrase>
+			<phrase>You are optimistic! | What about negative consequences, Do you think it maybe has negative side-effects as well?</phrase>
+			<phrase>You are a positive person! It may have some dark sides. What do you think?</phrase>
+			
+		</concept>
+		<concept label="judgement_on_implication_pessimistic_exp">
+			<phrase>That sounds very dark! Do you think there are any positive side-effects as well?</phrase>
+			<phrase>Don‘t be gloomy! | Do you really think AI can not have any positive effetcs on our life?</phrase>
+			<phrase>Don't be too negative! It may have some bright sides. What do you think about benefits?</phrase>
+		</concept>
+		<concept label="judgement_on_implication_balanced_exp">
+			<phrase>That is a balanced answer!</phrase>
+		</concept>
+		<concept label="general_ai_judgement_on_implication_unknown_exp">
+			<phrase>IN UNKNOWN BRANCH, I think it is better if Rebo4AI says sth like Uhum, OK or ask for talking vividly about ups and downs of rather than just go on to the next level.</phrase>
+		</concept>
+
+		<concept label="learning">
+			<phrase>WE CAN SKIP THIS PART OR JUST ASK: What did you learn or understand about AI from this course?</phrase>
+		</concept>
+
+		<concept label="planning_general">
+			<phrase>Knowing essentials about how AI systems work, what could you do to increase the positive effects, and reduce negative effects?</phrase>
+			<phrase>How can the new learning be translated into practice?</phrase>
+			<phrase>What kind of work could you do to overcome negative consequences and increase positive ones?</phrase>
+		</concept>
+		<concept label="planning_general_netagive_exp">
+			<phrase>Wasn't there something interesting for you?</phrase>
+		</concept>
+		
+		<concept label="planning_detailed">
+			<phrase>What of these plans can you implement already in the next one or two weeks?</phrase>
+			<phrase>Now, you know somethings about AI and its effects on your life. How can it be translated into practice?</phrase>
+			
+		</concept>
+		<concept label="planning_detailed_have_plan_exp">
+			<phrase>It seems you figure it out.</phrase>
+		</concept>
+		<concept label="planning_detailed_no_plan_exp">
+			<phrase>We can do many things. For instance, to get a better results from our search engines, you can use better keywords when you want to search something in the Internet. Now, do you have any other ideas?</phrase>
+		</concept>
+		
+
+		<concept label="closing">
+			<phrase>OK, good. Thank you for discussing this with me!</phrase>
+		</concept>
+
+		<concept label="goodbye">
+			<phrase>See you next time :)</phrase>
+			<phrase>Have a nice day and see you soon!</phrase>
+			<phrase>And bye :-)</phrase>
+			<phrase>Until the days!</phrase>
+			<phrase>Thank you and see you next time;)</phrase>
+			<phrase>Have a nice day :)</phrase>
+			<phrase>See you soon!</phrase>
+			<phrase>See you next time!</phrase>
+		</concept>
+		
+		<!-- these match against external (MessageAnnotator) annotations. -->
+		<concept label="judgement_on_relevance_positive_annotation" type="annotation">
+			<phrase>GENERAL_AI_JUDGEMENT_ON_RELEVANCE_POSITIVE_ANNOTATION</phrase>
+		</concept>
+			
+		<concept label="judgement_on_relevance_negative_annotation" type="annotation">
+			<phrase>GENERAL_AI_JUDGEMENT_ON_RELEVANCE_NEGATIVE_ANNOTATION</phrase>
+		</concept>
+		
+		<concept label="judgement_on_implication_optimistic_annotation" type="annotation">
+			<phrase>GENERAL_AI_JUDGEMENT_ON_IMPLICATION_OPTIMISTIC_ANNOTATION</phrase>
+		</concept>	
+		<concept label="judgement_on_implication_pessimistic_annotation" type="annotation">
+			<phrase>GENERAL_AI_JUDGEMENT_ON_IMPLICATION_PESSIMISTIC_ANNOTATION</phrase>
+		</concept>	
+			<concept label="judgement_on_implication_balanced_annotation" type="annotation">
+			<phrase>GENERAL_AI_JUDGEMENT_ON_IMPLICATION_BALANCED_ANNOTATION</phrase>
+		</concept>	
+		
+		<concept label="planning_general_netagive_annotation" type="annotation">
+			<phrase>GENERAL_AI_PLANNING_GENERAL_NETAGIVE_ANNOTATION</phrase>
+		</concept>
+		<concept label="planning_detailed_have_plan_annotation" type="annotation">
+			<phrase>GENERAL_AI_PLANNING_DETAILED_HAVE_PLAN_ANNOTATION</phrase>
+		</concept>
+			
+		<concept label="planning_detailed_no_plan_annotation" type="annotation">
+			<phrase>GENERAL_AI_PLANNING_DETAILED_NO_PLAN_ANNOTATION</phrase>
+		</concept>
+		<!-- Behzad: This capital name (OPTIMISTIC) refers to the name of file (dictionary) in which a list of phrases were typed. These phrases will use to classify a response whether it is "optimistic" or not. -->
+		
+		<concept label="unanticipated-response">
+			<phrase>anything else</phrase>
+		</concept>
+		
+	</concepts>
+
+	
+	<!-- This is the meat of the hierarchical dialogue - 
+		 one main goal with multiple steps, and subgoals that it may reference. -->
+	<script>
+		<goal name="start" difficulty="1" >
+			<step >
+				<initiation>start_conversation</initiation>
+			</step>
+
+			<!-- <step>
+				<initiation>introduction1</initiation>
+			</step> -->
+			<!-- <step>
+				<initiation>introduction2</initiation>
+			</step> -->
+			<!-- <step>
+				<initiation>review_AI_essential_course</initiation>
+			</step> -->
+			<!-- Behzad -
+					Bot says what is written in "say" then go to this phase "elicitate1" 
+				<response push="elicitate1" say="response1_2">unanticipated-response</response> 
+				
+				We can use regex in phrases. It this pattern mathes with a reasponse, it is considered as label of "answer2"
+				<concept label="answer2" type="regex">
+					<phrase>pointer|arrow</phrase>
+				</concept>
+			-->
+			
+			<!-- <step>
+				<initiation>emotions</initiation>
+				<response push="emotions_positive">pos_annotation</response>
+				<response push="emotions_negative">neg_annotation</response>
+				<response push="emotions_unknown">unanticipated-response</response>
+			</step> -->
+			
+			<step>
+				<initiation>judgement_on_relevance</initiation>
+				<response push="judgement_on_relevance_positive">judgement_on_relevance_positive_annotation</response>
+				<response push="judgement_on_relevance_negative">judgement_on_relevance_negative_annotation</response>
+				<response push="judgement_on_relevance_unknown">unanticipated-response</response>
+			</step>
+			<step>
+				<initiation>judgement_on_implication</initiation>
+				<response push="judgement_on_implication_optimistic">judgement_on_implication_optimistic_annotation</response>
+				<response push="judgement_on_implication_pessimistic">judgement_on_implication_pessimistic_annotation</response>
+				<response push="judgement_on_implication_balanced">judgement_on_implication_balanced_annotation</response>
+				<response>unanticipated-response</response>
+			</step>
+			<!-- <step>
+				<initiation>learning</initiation>
+				<response>unanticipated-response</response>
+			</step> -->
+
+			<step>
+				<initiation>planning_general</initiation>
+				<response push="planning_general_netagive">planning_general_netagive_annotation</response>
+				<response>unanticipated-response</response>
+			</step>
+			
+			<step>
+				<initiation>planning_detailed</initiation>
+				<response push="planning_detailed_have_plan">planning_detailed_have_plan_annotation</response>
+				<response push="planning_detailed_no_plan">planning_detailed_no_plan_annotation</response>
+				<response>unanticipated-response</response>
+				<!-- <response push="planning_detailed_unknown">unanticipated-response</response> -->
+			</step>
+			
+			<step>
+				<initiation>closing</initiation>
+				<response>unanticipated-response</response>
+			</step>
+			
+			<step>
+				<initiation>goodbye</initiation>
+			</step>
+		</goal>
+
+		<!-- Behzad Goals are referenced by their names. "difficulty" is meaningless for now. -->
+
+		
+		
+		<goal name="judgement_on_relevance_positive" difficulty="1">
+			<step>
+				<initiation>judgement_on_relevance_positive_exp</initiation>
+			</step>
+		</goal>
+		<goal name="judgement_on_relevance_negative" difficulty="1">
+			<step>
+				<initiation>judgement_on_relevance_negative_exp</initiation>
+
+			</step>
+		</goal>
+		<goal name="judgement_on_relevance_unknown" difficulty="1">
+			<step>
+				<initiation>judgement_on_relevance_unknown_exp</initiation>
+			</step>
+		</goal>
+		
+		<goal name="judgement_on_implication_optimistic" difficulty="1">
+			<step>
+				<initiation>judgement_on_implication_optimistic_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="judgement_on_implication_pessimistic" difficulty="1">
+			<step>
+				<initiation>judgement_on_implication_pessimistic_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="judgement_on_implication_balanced" difficulty="1">
+			<step>
+				<initiation>judgement_on_implication_balanced_exp</initiation>
+			</step>
+		</goal>
+		
+		<goal name="planning_general_netagive" difficulty="1">
+			<step>
+				<initiation>planning_general_netagive_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="planning_detailed_have_plan" difficulty="1">
+			<step>
+				<initiation>planning_detailed_have_plan_exp</initiation>
+			</step>
+		</goal>
+		<goal name="planning_detailed_no_plan" difficulty="1">
+			<step>
+				<initiation>planning_detailed_no_plan_exp</initiation>
+				<response>unanticipated-response</response>
+
+			</step>
+		</goal>
+	</script>
+
+</scenario>

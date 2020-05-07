@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+<meta charset="utf-8">
+<title>Login page</title>
+<link rel="stylesheet" type="text/css" href="/css/landingPage.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+</script>
+
+</head>
+<body>
+<div class="container">
+    <section id="content">
+        <form action="" onsubmit="return false">
+            <h1>Welcome</h1>
+            
+            <input type="text" id="textbox" placeholder="Please enter a name" required="" />
+            <input type="button" id="myButton" value="Enter" />
+			<!-- <button id="myButton" onclick="redirect(); return false;">Enter</button> -->
+        </form><!-- form -->
+        
+    </section><!-- content -->
+	
+</div><!-- container  -->
+<script>
+	const host = "http://127.0.0.1";
+    //const host = "http://rebo4ai.know-center.tugraz.at";
+
+function makeid(length) {
+   var result           = '';
+   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+   var charactersLength = characters.length;
+   for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+   }
+   return result;
+};
+
+function redirect()
+{
+	if((document.getElementById('textbox').value.trim()).length==0){
+		alert ('You need to have a name.');
+		return false
+	}
+    location.href = host + "/bazaar/chat/GENERAL_"+makeid(15)+"/chatbot/"+document.getElementById("textbox").value.trim();
+};
+
+document.getElementById("textbox")
+    .addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        redirect();
+		//document.getElementById("myButton").click();
+	}
+});
+
+
+document.getElementById("myButton").onclick = function () {
+
+        redirect();
+};
+
+</script>
+</body>
+</html>
