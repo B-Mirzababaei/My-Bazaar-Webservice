@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <!-- <meta HTTP-EQUIV="REFRESH" content="0; url=http://example.com/index.html"> -->
+    <title id="title_el">Essay</title>
+    <link rel="stylesheet" type="text/css" href="/css/IDSAI-essay.css" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"type=""></script>
+    <script type="text/javascript" src="/scripts/sortable.js"></script>
+    <script type="text/javascript" src="/scripts/colors.js"></script>
+    <script type="text/javascript" src="/bazsocket/socket.io.js"></script>
+</head>
+
+<!-- <body onload="checkFirstVisit()"> -->
+
+<body>
+
+    <script>
+        var root_page = '';
+        var windowHasFocus = true;
+        var unreadMessages = 0;
+        var lastDate = null;
+        const host_url = "http://127.0.0.1";
+        //const host_url = "http://rebo4ai.know-center.tugraz.at";
+
+        var entityMap = {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;",
+            "/": "&#x2F;",
+        };
+        function escapeHTML(string) {
+            return String(string).replace(/[&<>"'\/]/g, function (s) {
+                return entityMap[s];
+            });
+        };
+        var submitted_essay = false;
+
+        function sendMessage() {
+            var message = $('#data').val();
+            message = message.trim();
+            if (message.length == 0) {
+                document.getElementById("data").value = "";
+                return
+            }
+            message = escapeHTML(message)
+
+            //Behzad Submit button
+            console.log("Confirm the ending of essay");
+            // socket.emit('show_this_in_console', 'Confirm the ending of essay');
+            if (submitted_essay === false) {
+                var confirm = window.confirm("Do you really want to submit your essay?");
+                if (confirm == true) {
+                    document.getElementById("data").disabled = true;
+                    // BEhzad write the essay in the database
+                    socket.emit('essaySend', message);
+                    submitted_essay = true;
+                    socket.emit('show_this_in_console', 'submitted_essay becomes True');
+                    //Behzad ask them to go to Rebo4AI page
+                    // if(window.confirm("Thank you for writing a reflective essay.\nWith many thanks, we now invite you to have a discussion with our chatbot Rebo4AI. The link is in hint section.")) {
+                    //         location.href = host_url + '/bazaar/landing-page/chatbot-landing-page';
+                    // }
+                    document.getElementById("hints_of_IDSAI_essay_hint4").style.visibility = "visible";
+                    alert("Thank you for writing a reflective essay.\nWith many thanks, we now invite you to have a discussion with our chatbot, Rebo4AI.\nPlease, click the link in the hint section.");
+                }
+            }
+        };
+        function sign_out() {
+            socket.emit('show_this_in_console', "sign_out------------- " + root_page);
+            sendMessage();
+        };
+        function showConvText() {
+            res = "";
+            res += document.getElementById("essay_intro").innerText
+            res += "\n\nYour Essay:\n\n";
+            res += document.getElementById('data').value;
+
+            document.getElementById("conversation_text").value = res;
+
+            // Highlight
+            if (document.body.createTextRange) {
+                range = document.body.createTextRange();
+                range.moveToElementText(document.getElementById("conversation_text"));
+                range.select();
+            } else if (window.getSelection) {
+                selection = window.getSelection();
+                range = document.createRange();
+                range.selectNodeContents(document.getElementById("conversation_text"));
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+
+            document.getElementById("conversation_text_div").style.display = "block";
+        };
+
+        function hideConvText() {
+            document.getElementById("conversation_text_div").style.display = "none";
+        };
+
+        const socket = io({
+            path: '/bazsocket'
+        });
+
+        var users = {};
+        var user = 'Anonymous';
+        var room = 'Here';
+        var type = 'chatbot';
+        var temp = 1;
+        var perspective = 1;
+
+        // #region execute these commands whenever a user join
+        //Behzad When you refresh the page, the "dicsonnected" is called then 'conncet' will be called
+        //Behzad When to go to the this URL, this function is executed.
+        socket.on('connect', function () {
+            socket.emit('show_this_in_console', "CLIENT: Calling socket.on('connect')");
+            groups = /\/(IDSAI)(?:\/([^\/]+)?)(?:\/([^\/]*))(?:\/([^\/]*))/.exec(location.pathname);
+            agent_name = groups[1];
+            room = groups[2] || room;
+            type = groups[3] || type;
+            user = groups[4] || user;
+            root_page = '/bazaar/landing-page/' + room.split("_")[0];
+            socket.emit('check_room_is_avalable', room, type, function (is_available, result) {
+                if (is_available) { // Behzad: by refreshing the page, is_available will be true.
+                    socket.emit('show_this_in_console', "The room is available: " + is_available);
+                    location.href = host_url + root_page; //"/bazaar/landing_page/idsai_assignment_1";
+                    return false;
+                }
+                else {
+                    socket.emit('adduser', room, user, false, type, perspective, root_page);
+                }
+            });
+        });
+        // #endregion
+        socket.on('Show_question_of_essay', function (data) {
+            //Behzad
+            document.getElementById("essay_intro").innerHTML = data;
+
+        });
+
+        socket.on('essayFinished', function (data) {
+            console.log("Essay Finished => locked chat");
+            essayFinished();
+        });
+
+        function essayFinished() {
+
+            $('input,textarea').prop('disabled', true);
+        };
+
+        $(function () {
+            // when the client clicks SEND
+            $('#datasend').click(function () {
+                sendMessage();
+            });
+
+            // when the client hits ENTER on their keyboard
+            $('#data').keypress(function (e) {
+                if (e.which == 13 && !(e.altKey || e.shiftKey) && (type === "chatbot" || type === "chatroom")) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+
+        });
+
+        $(window).focus(function () {
+            windowHasFocus = true;
+            unreadMessages = 0;
+            updateTitle();
+        });
+
+        //listen for browser events so we know to update the document title
+        $(window).blur(function () {
+            windowHasFocus = false;
+            updateTitle();
+        });
+
+        //we want to show a count of unread messages when the window does not have focus
+        function updateTitle() {
+            if (unreadMessages) {
+                document.title = "(" + unreadMessages.toString() + ") Essay Room " + room;
+            }
+            else {
+                document.title = "Essay Room " + room;
+            }
+        }
+
+        function noticeNewMessage() {
+            if (!windowHasFocus) {
+                unreadMessages++;
+
+                updateTitle();
+            }
+        }
+    </script>
+
+    <IMG id="logo" SRC="/logo/reboLogo.png" ALT="Rebo Logo" WIDTH=8%>
+    <div id="hints">
+        <b>Hints</b>:
+        <ul id="hints_of_IDSAI_essay">
+            <li id="hints_of_IDSAI_essay_hint1">You can save the essay by clicking 'Download Your Essay' button.
+                (Optional)</li>
+            <li id="hints_of_IDSAI_essay_hint2">To submit your essay, please click the <strong>'Submit'</strong> button.
+            </li>
+            <li id="hints_of_IDSAI_essay_hint3">To sign out and come back to the login page, please click the
+                <strong>'Sign Out'</strong> button.</li>
+            <li id="hints_of_IDSAI_essay_hint4">You can talk to <b>Rebo4AI</b> by clicking <a
+                    href='http://rebo4ai.know-center.tugraz.at/bazaar/landing-page/chatbot-landing-page/?suffix=essay'>here</a>.
+            </li>
+            <!-- <li id="hint">You can talk to <b>Rebo4AI</b> by clicking <a href='http://127.0.0.1/bazaar/landing-page/chatbot-landing-page/?suffix=essay'>here</a>.</li> -->
+        </ul>
+    </div>
+    <div id="everything">
+
+        <div id="conversation_column">
+            <h2 id="conversation_header" class="header">Essay</h2>
+            <div id="controls" class="control">
+                <div id="message_div">
+                    <p id="essay_intro" align="justify"></p>
+                    <textarea id="data"></textarea>
+                </div>
+
+                <!-- <div class="blinker">Click the "I'm Ready" button when you are ready to move on to the next step.</div> -->
+                <div id="submitbutton_div">
+                    <input class="button" type="button" id="conv_message" value="Download Your Essay"
+                        onClick="showConvText();" />
+                    <input class="button" type="button" id="close_button" value="Submit" onclick="sign_out();">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="conversation_text_div">
+        <button type="button" onclick="hideConvText();">X</button>
+        <h3>You can copy and paste this log to a separate file to save.</h3>
+        <textarea id="conversation_text" readonly="readonly"></textarea>
+    </div>
+
+</body>
+
+</html>

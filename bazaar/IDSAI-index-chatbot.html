@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <!-- <meta HTTP-EQUIV="REFRESH" content="0; url=http://example.com/index.html"> -->
+
+    <title id="title_el">Chatbot</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/IDSAI-chatbot.css" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type=""></script>
+    <script type="text/javascript" src="/scripts/sortable.js"></script>
+    <script type="text/javascript" src="/scripts/colors.js"></script>
+    <script type="text/javascript" src="/bazsocket/socket.io.js"></script>
+</head>
+
+<!-- <body onload="checkFirstVisit()"> -->
+<body>
+
+    <script>
+        var root_page = '';
+        var windowHasFocus = true;
+        var unreadMessages = 0;
+        var lastDate = null;
+        const host_url = "http://127.0.0.1";
+        //const host_url = "http://rebo4ai.know-center.tugraz.at";
+
+        var entityMap = {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;",
+            "/": "&#x2F;",
+        };
+
+        function escapeHTML(string) {
+            return String(string).replace(/[&<>"'\/]/g, function (s) {
+                return entityMap[s];
+            });
+        }
+        function sendMessage() {
+            var message = $('#data').val();
+            message = message.trim();
+            // socket.emit('show_this_in_cocnsole', message);
+            if (message.length == 0){
+                document.getElementById("data").value = "";
+
+                return 
+            }
+            message = escapeHTML(message)
+            // socket.emit('show_this_in_console', message);
+            // socket.emit('show_this_in_console', message.length);
+
+            if (message && message.length > 0) {
+                // socket.emit('show_this_in_console', 'socket.emit(sendchat, message);');
+                $('#data').val('');
+                socket.emit('sendchat', message);
+            }
+
+            $('#conversation_container').stop().animate({ scrollTop: $("#conversation_container")[0].scrollHeight }, 500);
+            //}
+        }
+
+        function sign_out() {
+            if(window.confirm("Do you really want to submit this conversation and go back to the login page?")) {
+                // location.href = host_url + "/bazaar/random_landing_page";
+                location.href = host_url + root_page;
+            }
+        };
+        function showConvText() {
+            res = "";
+            conv = document.getElementById("conversation");
+            for (var i = 0; i < conv.childNodes.length; i++) {
+                if (conv.childNodes[i].className.indexOf("message_line") == -1) continue;
+                var user = conv.childNodes[i].getElementsByClassName("user");
+                var timestamp = conv.childNodes[i].getElementsByClassName("date");
+                var message = conv.childNodes[i].getElementsByClassName("message");
+                for (var j = 0; j < user.length; j++) res += user[j].textContent + " ";
+                if (timestamp.length > 0) res += "(" + timestamp[0].textContent + ")";
+                if (message.length > 0) res += ": " + message[0].textContent.replace("\n", " ");
+                res += "\n";
+            }
+            
+            document.getElementById("conversation_text").value = res;
+
+            // Highlight
+            if (document.body.createTextRange) {
+                range = document.body.createTextRange();
+                range.moveToElementText(document.getElementById("conversation_text"));
+                range.select();
+            } else if (window.getSelection) {
+                selection = window.getSelection();
+                range = document.createRange();
+                range.selectNodeContents(document.getElementById("conversation_text"));
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+
+            document.getElementById("conversation_text_div").style.display = "block";
+        }
+
+        function hideConvText() {
+            document.getElementById("conversation_text_div").style.display = "none";
+        }
+
+        function appendMessage(timestamp, username, text, color) {
+            if (!color) {
+                color = getUserColor(username);
+            }
+            $('#conversation').append(
+                '<div class="message_line' + (username != user ? ' rebo' : '') + '">'
+                + '<div class="info" ' + (color ? 'style="background-color:' + color + '"' : '') + '>'
+                + '<div class="user">' + username + '</div>'
+                + '<div class="date">' + (timestamp.toLocaleTimeString()) + '</div>'
+                + '</div>'
+                + '<div class="message">' + text + '</div>'
+                //+'<div class="date">'+ (timestamp.toLocaleTimeString()) +'</div>'
+                //+'</div>'
+                + '</div><br/>');
+            noticeNewMessage()
+            if (lastDate > timestamp)
+                lastDate = timestamp;
+        }
+
+        function appendNote(timestamp, username, text, color) {
+            if (!color) {
+                color = getUserColor(username);
+            }
+            $('#conversation').append(
+                '<div class="message_line">'
+                + '<div class="info" ' + (color ? 'style="background-color:' + color + '"' : '') + '>'
+                + '<div class="user">' + username + '</div>'
+                + '<div class="user" style="padding-left:5px">' + text + '</div>'
+                + '<div class="date">' + (timestamp.toLocaleTimeString()) + '</div>'
+                + '</div>'
+                + '</div><br/>');
+            noticeNewMessage()
+            if (lastDate > timestamp)
+                lastDate = timestamp;
+        }
+
+        const socket = io({
+            path: '/bazsocket'
+        });
+
+        var users = {};
+        var user = 'Anonymous';
+        var room = 'Here';
+        var type = 'chatbot';
+        var temp = 1;
+        var perspective = 1;
+        // on connection to server, ask for user's name with an anonymous callback
+        socket.on('connect', function () {
+            socket.emit('show_this_in_console', "CLIENT: Calling socket.on('connect')");
+            groups = /\/(IDSAI)(?:\/([^\/]+)?)(?:\/([^\/]*))(?:\/([^\/]*))/.exec(location.pathname);
+            agent_name = groups[1];
+            room = groups[2] || room;
+            type = groups[3] || type;
+            user = groups[4] || user;
+            root_page = '/bazaar/landing-page/' + room.split("_")[0];
+            socket.emit('check_room_is_avalable', room, type, function(is_available, result){
+                if(is_available){ // Behzad: by refreshing the page, is_available will be true.
+                    socket.emit('show_this_in_console', "The room is available: " + is_available);
+                    location.href = host_url + root_page; //"/bazaar/landing_page/idsai_assignment_1";
+                    return false;
+                }
+                else{
+                    socket.emit('adduser', room, user, false, type, perspective, root_page);
+                }
+            });
+            //alert('Please read the hint section first.'); 
+        });
+
+        // listener, whenever the server emits 'updatechat', this updates the chat body
+        socket.on('updatechat', function (username, data) {
+            appendMessage(new Date(), username, data);
+            $('#conversation_container').stop().animate({ scrollTop: $("#conversation_container")[0].scrollHeight }, 500);
+        });
+
+        socket.on('dump_history', function (backlog) {
+            for (i = 0; i < backlog.length; i++) {
+                entry = backlog[i];
+                stamp = new Date(entry["timestamp"]);
+                if (stamp < lastDate)
+                    continue;
+                if (entry["type"] == "image") {
+                    anchor = appendImage(new Date(entry["timestamp"]), entry["username"], entry["content"]);
+                    appendNote(new Date(entry["timestamp"]), entry["username"], 'has shared an <a href="#' + anchor + '">image/URL.</a>');
+                }
+                else if (entry["type"] == "html") {
+                    anchor = appendHTML(new Date(entry["timestamp"]), entry["username"], entry["content"]);
+                    appendNote(new Date(entry["timestamp"]), entry["username"], 'has shared an <a href="#' + anchor + '">item.</a>');
+                }
+                else if (entry.type == "presence")
+                    appendNote(new Date(entry.timestamp), entry.username, (entry.content == "leave" ? " has disconnected." : " has joined the chat."));
+                else if (entry.type == "ready")
+                    ;
+                //appendNote(new Date(entry.timestamp), entry.username, (entry.content == "ready")?"thinks the team is ready.":"isn't ready yet.");
+                else if (entry.type == "private")
+                    appendMessage(new Date(entry["timestamp"]), entry.username + " (Private Message)", entry["content"], getUserColor(entry.username));
+                else
+                    appendMessage(new Date(entry["timestamp"]), entry.username, entry["content"]);
+            }
+
+            $('#conversation_container').stop().animate({ scrollTop: $("#conversation_container")[0].scrollHeight }, 500);
+
+            lastDate = new Date();
+        });
+
+        // listener, whenever the server emits 'updaterooms', this updates the room list
+        socket.on('updaterooms', function (rooms, my_room) {
+            $('#roomname').text(my_room);
+        });
+
+        // listener, whenever the server emits 'updateimage', this updates the user list
+        socket.on('updateusers', function (my_users) {
+            users = my_users;
+            console.log(users);
+        });
+
+        // listener, whenever the server emits 'updatepresence', this updates the image list
+        socket.on('updatepresence', function (username, data) {
+            appendNote(new Date(), username, (data == "leave" ? " has disconnected." : " has joined the chat."));
+            $('#conversation_container').stop().animate({ scrollTop: $("#conversation_container")[0].scrollHeight }, 500);          
+        });
+
+        socket.on('lockTextArea', function(data){
+            console.log("Got lockTextArea");
+            //console.log(data);
+            //$('input,textarea').prop('disabled', true);
+            $('textarea').prop('disabled', true);
+
+        });
+
+        $(function () {
+            // when the client clicks SEND
+            $('#datasend').click(function () {
+                sendMessage();
+            });
+
+            // when the client hits ENTER on their keyboard
+           $('#data').keypress(function (e) {
+				if (e.which == 13 && !(e.altKey || e.shiftKey) && (type === "chatbot" || type === "chatroom")) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+
+        });
+
+        $(window).focus(function () {
+            windowHasFocus = true;
+            unreadMessages = 0;
+            updateTitle();
+        });
+
+        //listen for browser events so we know to update the document title
+        $(window).blur(function () {
+            windowHasFocus = false;
+            updateTitle();
+        });
+
+        //we want to show a count of unread messages when the window does not have focus
+        function updateTitle() {
+            if (unreadMessages) {
+                document.title = "(" + unreadMessages.toString() + ") Chat Room " + room;
+            }
+            else {
+                document.title = "Chat Room " + room;
+            }
+        }
+
+        function noticeNewMessage() {
+            if (!windowHasFocus) {
+                unreadMessages++;
+
+                updateTitle();
+            }
+        }
+    </script>
+
+    <IMG id=logo SRC="/logo/reboLogo.png" ALT="Rebo Logo" WIDTH=8%>
+    <div id="hints"><b>Hints</b>:
+		<ul id="hints_of_IDSAI_chatbot">
+			  <li id="hints_of_IDSAI_chatbot_hint1">You can write your responses in several lines by adding '...' at the end of your responses except the last one.</li>
+              <li id="hints_of_IDSAI_chatbot_hint2">Bug warning: Sometimes Rebo4AI disconnects without saying goodbye. Sorry for this! We're working on finding the error.</li>
+              <li id="hints_of_IDSAI_chatbot_hint3">You can save the conversation by clicking <strong>'Download Chat Log'</strong> button. (Optional)</li>
+              <li id="hints_of_IDSAI_chatbot_hint4">To finish the conversation, please close the tab or click on <strong>'Sign Out'</strong> button.</strong></li>
+              <li id="hints_of_IDSAI_chatbot_hint5">You can talk to <b>Rebo4AI</b> by clicking <a href='http://rebo4ai.know-center.tugraz.at/bazaar/landing-page/chatbot-landing-page/?suffix=chatbot'>here</a>.</li>
+              <!-- <li id="hint">You can talk to <b>Rebo4AI</b> by clicking <a href='http://127.0.0.1/bazaar/landing-page/chatbot-landing-page/?suffix=chatbot'>here</a>.</li> -->
+		</ul>
+	</div>
+    <div id="everything">
+
+        <div id="conversation_column">
+            <h2 id="conversation_header" class="header">Chatbot</h2>
+            <div id="conversation_container" class="container">
+                <div id="conversation" class="scrollable"></div>
+            </div>
+            <div id="controls" class="control">
+                <div id="message_div">
+                    <textarea id="data"></textarea>
+                </div>
+                <div id="messagebutton_div">
+                    <input class="button" type="button" id="datasend" value="Send Message" />
+                    <!-- <input class="button" type="button" id="ready_button" value="I'm Ready" /> -->
+                </div>
+                <!-- <div class="blinker">Click the "I'm Ready" button when you are ready to move on to the next step.</div> -->
+                <div id="submitbutton_div">
+                    <input class="button" type="button" id="conv_message" value="Download Chat Log" onClick="showConvText();" />
+                    <input class="button" type="button" id="close_button" value="Sign Out" onclick="sign_out();">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="conversation_text_div">
+        <button type="button" onclick="hideConvText();">X</button>
+        <h3>You can copy and paste this log to a separate file to save.</h3>
+        <textarea id="conversation_text" readonly="readonly"></textarea>
+    </div>
+
+</body>
+
+</html>

@@ -86,7 +86,7 @@
             socket.emit('show_this_in_console', 'CLIENT:redirect '+ document.getElementById("textbox").value.trim() + ' to this room: '+ roomname_and_type);
 
             
-            location.href = host + "/bazaar/chat/" + roomname_and_type + document.getElementById("textbox").value.trim();
+            location.href = host + "/bazaar/IDSAI/" + roomname_and_type + document.getElementById("textbox").value.trim();
             //join_into_this_room(message);
         });
         //Behzad the 3 means the page is called from a hyperlink in essay room or chatroom. NOT from random pages 
@@ -106,9 +106,6 @@
 	   return result;
 	};
 
-
-	
-
 	document.getElementById("textbox")
 		.addEventListener("keyup", function(event) {
 		event.preventDefault();
@@ -116,17 +113,10 @@
 			redirect();
 		}
 	});
-
-
 	document.getElementById("myButton").onclick = function () {
 
 		redirect();
 	};
-
-
-
-
-
 </script>
 </body>
 </html>
