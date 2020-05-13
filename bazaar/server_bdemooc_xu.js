@@ -645,9 +645,9 @@ function find_a_proper_chatroom(room_name, available_for_chatroom, callback) {
 
 function chatroom_end_of_conversation_button(socket) {
 
-    var tmp = connection.escape(socket.username) + ' has finished the conversation by clicking the \'End of conversation\' button or closing the chatroom page.';
-    logMessage(socket, tmp, "INFO", 'INFO');
-    io.sockets.in(socket.room).emit('updatechat', 'INFO', tmp);
+    // var tmp = connection.escape(socket.username) + ' has finished the conversation by clicking the \'End of conversation\' button or closing the chatroom page.';
+    // logMessage(socket, tmp, "INFO", 'INFO');
+    // io.sockets.in(socket.room).emit('updatechat', 'INFO', tmp);
 
     var tmp = 'The room is locked.';
     logMessage(socket, tmp, "INFO", 'INFO');
