@@ -649,20 +649,25 @@ function chatroom_end_of_conversation_button(socket) {
     // logMessage(socket, tmp, "INFO", 'INFO');
     // io.sockets.in(socket.room).emit('updatechat', 'INFO', tmp);
 
-    var tmp = 'The room is locked.';
-    logMessage(socket, tmp, "INFO", 'INFO');
-    io.sockets.in(socket.room).emit('updatechat', 'INFO', tmp);
+    if (socket.room in numUsers && numUsers[socket.room] != 0) {
+        console.log("numUsers[room] is :" + numUsers[socket.room]);
+        
+        var tmp = 'The room is locked.';
+        logMessage(socket, tmp, "INFO", 'INFO');
+        io.sockets.in(socket.room).emit('updatechat', 'INFO', tmp);
 
-    var tmp = 'You can save the conversation by clicking on the "Download Chat Log" button.';
-    logMessage(socket, tmp, 'INFO', 'INFO');
-    io.sockets.in(socket.room).emit('updatechat', 'INFO', tmp);
+        var tmp = 'You can save the conversation by clicking on the "Download Chat Log" button.';
+        logMessage(socket, tmp, 'INFO', 'INFO');
+        io.sockets.in(socket.room).emit('updatechat', 'INFO', tmp);
 
-    var tmp = 'Many thanks for bearing with us, and first discussing this issue with another student. With many thanks, we now invite you to have a discussion with our chatbot, Rebo4AI. Please, click the link in the hint section.';
-    logMessage(socket, tmp, 'INFO', 'INFO');
-    io.sockets.in(socket.room).emit('updatechat', 'INFO', tmp);
+        var tmp = 'Many thanks for bearing with us, and first discussing this issue with another student. With many thanks, we now invite you to have a discussion with our chatbot, Rebo4AI. Please, click the link in the hint section.';
+        logMessage(socket, tmp, 'INFO', 'INFO');
+        io.sockets.in(socket.room).emit('updatechat', 'INFO', tmp);
 
-    io.sockets.in(socket.room).emit('lockTextArea', '');
-    io.sockets.in(socket.room).emit('chatroom_end_of_conversation_button_change_view');
+        io.sockets.in(socket.room).emit('lockTextArea', '');
+        io.sockets.in(socket.room).emit('chatroom_end_of_conversation_button_change_view');
+    }
+    
 
 };
 
