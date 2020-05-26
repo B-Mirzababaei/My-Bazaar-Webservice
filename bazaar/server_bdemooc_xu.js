@@ -246,33 +246,6 @@ app.get('/bazaar/IDSAI/*', function (req, res) {
     res.sendfile(html_page + '.html');
 });
 
-app.get('/bazaar/chat*', function (req, res) {
-    var html_page = 'index';
-
-    if (req.query.html != undefined)
-        html_page = req.query.html;
-
-    res.sendfile(html_page + '.html');
-});
-
-app.get('/bazaar/chat*', function (req, res) {
-    var html_page = 'index';
-
-    if (req.query.html != undefined)
-        html_page = req.query.html;
-
-    res.sendfile(html_page + '.html');
-});
-
-app.get('/bazaar/chat*', function (req, res) {
-    var html_page = 'index';
-
-    if (req.query.html != undefined)
-        html_page = req.query.html;
-
-    res.sendfile(html_page + '.html');
-});
-
 app.get('/bazaar/data/rooms/startwith/*', function (req, res) {
     console.log(req.url);
     console.log("like");
