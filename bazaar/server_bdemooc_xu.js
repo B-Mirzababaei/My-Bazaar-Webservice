@@ -163,7 +163,7 @@ app.get('/bazaar/data/IDSAI/1a_Introduction.pdf', function (req, res) {
     res.sendfile("1a - IDSAI 2020 Introduction.pdf");
 });
 
-app.get('/bazaar/idsai-landing-page', function (req, res) {
+app.get('/bazaar/idsai-landing_page', function (req, res) {
     var landing_page = 'landing-page-chatbot';
 
     if (req.query.html != undefined)
@@ -173,7 +173,7 @@ app.get('/bazaar/idsai-landing-page', function (req, res) {
 });
 
 
-app.get('/bazaar/landing-page/chatbot-landing-page*', function (req, res) {
+app.get('/bazaar/landing_page/chatbot_landing_page*', function (req, res) {
     var landing_page = 'chatbot-landing-page';
 
     if (req.query.html != undefined)
@@ -182,7 +182,7 @@ app.get('/bazaar/landing-page/chatbot-landing-page*', function (req, res) {
     res.sendfile(landing_page + '.html');
 });
 
-app.get('/bazaar/landing-page/chatroom-landing-page*', function (req, res) {
+app.get('/bazaar/landing_page/chatroom_landing_page*', function (req, res) {
     var landing_page = 'chatroom-landing-page';
 
     if (req.query.html != undefined)
@@ -192,7 +192,7 @@ app.get('/bazaar/landing-page/chatroom-landing-page*', function (req, res) {
 });
 
 
-app.get('/bazaar/landing-page/essay-landing-page*', function (req, res) {
+app.get('/bazaar/landing_page/essay_landing_page*', function (req, res) {
     var landing_page = 'essay-landing-page';
 
     if (req.query.html != undefined)
@@ -202,7 +202,7 @@ app.get('/bazaar/landing-page/essay-landing-page*', function (req, res) {
 });
 
 
-app.get('/bazaar/landing-page/random-landing-page*', function (req, res) {
+app.get('/bazaar/landing_page/random_landing_page*', function (req, res) {
 
     var landing_page = 'random-landing-page';
 
@@ -213,7 +213,7 @@ app.get('/bazaar/landing-page/random-landing-page*', function (req, res) {
 });
 
 
-app.get('/bazaar/landing-page/general-landing-page*', function (req, res) {
+app.get('/bazaar/landing_page/general_landing_page*', function (req, res) {
     var landing_page = 'general-landing-page';
 
     if (req.query.html != undefined)
@@ -222,7 +222,7 @@ app.get('/bazaar/landing-page/general-landing-page*', function (req, res) {
     res.sendfile(landing_page + '.html');
 });
 
-app.get('/bazaar/landing-page/idsai-assignment-1', function (req, res) {
+app.get('/bazaar/landing_page/idsai_assignment_1', function (req, res) {
     var landing_page = 'idsai-assignment-1';
 
     if (req.query.html != undefined)
@@ -318,9 +318,10 @@ var usernames = {};
 var user_perspectives = {};
 // rooms which are currently available in chat
 var rooms = [];
-const room_order = { 'idsai-assignment-1': ['chatbot', 'essay', 'chatroom', 'chatroom'], 'random-landing-page': ['essay', 'chatbot', 'chatroom', 'chatroom'] }
-//const room_order = ['chatbot','essay','chatroom','chatroom']; 
-var room_order_index = { 'idsai-assignment-1': 0, 'random-landing-page': 0 };
+// Behzad: The keys are realated to the URL of landing page. When Viki said "change the URL" I have to change many things
+// const room_order = { 'idsai_assignment_1': ['chatbot', 'essay', 'chatroom', 'chatroom'], 'random_landing_page': ['essay', 'chatbot', 'chatroom', 'chatroom'] }
+const room_order = { 'idsai_assignment_1': ['chatbot', 'essay'], 'random_landing_page': ['essay', 'chatbot', 'chatroom', 'chatroom'] }
+var room_order_index = { 'idsai_assignment_1': 0, 'random_landing_page': 0 };
 
 function isBlank(str) {
     return !str || /^\s*$/.test(str)
@@ -653,6 +654,7 @@ function find_a_proper_room(sender, prefix_room, suffix_room, manner_or_roomtype
     // console.log(sender);
     // console.log(prefix_room);
     // console.log(suffix_room);
+    var splitter = '-';
     console.log(manner_or_roomtype);
     if (manner_or_roomtype === 'RANDOM') {
         //switch (room_order[room_order_index]) {
@@ -674,7 +676,7 @@ function find_a_proper_room(sender, prefix_room, suffix_room, manner_or_roomtype
                         //io.sockets.emit('give_me_a_proper_room', 'NONE');
                         //io.sockets.in(id_for_socket).emit('give_me_a_proper_room', 'NONE');
 
-                        the_name = room_name + '_' + makeid(15) + suffix_room + '/chatroom/';
+                        the_name = room_name + splitter + makeid(15) + suffix_room + '/chatroom/';
 
                     }
                     //console.log('SERVER: After IF-ELSE');
@@ -684,24 +686,24 @@ function find_a_proper_room(sender, prefix_room, suffix_room, manner_or_roomtype
                 break;
 
             case 'chatbot':
-                callback(sender + prefix_room + '_' + makeid(15) + suffix_room + '/chatbot/');
+                callback(sender + prefix_room + splitter + makeid(15) + suffix_room + '/chatbot/');
                 break;
             case 'essay':
-                callback(sender + prefix_room + '_' + makeid(15) + suffix_room + '/essay/')
+                callback(sender + prefix_room + splitter + makeid(15) + suffix_room + '/essay/')
                 break;
         };
         console.log('Incresing the room_index by one');
         room_order_index[sender] = room_order_index[sender] + 1;
-        if (room_order_index[sender] > 3) {
+        if (room_order_index[sender] > room_order[sender].length - 1) {
             room_order_index[sender] = 0;
         }
 
     }
     else if (manner_or_roomtype === 'CHATBOT') {
-        callback(sender + prefix_room + '_' + makeid(15) + suffix_room + '/chatbot/');
+        callback(sender + prefix_room + splitter + makeid(15) + suffix_room + '/chatbot/');
     }
     else if (manner_or_roomtype === 'ESSAY') {
-        callback(sender + prefix_room + '_' + makeid(15) + suffix_room + '/essay/');
+        callback(sender + prefix_room + splitter + makeid(15) + suffix_room + '/essay/');
     }
     else if (manner_or_roomtype === 'CHATROOM') {
         const room_name = sender + prefix_room;
@@ -720,7 +722,7 @@ function find_a_proper_room(sender, prefix_room, suffix_room, manner_or_roomtype
                 //io.sockets.emit('give_me_a_proper_room', 'NONE');
                 //io.sockets.in(id_for_socket).emit('give_me_a_proper_room', 'NONE');
 
-                the_name = room_name + '_' + makeid(15) + suffix_room + '/chatroom/';
+                the_name = room_name + splitter + makeid(15) + suffix_room + '/chatroom/';
 
             }
             //console.log('SERVER: After IF-ELSE');

@@ -4,9 +4,7 @@
 <head>
     <meta charset="utf-8">
     <!-- <meta HTTP-EQUIV="REFRESH" content="0; url=http://example.com/index.html"> -->
-
     <title id="title_el">Chatroom</title>
-
     <link rel="stylesheet" type="text/css" href="/css/IDSAI-chatroom.css" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
@@ -14,6 +12,7 @@
     <script type="text/javascript" src="/scripts/sortable.js"></script>
     <script type="text/javascript" src="/scripts/colors.js"></script>
     <script type="text/javascript" src="/bazsocket/socket.io.js"></script>
+    <script type="text/javascript" src="/scripts/config.js"></script>
 </head>
 
 <!-- <body onload="checkFirstVisit()"> -->
@@ -26,6 +25,8 @@
         var lastDate = null;
         const host_url = "http://127.0.0.1";
         //const host_url = "http://rebo4ai.know-center.tugraz.at";
+        const host_url = config_hostURL;
+
 
         var entityMap = {
             "&": "&amp;",
@@ -174,7 +175,7 @@
             room = groups[2] || room;
             type = groups[3] || type;
             user = groups[4] || user;
-            root_page = '/bazaar/landing-page/' + room.split("_")[0];
+            root_page = '/bazaar/landing_page/' + room.split("-")[0];
 
             // Behzad check the room is available or not, if it is available, do not call 'adduser'
             socket.emit('check_room_is_avalable', room, type, function (is_available, result) {
@@ -329,10 +330,10 @@
                     locked for all other users.</strong></li>
             <li id="hints_of_IDSAI_chatroom_hint2">You can save the conversation by clicking <strong>'Download Chat
                     Log'</strong> button (Optional)</li>
-            <li id="hints_of_IDSAI_chatroom_hint3">To sign out and come back to the login page, please click the
-                <strong>'Sign Out'</strong> button.</li>
+            <li id="hints_of_IDSAI_chatroom_hint3">To finish your conversation and come back to the login page, please click the
+                <strong>'End of Conversation'</strong> button.</li>
             <li id="hints_of_IDSAI_chatroom_hint4">You can talk to <b>Rebo4AI</b> by clicking <a
-                    href='http://rebo4ai.know-center.tugraz.at/bazaar/landing-page/chatbot-landing-page/?suffix=chatroom'>here</a>.
+                    href='http://rebo4ai.know-center.tugraz.at/bazaar/landing_page/chatbot_landing_page/?suffix=chatroom'>here</a>.
             </li>
             <!-- <li id="hint">You can talk to <b>Rebo4AI</b> by clicking <a href='http://127.0.0.1/bazaar/landing-page/chatbot-landing-page/?suffix=chatroom'>here</a>.</li> -->
         </ul>
@@ -357,7 +358,7 @@
                 <div id="submitbutton_div">
                     <input class="button" type="button" id="conv_message" value="Download Chat Log"
                         onClick="showConvText();" />
-                    <input class="button" type="button" id="close_button" value="End of conversation"
+                    <input class="button" type="button" id="close_button" value="End of Conversation"
                         onclick="sign_out();">
                 </div>
             </div>

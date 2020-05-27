@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en"> 
 <head>
-<meta charset="utf-8">
-<title>Login page</title>
-<link rel="stylesheet" type="text/css" href="/css/landingPage.css" />
+    <meta charset="utf-8">
+    <title>Login page</title>
+    <link rel="stylesheet" type="text/css" href="/css/landingPage.css" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type=""></script>
     <script type="text/javascript" src="/scripts/sortable.js"></script>
     <script type="text/javascript" src="/scripts/colors.js"></script>
     <script type="text/javascript" src="/bazsocket/socket.io.js"></script>
-</script>
-
+    <script type="text/javascript" src="/scripts/config.js"></script>
 </head>
 <body>
 <div class="container">
@@ -25,8 +24,9 @@
 	
 </div><!-- container  -->
 <script>
-	const host = "http://127.0.0.1";
+	//const host = "http://127.0.0.1";
 	//const host = "http://rebo4ai.know-center.tugraz.at";
+    const host = config_hostURL;
 
 
 	const socket = io({

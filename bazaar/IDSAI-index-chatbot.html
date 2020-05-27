@@ -4,15 +4,14 @@
 <head>
     <meta charset="utf-8">
     <!-- <meta HTTP-EQUIV="REFRESH" content="0; url=http://example.com/index.html"> -->
-
     <title id="title_el">Chatbot</title>
-
     <link rel="stylesheet" type="text/css" href="/css/IDSAI-chatbot.css" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type=""></script>
     <script type="text/javascript" src="/scripts/sortable.js"></script>
     <script type="text/javascript" src="/scripts/colors.js"></script>
     <script type="text/javascript" src="/bazsocket/socket.io.js"></script>
+    <script type="text/javascript" src="/scripts/config.js"></script>
 </head>
 
 <!-- <body onload="checkFirstVisit()"> -->
@@ -23,8 +22,9 @@
         var windowHasFocus = true;
         var unreadMessages = 0;
         var lastDate = null;
-        const host_url = "http://127.0.0.1";
+        //const host_url = "http://127.0.0.1";
         //const host_url = "http://rebo4ai.know-center.tugraz.at";
+        const host_url = config_hostURL;
 
         var entityMap = {
             "&": "&amp;",
@@ -159,7 +159,7 @@
             room = groups[2] || room;
             type = groups[3] || type;
             user = groups[4] || user;
-            root_page = '/bazaar/landing-page/' + room.split("_")[0];
+            root_page = '/bazaar/landing_page/' + room.split("-")[0];
             socket.emit('check_room_is_avalable', room, type, function(is_available, result){
                 if(is_available){ // Behzad: by refreshing the page, is_available will be true.
                     socket.emit('show_this_in_console', "The room is available: " + is_available);
@@ -288,7 +288,7 @@
               <li id="hints_of_IDSAI_chatbot_hint2">Bug warning: Sometimes Rebo4AI disconnects without saying goodbye. Sorry for this! We're working on finding the error.</li>
               <li id="hints_of_IDSAI_chatbot_hint3">You can save the conversation by clicking <strong>'Download Chat Log'</strong> button. (Optional)</li>
               <li id="hints_of_IDSAI_chatbot_hint4">To finish the conversation, please close the tab or click on <strong>'Sign Out'</strong> button.</strong></li>
-              <li id="hints_of_IDSAI_chatbot_hint5">You can talk to <b>Rebo4AI</b> by clicking <a href='http://rebo4ai.know-center.tugraz.at/bazaar/landing-page/chatbot-landing-page/?suffix=chatbot'>here</a>.</li>
+              <!-- <li id="hints_of_IDSAI_chatbot_hint5">You can talk to <b>Rebo4AI</b> by clicking <a href='http://rebo4ai.know-center.tugraz.at/bazaar/landing_page/chatbot_landing_page/?suffix=chatbot'>here</a>.</li> -->
               <!-- <li id="hint">You can talk to <b>Rebo4AI</b> by clicking <a href='http://127.0.0.1/bazaar/landing-page/chatbot-landing-page/?suffix=chatbot'>here</a>.</li> -->
 		</ul>
 	</div>
