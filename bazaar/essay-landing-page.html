@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="en"> 
 <head>
-<meta charset="utf-8">
-<title>Login page</title>
-<link rel="stylesheet" type="text/css" href="/css/landingPage.css" />
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type=""></script>
-<script type="text/javascript" src="/scripts/sortable.js"></script>
-<script type="text/javascript" src="/scripts/colors.js"></script>
-<script type="text/javascript" src="/bazsocket/socket.io.js"></script>
-
-</script>
-
+    <meta charset="utf-8">
+    <title>Login page</title>
+    <link rel="stylesheet" type="text/css" href="/css/landingPage.css" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type=""></script>
+    <script type="text/javascript" src="/scripts/sortable.js"></script>
+    <script type="text/javascript" src="/scripts/colors.js"></script>
+    <script type="text/javascript" src="/bazsocket/socket.io.js"></script>
+    <script type="text/javascript" src="/scripts/config.js"></script>
 </head>
 <body>
 <div class="container">
@@ -26,8 +24,10 @@
 	
 </div><!-- container  -->
 <script>
-    const host = "http://127.0.0.1";
+    //const host = "http://127.0.0.1";
     //const host = "http://rebo4ai.know-center.tugraz.at";
+    const host = config_hostURL;
+
     const socket = io({
             path: '/bazsocket'
         });
@@ -84,7 +84,7 @@
             //random_part = random_part.substring(0, random_part.indexOf('/')) + '-2' + random_part.substring(random_part.indexOf('/'))
             socket.emit('show_this_in_console', 'CLIENT:redirect '+ document.getElementById("textbox").value.trim() + ' to this room: '+ roomname_and_type);
 
-            location.href = host + "/bazaar/chat/" + roomname_and_type + document.getElementById("textbox").value.trim();
+            location.href = host + "/bazaar/IDSAI/" + roomname_and_type + document.getElementById("textbox").value.trim();
             //join_into_this_room(message);
         });
         //Behzad the 3 means the page is called from a hyperlink in essay room or chatroom. NOT from random pages 
