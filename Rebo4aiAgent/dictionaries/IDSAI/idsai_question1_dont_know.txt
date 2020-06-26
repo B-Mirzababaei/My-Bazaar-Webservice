@@ -1,0 +1,4 @@
+/no (idea|clue)/
+/don(')?t know/
+know nothing
+can't

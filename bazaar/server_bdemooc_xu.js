@@ -172,6 +172,14 @@ app.get('/bazaar/idsai-landing_page', function (req, res) {
     res.sendfile(landing_page + '.html');
 });
 
+app.get('/bazaar/landing_page/temp_chatbot_landing_page*', function (req, res) {
+    var landing_page = 'chatbot-landing-page-temp';
+
+    if (req.query.html != undefined)
+        landing_page = req.query.html;
+
+    res.sendfile(landing_page + '.html');
+});
 
 app.get('/bazaar/landing_page/chatbot_landing_page*', function (req, res) {
     var landing_page = 'chatbot-landing-page';
@@ -702,6 +710,9 @@ function find_a_proper_room(sender, prefix_room, suffix_room, manner_or_roomtype
     else if (manner_or_roomtype === 'CHATBOT') {
         callback(sender + prefix_room + splitter + makeid(15) + suffix_room + '/chatbot/');
     }
+    else if (manner_or_roomtype === 'CHATBOT_TEMP') {
+        callback(sender + prefix_room + splitter + makeid(15) + suffix_room + '/chatbot_temp/');
+    }
     else if (manner_or_roomtype === 'ESSAY') {
         callback(sender + prefix_room + splitter + makeid(15) + suffix_room + '/essay/');
     }
@@ -881,8 +892,57 @@ io.sockets.on('connection', function (socket) { //This socket parameter is the s
                     count = result.length;
                 });
 
-            }
-            else if (type == "chatbot") {
+            } else if (type == "chatbot_temp") {
+                io.sockets.in(socket.room).emit('chatbotTypeMode');
+
+                console.log('Username of ' + username + ' is added to room:' + room + '. The mode is ' + type);
+                var count = 0;
+                console.log('checkFirstJoin(room)-------------- ' + room);
+                console.log('checkFirstJoin(socket.room)-------------- ' + socket.room);
+                checkFirstJoin(room, function (result) {
+                    count = result.length;
+
+					/* const fs = require('fs');
+					fs.writeFile('rebologforcount.log', count, (err) => {
+						if (err) throw err;
+					}); */
+
+					/* Behzad
+					* For debugging my agent, which is in my local computer, I need to connect my agent to a chatroom in server.
+					* Since the agent on the server will be executed automatically whenever a user join the room, I have to add this condition !room.startsWith("debug")
+					* in order to prevent the server agent from joining the room. 
+					* In other words, if a chatroom's name starts with "debug", the agent located on the server will not execute. Thus, I can connect to the room with my local agent. 
+					*/
+                    if (count < 2 && !room.startsWith("debug")) {
+						/* Behzad
+						*    You need to change this address whenever you want to run your agent 
+						*/
+                        var script = 'sh ../Rebo4aiAgent/launch_agent.sh ';
+                        var command = script.concat(room);
+                        exec(command, (error, stdout, stderr) => {
+                            if (error) {
+                                console.error(`exec error: ${error}`);
+                                /* console.log('384'); */
+                                return;
+                            }
+                            /* console.log('387'); */
+                            console.log(`stdout: ${stdout}`);
+                            console.log(`stderr: ${stderr}`);
+                        });
+                        console.log("A new instance of our agent will be started. Room:" + room + ' username:' + username);
+                    }
+                    else {
+                        console.log("Entering debugging mode OR more than one entity in a room. Room:" + room + ' username:' + username);
+                    }
+                });
+
+                checkChatbotFinished(room, function (results) {
+                    if (results.length > 0 && !room.startsWith("debug")) {
+                        io.sockets.in(socket.room).emit('lockTextArea', results);
+                        chatroom_locked = true;
+                    }
+                });
+            } else if (type == "chatbot") {
                 io.sockets.in(socket.room).emit('chatbotTypeMode');
 
                 console.log('Username of ' + username + ' is added to room:' + room + '. The mode is ' + type);

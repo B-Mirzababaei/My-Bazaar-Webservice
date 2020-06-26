@@ -1,0 +1,44 @@
+Rebo4AI (10:58:42 AM): Hi, I'm Rebo4AI; I'm a prototype conversational agent.
+Rebo4AI (10:58:44 AM): How are you?
+Rebo4AI (10:58:46 AM): How are you?
+Rebo4AI  has disconnected. (10:58:49 AM)
+Rebo4AI  has joined the chat. (10:58:54 AM)
+Rebo4AI (10:58:56 AM): Hi, I'm Rebo4AI; I'm a prototype conversational agent.
+Angela (10:58:59 AM): Hi
+Rebo4AI (10:59:00 AM): How are you?
+Rebo4AI (10:59:02 AM): Let's get started.
+Rebo4AI (10:59:04 AM): You have learned in the "Introduction to Data Science and Artificial Intelligence" different definitions of intelligence; I have not been able to follow!
+Rebo4AI (10:59:04 AM): But I'm curious: Is a search engine now intelligent or not? Why?
+Rebo4AI  has disconnected. (10:59:24 AM)
+Rebo4AI  has joined the chat. (10:59:28 AM)
+Rebo4AI (10:59:29 AM): Hi, I'm Rebo4AI; I'm a prototype conversational agent.
+Rebo4AI (10:59:33 AM): How are you?
+Angela (10:59:38 AM): Hi I am finde
+Rebo4AI (10:59:39 AM): Let's get started.
+Rebo4AI (10:59:41 AM): You have learned in the "Introduction to Data Science and Artificial Intelligence" different definitions of intelligence; I have not been able to follow!
+Rebo4AI (10:59:41 AM): But I'm curious: Is a fish now intelligent or not? Why?
+Angela (10:59:58 AM): Good question 
+Rebo4AI (10:59:59 AM): I'm not sure I understood - which definition of intelligence did you make in deciding that a fish is (not) intelligent?
+Angela (11:00:25 AM): I think a fish is intelligent as it acts humanl
+Rebo4AI (11:00:31 AM): Are you personally satisfied with this decision and definition?
+Angela (11:00:37 AM): No
+Rebo4AI (11:00:41 AM): What would you change in the definition?
+Angela (11:01:04 AM): Difficult to apply the theory to an animal
+Rebo4AI (11:01:07 AM): How interesting is it for you to know whether a fish is intelligent or not?
+Angela (11:01:15 AM): Not at all
+Rebo4AI (11:01:17 AM): What in your life would change, depending on whether you see a fish as intelligent or not?
+Angela (11:01:33 AM): Nothing / I still like how it tastes
+Rebo4AI (11:01:37 AM): Interesting! Thanks!
+Rebo4AI (11:01:37 AM): See you next time!
+Rebo4AI (11:01:39 AM): Rebo4AI, do you want to talk about general AI?
+Rebo4AI  has joined the chat. (11:12:31 AM)
+Rebo4AI  has disconnected. (11:12:53 AM)
+Rebo4AI (11:16:38 AM): To start the conversation, please welcome Rebo :)
+Angela  has disconnected. (11:20:37 AM)
+Angela  has joined the chat. (11:20:41 AM)
+Rebo4AI  has joined the chat. (11:20:47 AM)
+Rebo4AI  has joined the chat. (11:20:47 AM)
+Rebo4AI  has disconnected. (11:20:55 AM)
+Angela  has disconnected. (11:21:38 AM)
+Angela  has joined the chat. (11:21:46 AM)
+Rebo4AI  has joined the chat. (11:23:03 AM)

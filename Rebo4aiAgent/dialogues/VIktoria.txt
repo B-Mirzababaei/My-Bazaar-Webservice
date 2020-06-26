@@ -1,0 +1,76 @@
+
+Rebo4AI (11:23:05 AM): I'm Rebo4AI; I'm a prototype conversational agent.
+Rebo4AI (11:23:07 AM): How are you?
+Viktoria  has joined the chat. (11:23:22 AM)
+Rebo4AI  has disconnected. (11:23:29 AM)
+Angela  has disconnected. (11:23:35 AM)
+Rebo4AI  has joined the chat. (11:29:16 AM)
+Rebo4AI (11:29:17 AM): I'm Rebo4AI; I'm a prototype conversational agent.
+Rebo4AI (11:29:19 AM): How are you?
+Viktoria (11:29:32 AM): i'm fine, thanks. and you?
+Rebo4AI (11:29:33 AM): Let's get started.
+Rebo4AI (11:29:35 AM): You have learned in the "Introduction to Data Science and Artificial Intelligence" different definitions of intelligence; I have not been able to follow!
+Rebo4AI (11:29:35 AM): But I'm curious: Is a fridge now intelligent or not? Why?
+
+Viktoria (11:29:45 AM): 
+hm...
+i would say no...
+it doesn't act or think humanly...
+and i also think it doesn't think at all, and doesn't act at all...
+i mean, it acts in a very limited manner, and this is rational: when it gets too warm, it regulates the temperature down again. so no.
+
+Rebo4AI (11:31:01 AM): Just think about four different concepts of an intelligent entity which are act rationally, think humanly, act humanly, and think rationally then use these concepts for reasoning.
+Rebo4AI (11:31:01 AM): Based on these concepts, do you think a fridge is intelligent or not? Why?
+
+Viktoria (11:32:31 AM): 
+well, no, overall i don't think it is really intelligent.
+
+Rebo4AI (11:32:33 AM): I'm not sure I understood - which definition of intelligence did you make in deciding that a fridge is (not) intelligent?
+
+Viktoria (11:32:55 AM): 
+i think i used all the definitions you tod me! acting, thinking either rationally or humanly!
+
+Rebo4AI (11:32:59 AM): Are you personally satisfied with this decision and definition?
+
+Viktoria (11:33:12 AM): 
+no
+
+Rebo4AI (11:33:13 AM): What would you change in the definition?
+
+Viktoria (11:34:11 AM): 
+i think the acting rationally is a bit wide- i do think that a fridge acts rationally, but it doesn't really have a consciousness, and hasn't self-set the goal to keep the temperature of 8 degree for instance. so i think i would add, for myself, that there must be some sort of consciounsess and self-awareness. and also, fridges don't learn.
+
+Rebo4AI (11:34:15 AM): How interesting is it for you to know whether a fridge is intelligent or not?
+
+Viktoria (11:35:02 AM): 
+i actually like my fridge to not be intelligent. it is interesting for me in the sense of the trend to have a lot of "smart" devices in my home. who still aren't intelligent, but are much more vulnerable to software attacks, and may breach my privacy.
+
+Rebo4AI (11:35:07 AM): What in your life would change, depending on whether you see a fridge as intelligent or not?
+
+Viktoria (11:40:25 AM): 
+i would actually hate it - yet another being to be repsonsible for. Would the fridge be unhappy if there was no food in it? Unhealthy food? Rotten milk? Aaargh!!!
+
+Rebo4AI (11:40:30 AM): Interesting! Thanks!
+Rebo4AI (11:40:30 AM): Have a nice day :)
+---------------------------------------
+Rebo4AI (11:41:41 AM): Let's get started.
+Rebo4AI (11:41:43 AM): You have learned in the "Introduction to Data Science and Artificial Intelligence" different definitions of intelligence; I have not been able to follow!
+Rebo4AI (11:41:43 AM): But I'm curious: Is a knowledge worker now intelligent or not? Why?
+
+Viktoria (11:43:15 AM): hm... yes, i would say a knowlegde worker is by definition intelligent: (s)he is a human, and therefore acts and thinks humanly. not always rationally though.
+
+Rebo4AI (11:43:19 AM): Are you personally satisfied with this decision and definition?
+
+Viktoria (11:43:38 AM): yes, i am. works for me.
+
+Rebo4AI (11:43:39 AM): Good to hear that!
+Rebo4AI (11:43:39 AM): How interesting is it for you to know whether a knowledge worker is intelligent or not?
+
+Viktoria (11:45:13 AM): hm, i think knowing in principle that a knowledge worker is intelligent using the used definitions is not so relevant; and neither is to know his/her IQ. what will be relevant is rather things like how competent in his/her profession the knowledge worker is, and how collegial. that would be what i'd like to see both in colleagues, managers, and members of my own team.
+
+Rebo4AI (11:45:17 AM): What in your life would change, depending on whether you see a knowledge worker as intelligent or not?
+
+Viktoria (11:46:00 AM): if i understand a colleague, manager, or team-member to be really stupid (so, yes, in principle intelligent, but not intelligent enough), that would be difficult in operative work.
+
+Rebo4AI (11:46:03 AM): Interesting! Thanks!
+Rebo4AI (11:46:03 AM): Have a nice day :)

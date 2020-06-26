@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompts>
+	<!-- Behzad: check this function public String lookup(String promptName, Map<String, String> slotFillers) in this file /BaseAgent/src/basilica2/agents/data/PromptTable.java
+			This file handle prompt 
+			
+	-->
+    <prompt strategy="task" id="INTRODUCE">
+        <text>I'm Rebo4AI; I'm a prototype conversational agent.</text>
+        <!-- <text>Hello [NAME1]! I'm [AGENT NAME].</text> -->
+    </prompt>
+    
+	<prompt strategy="task" delay="0" timeout="0" id="ASK_ABOUT_TOPIC">
+        <text>Which topic do you want? just type "general", "rebo", or "search engine"</text>
+    </prompt>
+    
+	
+    <prompt strategy="task" id="GREETINGS">
+        <text>aaaHi, [NAME].</text>
+        <text>aaaNice to meet you, [NAME].</text>
+        <text>aaaHowdy, [NAME]!</text>
+        <text>aaaHello, [NAME]!</text>
+    </prompt>
+</prompts>

@@ -1,0 +1,9 @@
+not
+isnt
+arent
+/(it|they) (do|does)n(')?t/
+/(is|are)n(')?t/
+/can(')?t be (smart|intelligent)/
+/that(')s not right/
+/^no(pe)?$/
+no
