@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan name="boiling points">
+	<!-- "timeout" for a stage is an absolute number of seconds that elapses 
+	(from the script's beginning) before that stage starts.  -->
+	<!-- "delay" for a stage is the number seconds that elapses in-between stages.  -->
+	
+	<stage name="initiate" type="other" delay="1">
+		<!-- a step's "type" determines which StepHandler handles the step - see PlanExecutor.properties.-->
+		<!-- "timeout" for a step is an upper-bound duration for the step, after which next step starts.  -->
+        <!-- "delay" for a step is the delay *after* the step completes on its own.-->       
+		<!-- <step type="prompt" prompt="INTRODUCE">INTRODUCE</step> -->
+		<!-- <step type="prompt" delay="0" timeout="5" prompt="ASK_ABOUT_TOPIC"> ASK_ABOUT_TOPIC</step>		-->
+ 		<step type="dialogue" dialogue="IDSAI">IDSAI</step>
+		<step type="logout">LOG_OUT</step>
+<!--		<step type="dialogue" dialogue="GENERAL_AI">GENERAL_AI</step>
+		<step type="dialogue" dialogue="REBO4AI">REBO4AI</step> -->
+		
+    </stage>
+	
+	
+
+	
+</plan>

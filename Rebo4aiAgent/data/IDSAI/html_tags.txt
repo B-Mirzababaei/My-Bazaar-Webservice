@@ -1,0 +1,9 @@
+IDSAI_REBO4AI	<b>Rebo4AI</b>
+IDSAI_COURSE_TITLE	<i>Introduction to Data Science and Artificial Intelligence (IDSA)</i>
+IDSAI_TH	<b>thinks humanly</b>
+IDSAI_AH	<b>acts humanly</b>
+IDSAI_TR	<b>thinks rationally</b>
+IDSAI_AR	<b>acts rationally</b>
+IDSAI_AB	<b>able to adapt behaviour</b>
+IDSAI_COURSE_SLIDES	<a target="_blank" rel="noopener noreferrer" href="http://rebo4ai.know-center.tugraz.at/bazaar/data/IDSAI/1a_Introduction.pdf" download="http://rebo4ai.know-center.tugraz.at/bazaar/data/IDSAI/1a_Introduction.pdf">here</a>
+IDSAI_ASSIGNMENT_1_LANDING_PAGE	<a href="http://rebo4ai.know-center.tugraz.at/bazaar/landing-page/chatbot-landing-page">this link</a>
