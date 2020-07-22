@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prompts>
 
-    <prompt strategy="task" id="DETECTED">
+    <prompt strategy="task" id="LYES">
         <text>Detected prompt #1.</text>
         <text>Detected prompt #2.</text>
         <text>Detected prompt #3.</text>
@@ -9,7 +9,7 @@
         <text>Detected prompt #5.</text>
     </prompt>
 
-    <prompt strategy="task" id="NOTDETECTED">
+    <prompt strategy="task" id="LNOO">
         <text>NOT detected prompt #1.</text>
         <text>NOT detected prompt #2.</text>
         <text>NOT detected prompt #3.</text>

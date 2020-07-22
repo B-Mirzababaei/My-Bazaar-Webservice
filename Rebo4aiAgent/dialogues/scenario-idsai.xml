@@ -117,7 +117,12 @@
 		<concept label="question1_lno_exp">
 			<phrase>SO YOU THINK IT IS NOT INTELLIGENT!!!</phrase>
 		</concept>
-		
+		<concept label="question2_detect_exp">
+			<phrase>detected!!!</phrase>
+		</concept>
+		<concept label="question2_notdetect_exp">
+			<phrase>not detected!!!</phrase>
+		</concept>
 		<concept label="question2">
 			<phrase>Are you personally satisfied with this decision and definition?</phrase>
 		</concept>
@@ -188,6 +193,12 @@
 		</concept>
 		<concept label="question1_lno_annotation" type="annotation">
 			<phrase>LNO</phrase>
+		</concept>
+		<concept label="question2_detect_annotation" type="annotation">
+			<phrase>DETECTED</phrase>
+		</concept>
+		<concept label="question2_notdetect_annotation" type="annotation">
+			<phrase>NOTDETECTED</phrase>
 		</concept>
 		<!--  <concept label="question1_act_reasonably_no_annotation" type="annotation">
 			<phrase>IDSAI_QUESTION1_ACT_REASONABLY_NO</phrase>
@@ -271,8 +282,11 @@
 
 			<step >
 				<initiation>question2</initiation>
-				<response push="question2_satisfied_yes">yes_annotation</response>
-				<response push="question2_satisfied_no">no_annotation</response>
+				<!-- <response push="question2_satisfied_yes">yes_annotation</response>
+				<response push="question2_satisfied_no">no_annotation</response> -->
+				<response push="question2_detect">question2_detect_annotation</response>
+				<response push="question2_notdetect">question2_notdetect_annotation</response>
+				
 				<response>unanticipated-response</response>
 				
 			</step>
@@ -322,11 +336,13 @@
 		<goal name="question1_lyes" difficulty="1">
 			<step>
 				<initiation>question1_lyes_exp</initiation>
+				<response>unanticipated-response</response>
 			</step>
 		</goal>
 		<goal name="question1_lno" difficulty="1">
 			<step>
 				<initiation>question1_lno_exp</initiation>
+				<response>unanticipated-response</response>
 			</step>
 		</goal>
 		<goal name="question1_dont_know" difficulty="1">
@@ -449,6 +465,20 @@
 		<goal name="question1_adaption_no" difficulty="1">
 			<step>
 				<initiation>question1_adaption_no_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+
+
+		<goal name="question2_detect" difficulty="1">
+			<step>
+				<initiation>question2_detect_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question2_notdetect" difficulty="1">
+			<step>
+				<initiation>question2_notdetect_exp</initiation>
 				<response>unanticipated-response</response>
 			</step>
 		</goal>
