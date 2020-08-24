@@ -19,6 +19,7 @@ var localURL = "/bazaar";
 var IDSAI_RANDOM_ENTITIES =["a monkey", "an office chair", "the New York statue of Liberty",
     "a self-driving car", "Google search engine", "a snake", "a sunflower",
     "a Venus flytrap"];
+    
 // var KnowlegdeBase = {
 //     "a monkey":{'intelligence':'positive', 'warrant':{'AR':'Monkeys can act rationally.','TR':'Monkeys can think rationally.','AD':'Monkeys can learn and adapt but not like a human.'}},
 //     "an office chair":{'intelligence':'negative', 'warrant':{}},
