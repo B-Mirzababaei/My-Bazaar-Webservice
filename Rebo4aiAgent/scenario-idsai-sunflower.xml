@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE scenario SYSTEM "TuTalkScenario.dtd">
-<scenario default-language="en" scenario-name="scenario-idsai">
+<scenario default-language="en" scenario-name="scenario-idsai-sunflower">
 	<configuration>
 		
 		
@@ -43,11 +43,11 @@
 			
 		</concept>
 		<concept label="question1">
-			<phrase>I'm curious: Is RANDOM_EXAMPLE now intelligent or not? Why?</phrase>
+			<phrase>I'm curious: Is a sunflower now intelligent or not? Why?</phrase>
 		</concept>
 				
 		<concept label="question1_without_reason_exp">
-			<phrase>I'm not sure I understood - which definition of intelligence did you make in deciding that RANDOM_EXAMPLE is (not) intelligent?</phrase>
+			<phrase>I'm not sure I understood - which definition of intelligence did you make in deciding that a sunflower is (not) intelligent?</phrase>
 		</concept>
 				
 		<concept label="question1_act_reasonably_exp">
@@ -65,23 +65,21 @@
 		<concept label="question1_adaption_exp">
 			<phrase>Why do you think the entity can be adapted into to new environment?</phrase>
 		</concept>
-				
-				
-				
+					
 				
 				
 		<concept label="question1_act_reasonably_no_exp">
 			<phrase>What about other definitions of AI?</phrase>
 		</concept>
 		<concept label="question1_act_reasonably_yes_exp">
-			<phrase>Why do you think a RANDOM_EXAMPLE can act reasonably?</phrase>
+			<phrase>Why do you think a sunflower can act reasonably?</phrase>
 		</concept>
 		<concept label="question1_act_humanly_no_exp">
 			<phrase>What about other definitions of AI?</phrase>
 		</concept>
 				
 		<concept label="question1_act_humanly_yes_exp">
-			<phrase>Why do you think a RANDOM_EXAMPLE can act like humans?</phrase>
+			<phrase>Why do you think a sunflower can act like humans?</phrase>
 		</concept>
 				
 		<concept label="question1_think_reasonably_no_exp">
@@ -89,7 +87,7 @@
 		</concept>
 				
 		<concept label="question1_think_reasonably_yes_exp">
-			<phrase>Why do you think a RANDOM_EXAMPLE can think reasonably?</phrase>
+			<phrase>Why do you think a sunflower can think reasonably?</phrase>
 		</concept>
 				
 		<concept label="question1_think_humanly_no_exp">
@@ -97,7 +95,7 @@
 		</concept>
 				
 		<concept label="question1_think_humanly_yes_exp">
-			<phrase>Why do you think a RANDOM_EXAMPLE can think like humans?</phrase>
+			<phrase>Why do you think a sunflower can think like humans?</phrase>
 		</concept>
 		<concept label="question1_adaption_yes_exp">
 			<phrase>Why do you think the entity can be adapted into to new environment?</phrase>
@@ -107,21 +105,34 @@
 		</concept>
 				
 		<concept label="question1_dont_know_exp">
-			<phrase>Just think about four different concepts of an intelligent entity which are act rationally, think humanly, act humanly, and think rationally then use these concepts for reasoning. | Based on these concepts, do you think RANDOM_EXAMPLE is intelligent or not? Why?</phrase>
+			<phrase>Just think about four different concepts of an intelligent entity which are act rationally, think humanly, act humanly, and think rationally then use these concepts for reasoning. | Based on these concepts, do you think a sunflower is intelligent or not? Why?</phrase>
 		</concept>
 		
-		<concept label="question1_lyes_exp">
-			<phrase>SO YOU THINK IT IS INTELLIGET!!!</phrase>
+		<concept label="question1_correct_claim_exp">
+			<phrase>it has a correct CLAIM!!!</phrase>
 		</concept>
 		
-		<concept label="question1_lno_exp">
-			<phrase>SO YOU THINK IT IS NOT INTELLIGENT!!!</phrase>
+		<concept label="question1_wrong_claim_exp">
+			<phrase>it has a wrong CLAIM!!! OPPOSITE_CLAIM</phrase>
+		</concept>
+		<concept label="question1_l1_exp">
+			<phrase>In my view, it is not intelligent. I don't see sunflowers as acting or thinking; they certainly exist, and react, but without consciousness. What do you think?</phrase>
+		</concept>
+		
+		<concept label="question1_l-1_exp">
+			<phrase>I agree with you(to some extent). I SHOULD REACT BASED OF WARRANT</phrase>
+		</concept>
+		<concept label="question1_l0_exp">
+			<phrase>Mmmm, I don't understand your opinion about it. Could you tell me clearly whether it is intelligent or not? Why?</phrase>
 		</concept>
 		<concept label="question2_detect_exp">
-			<phrase>detected!!!</phrase>
+			<phrase>it has a WARRANT!!!</phrase>
 		</concept>
 		<concept label="question2_notdetect_exp">
-			<phrase>not detected!!!</phrase>
+			<phrase>it has not a WARRANT!!!</phrase>
+		</concept>
+		<concept label="question2_unkdetect_exp">
+			<phrase>it is UNK WARRANT!!!</phrase>
 		</concept>
 		<concept label="question2">
 			<phrase>Are you personally satisfied with this decision and definition?</phrase>
@@ -135,14 +146,14 @@
 			<phrase>What would you change in the definition?</phrase>
 		</concept>		
 		<concept label="question2_change_answer_exp">
-			<phrase>What is your final answer? | Is RANDOM_EXAMPLE now intelligent or not? Why?</phrase>
+			<phrase>What is your final answer? | Is a sunflower now intelligent or not? Why?</phrase>
 		</concept>
 		<concept label="question3">
-			<phrase>How interesting is it for you to know whether RANDOM_EXAMPLE is intelligent or not?</phrase>
+			<phrase>How interesting is it for you to know whether a sunflower is intelligent or not?</phrase>
 		</concept>	
 		
 		<concept label="question4">
-			<phrase> would change in your life depending on whether you see RANDOM_EXAMPLE as intelligent or not?</phrase>
+			<phrase> would change in your life depending on whether you see a sunflower as intelligent or not?</phrase>
 		</concept>	
 		
 		<concept label="closing">
@@ -188,17 +199,31 @@
 		<concept label="question1_adaption_annotation" type="annotation">
 			<phrase>IDSAI_QUESTION1_ADAPTION</phrase>
 		</concept>
-		<concept label="question1_lyes_annotation" type="annotation">
-			<phrase>LYES</phrase>
+		<concept label="question1_correct_claim_annotation" type="annotation">
+			<phrase>CLAIM_CORRECT</phrase>
 		</concept>
-		<concept label="question1_lno_annotation" type="annotation">
-			<phrase>LNO</phrase>
+		<concept label="question1_wrong_claim_annotation" type="annotation">
+			<phrase>CLAIM_WRONG</phrase>
+		</concept>
+		<concept label="question1_l1_annotation" type="annotation">
+			<phrase>CLAIM_POS</phrase>
+			<phrase>IDSAI_QUESTION1_IS_INTELLIGENT</phrase>
+		</concept>
+		<concept label="question1_l-1_annotation" type="annotation">
+			<phrase>CLAIM_NEG</phrase>
+			<phrase>IDSAI_QUESTION1_NOT_INTELLIGENT</phrase>
+		</concept>
+		<concept label="question1_l0_annotation" type="annotation">
+			<phrase>CLAIM_NONE</phrase>
 		</concept>
 		<concept label="question2_detect_annotation" type="annotation">
-			<phrase>DETECTED</phrase>
+			<phrase>WARRANT_WITH</phrase>
 		</concept>
 		<concept label="question2_notdetect_annotation" type="annotation">
-			<phrase>NOTDETECTED</phrase>
+			<phrase>WARRANT_WITHOUT</phrase>
+		</concept>
+		<concept label="question2_unkdetect_annotation" type="annotation">
+			<phrase>WARRANT_NONE</phrase>
 		</concept>
 		<!--  <concept label="question1_act_reasonably_no_annotation" type="annotation">
 			<phrase>IDSAI_QUESTION1_ACT_REASONABLY_NO</phrase>
@@ -251,19 +276,20 @@
 			</step>
 			<step >
 				<initiation>question1</initiation>
-
-				<response push="question1_lyes">question1_lyes_annotation</response>
-				<response push="question1_lno">question1_lno_annotation</response>
-				
-				<!--
-								<response push="question1_without_reason">question1_without_reason_annotation</response>
+				<!-- <response push="question1_wrong_claim">question1_wrong_claim_annotation</response>
+				<response push="question1_correct_claim">question1_correct_claim_annotation</response> -->
+				<response push="question1_l1">question1_l1_annotation</response>
+				<response push="question1_l-1">question1_l-1_annotation</response>
+				<response push="question1_l0">question1_l0_annotation</response>
+				<response push="question1_dont_know">question1_dont_know_annotation</response>
+			<!-- <response push="question1_without_reason">question1_without_reason_annotation</response>
 				<response push="question1_dont_know">question1_dont_know_annotation</response>
 				<response push="question1_act_reasonably">question1_act_reasonably_annotation</response>				
 				<response push="question1_act_humanly">question1_act_humanly_annotation</response>
 				<response push="question1_think_reasonably">question1_think_reasonably_annotation</response>
 				<response push="question1_think_humanly">question1_think_humanly_annotation</response>
-				<response push="question1_adaption">question1_adaption_annotation</response>
-				-->
+				<response push="question1_adaption">question1_adaption_annotation</response> -->
+			
 				<!-- 
 				
 				<response push="question1_act_reasonably_no">question1_act_reasonably_no_annotation</response>
@@ -286,6 +312,8 @@
 				<response push="question2_satisfied_no">no_annotation</response> -->
 				<response push="question2_detect">question2_detect_annotation</response>
 				<response push="question2_notdetect">question2_notdetect_annotation</response>
+				<response push="question2_unkdetect">question2_unkdetect_annotation</response>
+				
 				
 				<response>unanticipated-response</response>
 				
@@ -305,7 +333,7 @@
 					Bot says what is written in "say" then go to this phase "elicitate1" 
 				<response push="elicitate1" say="response1_2">unanticipated-response</response> 
 				
-				We can use regex in phrases. It this pattern mathes with a reasponse, it is considered as label of "answer2"
+				We can use regex in phrases. It this pattern matches with a response, it is considered as label of "answer2"
 				<concept label="answer2" type="regex">
 					<phrase>pointer|arrow</phrase>
 				</concept>
@@ -332,16 +360,33 @@
 
 		<!-- Behzad Goals are referenced by their names. "difficulty" is meaningless for now. -->
 
-		
-		<goal name="question1_lyes" difficulty="1">
+		<goal name="question1_wrong_claim" difficulty="1">
 			<step>
-				<initiation>question1_lyes_exp</initiation>
+				<initiation>question1_wrong_claim_exp</initiation>
 				<response>unanticipated-response</response>
 			</step>
 		</goal>
-		<goal name="question1_lno" difficulty="1">
+		<goal name="question1_correct_claim" difficulty="1">
 			<step>
-				<initiation>question1_lno_exp</initiation>
+				<initiation>question1_correct_claim_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_l1" difficulty="1">
+			<step>
+				<initiation>question1_l1_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_l-1" difficulty="1">
+			<step>
+				<initiation>question1_l-1_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_l0" difficulty="1">
+			<step>
+				<initiation>question1_l0_exp</initiation>
 				<response>unanticipated-response</response>
 			</step>
 		</goal>
@@ -479,6 +524,12 @@
 		<goal name="question2_notdetect" difficulty="1">
 			<step>
 				<initiation>question2_notdetect_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question2_unkdetect" difficulty="1">
+			<step>
+				<initiation>question2_unkdetect_exp</initiation>
 				<response>unanticipated-response</response>
 			</step>
 		</goal>

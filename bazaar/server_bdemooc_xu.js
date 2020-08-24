@@ -14,38 +14,22 @@ var bodyParser = require('body-parser');
 var localPort = 80;
 var localURL = "/bazaar";
 
-var IDSAI_RANDOM_ENTITIES = ["a fish",
-    "a table",
-    "a search engine",
-    "Google search engine",
-    "Siri",
-    "Alexa",
-    "Cortana",
-    "a talking parrot",
-    "a talking puppet",
-    "a weather station",
-    "an autonomously driving car",
-    "a baby",
-    "a tree",
-    "a cat",
-    "a monkey",
-    "a coffee-maker",
-    "a TV",
-    "a spam detector",
-    "a dog",
-    "a notebook",
-    "a fridge",
-    "a bike",
-    "a scooter",
-    "a typical car",
-    "a flower",
-    "a kid",
-    "a teen",
-    "a knowledge worker",
-    "a student",
-    "a duck",
-    "a chicken"];
 
+// IDSAI_RANDOM_ENTITIES is only for the essay pages and the chatroom pages, NOT FOR CHATBOT. THE CHATBOT PAGE gets its entity from Data folder in runtime.
+var IDSAI_RANDOM_ENTITIES =["a monkey", "an office chair", "the New York statue of Liberty",
+    "a self-driving car", "Google search engine", "a snake", "a sunflower",
+    "a Venus flytrap"];
+// var KnowlegdeBase = {
+//     "a monkey":{'intelligence':'positive', 'warrant':{'AR':'Monkeys can act rationally.','TR':'Monkeys can think rationally.','AD':'Monkeys can learn and adapt but not like a human.'}},
+//     "an office chair":{'intelligence':'negative', 'warrant':{}},
+//     "the New York statue of Liberty":{'intelligence':'negative', 'warrant':{}},
+//     "a self-driving car":{'intelligence':'positive', 'warrant':{'AR':'Self-driving cars can act rationally.','TR':'Self-driving cars can think rationally.','AD':'Self-driving cars can learn and adapt but not like a human.'}},
+//     "Google search engine":{'intelligence':'positive', 'warrant':{'AR':'Google search engine can act rationally.','AD':'Google search engine can learn and adapt but not like a human.'}},
+//     "a snake":{'intelligence':'positive', 'warrant':{'AR':'Snakes can act rationally.'}},
+//     "a sunflower":{'intelligence':'negative', 'warrant':{}},
+//     "a Venus flytrap":{'intelligence':'negative', 'warrant':{}}
+// }
+// var IDSAI_RANDOM_ENTITIES = Object.keys(KnowlegdeBase);
 //const host_url = "http://127.0.0.1";
 //const host_url = "http://rebo4ai.know-center.tugraz.at";
 function select_a_random_entity() {
@@ -172,14 +156,16 @@ app.get('/bazaar/idsai-landing_page', function (req, res) {
     res.sendfile(landing_page + '.html');
 });
 
-app.get('/bazaar/landing_page/temp_chatbot_landing_page*', function (req, res) {
-    var landing_page = 'chatbot-landing-page-temp';
 
-    if (req.query.html != undefined)
-        landing_page = req.query.html;
+// app.get('/bazaar/landing_page/chatbot_landing_page_temp*', function (req, res) {
+//     var landing_page = 'chatbot-landing-page-temp';
 
-    res.sendfile(landing_page + '.html');
-});
+//     if (req.query.html != undefined)
+//         landing_page = req.query.html;
+
+//     res.sendfile(landing_page + '.html');
+// });
+
 
 app.get('/bazaar/landing_page/chatbot_landing_page*', function (req, res) {
     var landing_page = 'chatbot-landing-page';

@@ -1,4 +1,46 @@
 /no (idea|clue)/
 /don(')?t know/
 know nothing
-can't
+help
+stuck
+not sure
+what to do
+choices
+don't know
+where to start
+what should i begin with
+how to begin
+tell me
+no idea
+need
+can you
+please
+plz
+hlp
+could you
+can we
+could we
+supposed to do
+supposed to be
+what is
+whats
+not sure
+what to do
+choices
+don't know
+where to start
+what should i begin with
+how to begin
+tell me
+no idea
+gst is mad
+/can (you)|(anyone) explain/
+/why (do)|(does)|(doesn't)|(is it)/
+/^explain that/
+/i (don't)|(dont) (understand)|(get it)/
+what do you mean
+I'm confused
+I'm stuck
+I don't know what to do
+I need help
+what?

@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scenario SYSTEM "TuTalkScenario.dtd">
+<scenario default-language="en" scenario-name="scenario-idsai-liberty">
+	<configuration>
+		
+		
+		<!-- It *is* possible to hook up a LightSide classifier to TuTalk, 
+		such that the predicted labels are treated as concepts. 
+		but not today. -->
+			
+		<!-- 	
+		<module kind="model" name="animals"
+			classname="edu.cmu.cs.lti.tutalk.module.SidePredictor">
+			<param key="path" value="models/animals.ser" />
+		</module> 
+		-->
+
+	</configuration>
+
+	<!-- I'm not entirely sure what these are used for. -->
+	<transitions>
+		<transition ack-type="agree" floor-status="neutral">
+			<tphrase> yes </tphrase>
+			<tphrase> okay </tphrase>
+		</transition>
+	
+		<transition ack-type="none">
+			<tphrase> moving on... </tphrase>
+		</transition>
+	</transitions>
+	
+	<!-- 'Concepts' define things that students might say,
+	     AND things that the tutor might say back. 
+	     Tutor concepts should take the form of phrase lists.
+		 Student concepts can be phrase lists, 
+		 regular expressions, or lists of annotations,
+	     but only one of these at a time. -->
+		
+	<concepts>
+	
+		<concept label="introduction">
+			<phrase>In the TUGraz lecture "IDSAI_COURSE_TITLE", different definitions of intelligence have been discussed. According to different definitions, something or someone would be called intelligent if it IDSAI_TH, IDSAI_AH, IDSAI_TR, IDSAI_AR; or if it is IDSAI_AB to a changing environment in order to achieve its goals. | I have this information from IDSAI_COURSE_SLIDES. But, I'm not sure I completely understand.</phrase>
+			
+		</concept>
+		<concept label="question1">
+			<phrase>I'm curious: Is the New York statue of Liberty now intelligent or not? Why?</phrase>
+		</concept>
+				
+		<concept label="question1_without_reason_exp">
+			<phrase>I'm not sure I understood - which definition of intelligence did you make in deciding that the New York statue of Liberty is (not) intelligent?</phrase>
+		</concept>
+				
+		<concept label="question1_act_reasonably_exp">
+			<phrase>Why do you think the entity can act reasonably?</phrase>
+		</concept>
+		<concept label="question1_act_humanly_exp">
+			<phrase>Why do you think the entity can act humanly?</phrase>
+		</concept>
+		<concept label="question1_think_reasonably_exp">
+			<phrase>Why do you think the entity can think reasonably?</phrase>
+		</concept>
+		<concept label="question1_think_humanly_exp">
+			<phrase>Why do you think the entity can think humanly?</phrase>
+		</concept>		
+		<concept label="question1_adaption_exp">
+			<phrase>Why do you think the entity can be adapted into to new environment?</phrase>
+		</concept>
+					
+				
+				
+		<concept label="question1_act_reasonably_no_exp">
+			<phrase>What about other definitions of AI?</phrase>
+		</concept>
+		<concept label="question1_act_reasonably_yes_exp">
+			<phrase>Why do you think the New York statue of Liberty can act reasonably?</phrase>
+		</concept>
+		<concept label="question1_act_humanly_no_exp">
+			<phrase>What about other definitions of AI?</phrase>
+		</concept>
+				
+		<concept label="question1_act_humanly_yes_exp">
+			<phrase>Why do you think the New York statue of Liberty can act like humans?</phrase>
+		</concept>
+				
+		<concept label="question1_think_reasonably_no_exp">
+			<phrase>What about other definitions of AI?</phrase>
+		</concept>
+				
+		<concept label="question1_think_reasonably_yes_exp">
+			<phrase>Why do you think the New York statue of Liberty can think reasonably?</phrase>
+		</concept>
+				
+		<concept label="question1_think_humanly_no_exp">
+			<phrase>What about other definitions of AI?</phrase>
+		</concept>
+				
+		<concept label="question1_think_humanly_yes_exp">
+			<phrase>Why do you think the New York statue of Liberty can think like humans?</phrase>
+		</concept>
+		<concept label="question1_adaption_yes_exp">
+			<phrase>Why do you think the entity can be adapted into to new environment?</phrase>
+		</concept>
+		<concept label="question1_adaption_no_exp">
+			<phrase>What about other definitions of AI?</phrase>
+		</concept>
+				
+		<concept label="question1_dont_know_exp">
+			<phrase>Just think about four different concepts of an intelligent entity which are act rationally, think humanly, act humanly, and think rationally then use these concepts for reasoning. | Based on these concepts, do you think the New York statue of Liberty is intelligent or not? Why?</phrase>
+		</concept>
+		
+		<concept label="question1_correct_claim_exp">
+			<phrase>it has a correct CLAIM!!!</phrase>
+		</concept>
+		
+		<concept label="question1_wrong_claim_exp">
+			<phrase>it has a wrong CLAIM!!! OPPOSITE_CLAIM</phrase>
+		</concept>
+		<concept label="question1_l1_exp">
+			<phrase>In my view, it is not intelligent. It is an animate ojbect, so it is not able to act ot think let alone doing them humanly or rationally. What do you think?</phrase>
+		</concept>
+		
+		<concept label="question1_l-1_exp">
+			<phrase>I agree with you(to some extent). I SHOULD REACT BASED OF WARRANT</phrase>
+		</concept>
+		<concept label="question1_l0_exp">
+			<phrase>Mmmm, I don't understand your opinion about it. Could you tell me clearly whether it is intelligent or not? Why?</phrase>
+		</concept>
+		<concept label="question2_detect_exp">
+			<phrase>it has a WARRANT!!!</phrase>
+		</concept>
+		<concept label="question2_notdetect_exp">
+			<phrase>it has not a WARRANT!!!</phrase>
+		</concept>
+		<concept label="question2_unkdetect_exp">
+			<phrase>it is UNK WARRANT!!!</phrase>
+		</concept>
+		<concept label="question2">
+			<phrase>Are you personally satisfied with this decision and definition?</phrase>
+		</concept>
+		
+		<concept label="question2_satisfied_yes_exp">
+			<phrase>Good to hear that!</phrase>
+		</concept>
+		
+		<concept label="question2_satisfied_no_exp">
+			<phrase>What would you change in the definition?</phrase>
+		</concept>		
+		<concept label="question2_change_answer_exp">
+			<phrase>What is your final answer? | Is the New York statue of Liberty now intelligent or not? Why?</phrase>
+		</concept>
+		<concept label="question3">
+			<phrase>How interesting is it for you to know whether the New York statue of Liberty is intelligent or not?</phrase>
+		</concept>	
+		
+		<concept label="question4">
+			<phrase> would change in your life depending on whether you see the New York statue of Liberty as intelligent or not?</phrase>
+		</concept>	
+		
+		<concept label="closing">
+			<phrase>Interesting! Thanks!</phrase>
+		</concept>
+
+		<concept label="goodbye">
+			<phrase>See you next time :)</phrase>
+			<phrase>Have a nice day and see you soon!</phrase>
+			<phrase>And bye :-)</phrase>
+			<phrase>Until the days!</phrase>
+			<phrase>Thank you and see you next time;)</phrase>
+			<phrase>Have a nice day :)</phrase>
+			<phrase>See you soon!</phrase>
+			<phrase>See you next time!</phrase>
+		</concept>
+		
+		
+		
+		<!-- these match against external (MessageAnnotator) annotations. -->
+
+		<concept label="question1_dont_know_annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_DONT_KNOW</phrase>
+		</concept>
+		<concept label="question1_concepts_annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_CONCEPTS</phrase>
+		</concept>
+		<concept label="question1_without_reason_annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_WITHOUT_REASON</phrase>
+		</concept>
+		<concept label="question1_act_reasonably_annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_ACT_REASONABLY</phrase>
+		</concept>
+		<concept label="question1_think_reasonably_annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_THINK_REASONABLY</phrase>
+		</concept>
+		<concept label="question1_act_humanly_annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_ACT_HUMANLY</phrase>
+		</concept>
+		<concept label="question1_think_humanly_annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_THINK_HUMANLY</phrase>
+		</concept>
+		<concept label="question1_adaption_annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_ADAPTION</phrase>
+		</concept>
+		<concept label="question1_correct_claim_annotation" type="annotation">
+			<phrase>CLAIM_CORRECT</phrase>
+		</concept>
+		<concept label="question1_wrong_claim_annotation" type="annotation">
+			<phrase>CLAIM_WRONG</phrase>
+		</concept>
+		<concept label="question1_l1_annotation" type="annotation">
+			<phrase>CLAIM_POS</phrase>
+			<phrase>IDSAI_QUESTION1_IS_INTELLIGENT</phrase>
+		</concept>
+		<concept label="question1_l-1_annotation" type="annotation">
+			<phrase>CLAIM_NEG</phrase>
+			<phrase>IDSAI_QUESTION1_NOT_INTELLIGENT</phrase>
+		</concept>
+		<concept label="question1_l0_annotation" type="annotation">
+			<phrase>CLAIM_NONE</phrase>
+		</concept>
+		<concept label="question2_detect_annotation" type="annotation">
+			<phrase>WARRANT_WITH</phrase>
+		</concept>
+		<concept label="question2_notdetect_annotation" type="annotation">
+			<phrase>WARRANT_WITHOUT</phrase>
+		</concept>
+		<concept label="question2_unkdetect_annotation" type="annotation">
+			<phrase>WARRANT_NONE</phrase>
+		</concept>
+		<!--  <concept label="question1_act_reasonably_no_annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_ACT_REASONABLY_NO</phrase>
+		</concept>
+		<concept label="question1_act_reasonably_yes_annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_ACT_REASONABLY_YES</phrase>
+		</concept>
+		<concept label="question1_think_reasonably_no_annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_THINK_REASONABLY_NO</phrase>
+		</concept>
+		<concept label="question1_think_reasonably_yes_annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_THINK_REASONABLY_YES</phrase>
+		</concept>
+		<concept label="question1_act_humanly_no_annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_ACT_HUMANLY_NO</phrase>
+		</concept>
+		<concept label="question1_act_humanly_yes_annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_ACT_HUMANLY_YES</phrase>
+		</concept>
+		<concept label="question1_think_humanly_no_annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_THINK_HUMANLY_NO</phrase>
+		</concept>
+		<concept label="question1_think_humanly_yes_annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_THINK_HUMANLY_YES</phrase>
+		</concept>
+		<concept label="question1_adaption_yes_annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_ADAPTION_YES</phrase>
+		</concept> -->
+		
+		
+		<concept label="no_annotation" type="annotation">
+			<phrase>NO</phrase>
+		</concept>
+		
+		<!-- Behzad: This capital name (OPTIMISTIC) refers to the name of file (dictionary) in which a list of phrases were typed. These phrases will use to classify a response whether it is "optimistic" or not. -->
+		
+		<concept label="unanticipated-response">
+			<phrase>anything else</phrase>
+		</concept>
+		
+	</concepts>
+
+	
+	<!-- This is the meat of the hierarchical dialogue - 
+		 one main goal with multiple steps, and subgoals that it may reference. -->
+	<script>
+		<goal name="start" difficulty="1" >
+			<step>
+				<initiation>introduction</initiation>
+			</step>
+			<step >
+				<initiation>question1</initiation>
+				<!-- <response push="question1_wrong_claim">question1_wrong_claim_annotation</response>
+				<response push="question1_correct_claim">question1_correct_claim_annotation</response> -->
+				<response push="question1_l1">question1_l1_annotation</response>
+				<response push="question1_l-1">question1_l-1_annotation</response>
+				<response push="question1_l0">question1_l0_annotation</response>
+				<response push="question1_dont_know">question1_dont_know_annotation</response>
+			<!-- <response push="question1_without_reason">question1_without_reason_annotation</response>
+				<response push="question1_dont_know">question1_dont_know_annotation</response>
+				<response push="question1_act_reasonably">question1_act_reasonably_annotation</response>				
+				<response push="question1_act_humanly">question1_act_humanly_annotation</response>
+				<response push="question1_think_reasonably">question1_think_reasonably_annotation</response>
+				<response push="question1_think_humanly">question1_think_humanly_annotation</response>
+				<response push="question1_adaption">question1_adaption_annotation</response> -->
+			
+				<!-- 
+				
+				<response push="question1_act_reasonably_no">question1_act_reasonably_no_annotation</response>
+				<response push="question1_act_reasonably_yes">question1_act_reasonably_yes_annotation</response>
+				<response push="question1_act_humanly_no">question1_act_humanly_no_annotation</response>
+				<response push="question1_act_humanly_yes">question1_act_humanly_yes_annotation</response>
+				<response push="question1_think_reasonably_no">question1_think_reasonably_no_annotation</response>
+				<response push="question1_think_reasonably_yes">question1_think_reasonably_yes_annotation</response>
+				<response push="question1_think_humanly_no">question1_think_humanly_no_annotation</response>
+				<response push="question1_think_humanly_yes">question1_think_humanly_yes_annotation</response>
+				<response push="question1_adaption_no">question1_adaption_no_annotation</response>
+				<response push="question1_adaption_yes">question1_adaption_yes_annotation</response>
+ 				-->
+				<response>unanticipated-response</response>
+			</step>
+
+			<step >
+				<initiation>question2</initiation>
+				<!-- <response push="question2_satisfied_yes">yes_annotation</response>
+				<response push="question2_satisfied_no">no_annotation</response> -->
+				<response push="question2_detect">question2_detect_annotation</response>
+				<response push="question2_notdetect">question2_notdetect_annotation</response>
+				<response push="question2_unkdetect">question2_unkdetect_annotation</response>
+				
+				
+				<response>unanticipated-response</response>
+				
+			</step>
+			<step>
+				<initiation>question3</initiation>
+				<response>unanticipated-response</response>
+			</step>
+			<step>
+				<initiation>question4</initiation>
+				<response>unanticipated-response</response>
+			</step>
+			<!-- <step>
+				<initiation>review_AI_essential_course</initiation>
+			</step> -->
+			<!-- Behzad -
+					Bot says what is written in "say" then go to this phase "elicitate1" 
+				<response push="elicitate1" say="response1_2">unanticipated-response</response> 
+				
+				We can use regex in phrases. It this pattern matches with a response, it is considered as label of "answer2"
+				<concept label="answer2" type="regex">
+					<phrase>pointer|arrow</phrase>
+				</concept>
+			-->
+			
+			<!-- <step>
+				<initiation>emotions</initiation>
+				<response push="emotions_positive">pos_annotation</response>
+				<response push="emotions_negative">neg_annotation</response>
+				<response push="emotions_unknown">unanticipated-response</response>
+				<response>unanticipated-response</response>
+			</step> -->
+			
+			
+			<step>
+				<initiation>closing</initiation>
+			</step>
+			
+			<step>
+				<initiation>goodbye</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+
+		<!-- Behzad Goals are referenced by their names. "difficulty" is meaningless for now. -->
+
+		<goal name="question1_wrong_claim" difficulty="1">
+			<step>
+				<initiation>question1_wrong_claim_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_correct_claim" difficulty="1">
+			<step>
+				<initiation>question1_correct_claim_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_l1" difficulty="1">
+			<step>
+				<initiation>question1_l1_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_l-1" difficulty="1">
+			<step>
+				<initiation>question1_l-1_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_l0" difficulty="1">
+			<step>
+				<initiation>question1_l0_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_dont_know" difficulty="1">
+			<step>
+				<initiation>question1_dont_know_exp</initiation>
+				<response push="question1_without_reason">question1_without_reason_annotation</response>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_without_reason" difficulty="1">
+			<step>
+				<initiation>question1_without_reason_exp</initiation>
+				<response push="question1_act_reasonably">question1_act_reasonably_annotation</response>				
+				<response push="question1_act_humanly">question1_act_humanly_annotation</response>
+				<response push="question1_think_reasonably">question1_think_reasonably_annotation</response>
+				<response push="question1_think_humanly">question1_think_humanly_annotation</response>
+				<response push="question1_adaption">question1_adaption_annotation</response>
+				<!--  
+				<response push="question1_act_reasonably_no">question1_act_reasonably_no_annotation</response>
+				<response push="question1_act_reasonably_yes">question1_act_reasonably_yes_annotation</response>
+				<response push="question1_act_humanly_no">question1_act_humanly_no_annotation</response>
+				<response push="question1_act_humanly_yes">question1_act_humanly_yes_annotation</response>
+				<response push="question1_think_reasonably_no">question1_think_reasonably_no_annotation</response>
+				<response push="question1_think_reasonably_yes">question1_think_reasonably_yes_annotation</response>
+				<response push="question1_think_humanly_no">question1_think_humanly_no_annotation</response>
+				<response push="question1_think_humanly_yes">question1_think_humanly_yes_annotation</response>
+				<response push="question1_adaption_no">question1_adaption_no_annotation</response>
+				<response push="question1_adaption_yes">question1_adaption_yes_annotation</response>
+				 -->
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_act_reasonably" difficulty="1">
+			<step>
+				<initiation>question1_act_reasonably_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_act_humanly" difficulty="1">
+			<step>
+				<initiation>question1_act_humanly_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_think_reasonably" difficulty="1">
+			<step>
+				<initiation>question1_think_reasonably_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_think_humanly" difficulty="1">
+			<step>
+				<initiation>question1_think_humanly_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_adaption" difficulty="1">
+			<step>
+				<initiation>question1_adaption_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		
+		
+		
+		<goal name="question1_act_reasonably_no" difficulty="1">
+			<step>
+				<initiation>question1_act_reasonably_no_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_act_reasonably_yes" difficulty="1">
+			<step>
+				<initiation>question1_act_reasonably_yes_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_act_humanly_no" difficulty="1">
+			<step>
+				<initiation>question1_act_humanly_no_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_act_humanly_yes" difficulty="1">
+			<step>
+				<initiation>question1_act_humanly_yes_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_think_reasonably_no" difficulty="1">
+			<step>
+				<initiation>question1_think_reasonably_no_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_think_reasonably_yes" difficulty="1">
+			<step>
+				<initiation>question1_think_reasonably_yes_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_think_humanly_no" difficulty="1">
+			<step>
+				<initiation>question1_think_humanly_no_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_think_humanly_yes" difficulty="1">
+			<step>
+				<initiation>question1_think_humanly_yes_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_adaption_yes" difficulty="1">
+			<step>
+				<initiation>question1_adaption_yes_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_adaption_no" difficulty="1">
+			<step>
+				<initiation>question1_adaption_no_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+
+
+		<goal name="question2_detect" difficulty="1">
+			<step>
+				<initiation>question2_detect_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question2_notdetect" difficulty="1">
+			<step>
+				<initiation>question2_notdetect_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question2_unkdetect" difficulty="1">
+			<step>
+				<initiation>question2_unkdetect_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question2_satisfied_no" difficulty="1">
+			<step>
+				<initiation>question2_satisfied_no_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question2_change_answer" difficulty="1">
+			<step>
+				<initiation>question2_change_answer_exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question2_satisfied_yes" difficulty="1">
+			<step>
+				<initiation>question2_satisfied_yes_exp</initiation>
+			</step>
+		</goal>
+		
+	</script>
+
+</scenario>

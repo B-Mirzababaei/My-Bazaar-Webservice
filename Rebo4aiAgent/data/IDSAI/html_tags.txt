@@ -7,3 +7,6 @@ IDSAI_AR	<b>acts rationally</b>
 IDSAI_AB	<b>able to adapt behaviour</b>
 IDSAI_COURSE_SLIDES	<a target="_blank" rel="noopener noreferrer" href="http://rebo4ai.know-center.tugraz.at/bazaar/data/IDSAI/1a_Introduction.pdf" download="http://rebo4ai.know-center.tugraz.at/bazaar/data/IDSAI/1a_Introduction.pdf">here</a>
 IDSAI_ASSIGNMENT_1_LANDING_PAGE	<a href="http://rebo4ai.know-center.tugraz.at/bazaar/landing-page/chatbot-landing-page">this link</a>
+IDSAI_CLAIM_BOLD	<b>claim</b>
+IDSAI_EVIDENCE_BOLD	<b>evidence</b>
+IDSAI_WARRANT_BOLD	<b>warrant</b>

@@ -11,7 +11,7 @@ lets
 let's
 /ok+/
 want
-i do
+/i do/
 i am
 uhum
 aha

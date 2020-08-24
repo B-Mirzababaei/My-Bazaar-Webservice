@@ -1,0 +1,4 @@
+/(think|interpret|act|do|do)(s|es)?.*?\s(reason(s|able|ably)?|rational(ly|y)?|logic(al|ally|aly)?|intellectual(ly|y)?|wise(ly)?|)
+/(think(s)?|interpret).*?\s(humanly|human(s)?|person|people|student(s)?|m(a|e)n|wom(a|e)n|child(ren)?|us)/
+(this|that|it|they|he|she)\s?(can|could|do|does)?\s?(not|n't)?\s?(think|act|learn)s?
+/from experience(s)?/

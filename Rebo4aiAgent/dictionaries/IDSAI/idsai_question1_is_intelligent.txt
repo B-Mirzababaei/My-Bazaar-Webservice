@@ -1,0 +1,3 @@
+/\bdo( not|n't)\s+think\s+(ENT|it|they)( is| are|'s|'re)\s+(not|n't)\s+(intell?igence|intell?igent)\b/
+/\b((is|are|can be|acts?|thinks?)\s*(intelligent|intell?igence))\b/
+/\b(is|are)\s((?!not\b)\b\w+\s?){0,3}\s?intell?igen/

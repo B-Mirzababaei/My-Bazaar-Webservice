@@ -1,0 +1,18 @@
+MONKEY-AR	Monkeys can act rationally	Their actions are rational and reasonable
+MONKEY-TR	Monkeys can think rationally
+MONKEY-AD	Monkeys can learn and adapt but not like a human
+MONKEY-OPPOSITE_CLAIM	they act and think reasonably or they can learn somehow
+AN_OFFICE_CHAIR-DESCRIPTION	Office chairs are inanimate entity, so they could not be intelligent.
+AN_OFFICE_CHAIR-OPPOSITE_CLAIM	How an inanimate object could be intelligent? Could you tell me based on which definitions you think it is intelligent?
+THE_NEW_YORK_STATUE_OF_LIBERTY-DESCRIPTION	The statue is inanimate entity, so, they could not be intelligent.
+THE_NEW_YORK_STATUE_OF_LIBERTY-OPPOSITE_CLAIM	How an inanimate object could be intelligent? Could you tell me based on which definitions you think it is intelligent?
+A_SELF_DRIVING_CAR-AR	Self-driving cars can act rationally.
+A_SELF_DRIVING_CAR-TR	Self-driving cars can think rationally.
+A_SELF_DRIVING_CAR-AD	Self-driving cars can learn and adapt but not like a human.
+A_SELF_DRIVING_CAR-OPPOSITE_CLAIM	To me, they can act reasonably or rationally. They do what we do as a driver. What do you think?
+GOOGLE_SEARCH_ENGINE-AR	it always retrieves the most relevant webpages based on users' query. I think we can say that in digital enviroment the search engine can act rationally.
+GOOGLE_SEARCH_ENGINE-AD	the results of our queries will be modified through the time. In other word, the results will be changed based on our previous queries.|So, I think it can to adapt its behaviour to achieve goals and better results. The changing behaviour is one of the definitions of being intelligence
+SNAKE-AR	Snakes can act rationally.
+SNAKE-OPPOSITE_CLAIM	Based on which definition you think snakes are intelligent?
+SUNFLOWER-OPPOSITE_CLAIM	Based on which definition you think they are intelligent?
+VENUS_FLYTRAP-OPPOSITE_CLAIM	Are you sure?|||I think they do not act or think humanly or rationally. All Venus flytraps do are based on their instinct.|||Based on which definition do you think they are intelligent?

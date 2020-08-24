@@ -1,1 +1,0 @@
-/(think(s)?|thought|interpret).*?\s(humanly|human(s)?|person|people|student(s)?|m(a|e)n|wom(a|e)n|child(ren)?|us)/

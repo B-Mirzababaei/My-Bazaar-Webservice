@@ -17,6 +17,7 @@
             <h1>Welcome</h1>
             
                 <input type="text" id="textbox" placeholder="Please enter a name" required=""/>
+                <!-- <input type="text" id="textbox" placeholder="Please enter a name TEMP" required=""/> -->
                 <input type="button" id="myButton" value="Enter" />
             </form><!-- form -->
         
@@ -35,6 +36,8 @@
     const urlParams = new URLSearchParams(queryString);
 
     const sender =  'chatbot_landing_page';//path.split("/").pop();
+    // const sender =  'chatbot_landing_page_temp';//path.split("/").pop();
+
 
     if (urlParams.has('prefix')){
         var tmp = '_' + urlParams.get('prefix');
@@ -51,7 +54,9 @@
         var tmp = '';
     }
     const suffix_room = tmp;
-    const manner_or_roomtype = 'CHATBOT'; 
+    const manner_or_roomtype = 'CHATBOT';
+    // const manner_or_roomtype = 'CHATBOT_TEMP'; 
+ 
 
 // function makeid(length) {
 //    var result           = '';

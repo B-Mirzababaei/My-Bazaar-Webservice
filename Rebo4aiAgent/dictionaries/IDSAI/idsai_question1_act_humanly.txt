@@ -1,3 +1,0 @@
-/\b(act(s|ing)?|do(ing)?|does).*?\s(humanly|human(s)?|person|people|student(s)?|m(a|e)n|wom(a|e)n|child(ren)?|us)\b/
-is human
-are human

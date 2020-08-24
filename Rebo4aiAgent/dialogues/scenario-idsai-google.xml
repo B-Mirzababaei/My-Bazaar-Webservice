@@ -1,0 +1,797 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scenario SYSTEM "TuTalkScenario.dtd">
+<scenario default-language="en" scenario-name="scenario-idsai-google">
+	<configuration>
+		
+		
+		<!-- It *is* possible to hook up a LightSide classifier to TuTalk, 
+		such that the predicted labels are treated as concepts. 
+		but not today. -->
+			
+		<!-- 	
+		<module kind="model" name="animals"
+			classname="edu.cmu.cs.lti.tutalk.module.SidePredictor">
+			<param key="path" value="models/animals.ser" />
+		</module> 
+		-->
+
+	</configuration>
+
+	<!-- I'm not entirely sure what these are used for. -->
+	<transitions>
+		<transition ack-type="agree" floor-status="neutral">
+			<tphrase> yes </tphrase>
+			<tphrase> okay </tphrase>
+		</transition>
+	
+		<transition ack-type="none">
+			<tphrase> moving on... </tphrase>
+		</transition>
+	</transitions>
+	
+	<!-- 'Concepts' define things that students might say,
+	     AND things that the tutor might say back. 
+	     Tutor concepts should take the form of phrase lists.
+		 Student concepts can be phrase lists, 
+		 regular expressions, or lists of annotations,
+	     but only one of these at a time. -->
+		
+	<concepts>
+	
+		<concept label="introduction">
+			<phrase>In the TUGraz lecture "IDSAI_COURSE_TITLE", different definitions of intelligence have been discussed. According to different definitions, something or someone would be called intelligent if it IDSAI_TH, IDSAI_AH, IDSAI_TR, IDSAI_AR; or if it is IDSAI_AB to a changing environment in order to achieve its goals. | I have this information from IDSAI_COURSE_SLIDES. But, I'm not sure I completely understand.</phrase>
+			
+		</concept>
+		<!-- ================================= Question 1 ================================= -->
+		<concept label="question1">
+			<phrase>I'm curious: Is Google search engine now intelligent or not? Why?</phrase>
+		</concept>
+		
+		<concept label="question1_dont_know__exp">
+			<phrase>"question1_dont_know__exp"|Just think about five different concepts of an intelligent entity which are act rationally, think humanly, act humanly, think rationally, and learning from experiences then use these concepts for reasoning. |Based on these concepts, do you think Google search engine is intelligent or not? Why?</phrase>
+		</concept>
+		
+		<concept label="question1_is_intelligent__with_warrant__with_evidence__exp">
+			<phrase>"question1_is_intelligent__with_warrant__with_evidence__exp"|Great! I think we already learn how to argue why an entity is intelligent or not.|The point is, when we want to argue why an entity is intelligent or not, our argument should have 3 main elements, a IDSAI_CLAIM_BOLD, a IDSAI_WARRANT_BOLD, and some IDSAI_EVIDENCE_BOLD. By using these three, we could have a meaningful argument.</phrase>
+		</concept>
+		<concept label="question1_is_intelligent__with_warrant__without_evidence__exp">
+			<phrase>"question1_is_intelligent__with_warrant__without_evidence__exp"|I like your response but I do not understand based on which evidence or observations you replied.|Could you explain why you select these definitions as your warrant?</phrase>
+		</concept>
+		<concept label="question1_is_intelligent__with_warrant__without_evidence__second_try__exp">
+			<phrase>"question1_is_intelligent__with_warrant__without_evidence__second_try__exp"|I have no idea why you think your warrant(s) is valid.|Each warrant needs to be elaborated in order to be accepted as a good one.</phrase>
+		</concept>
+		
+		<concept label="question1_is_intelligent__with_warrant__without_evidence__end_of_dialog__exp">
+			<phrase>"question1_is_intelligent__with_warrant__without_evidence__end_of_dialog__exp"|Unfotunately, I could not undersatand your evidence or observation for the warrant(s) you used.|Anyways, the point is, when we want to argue why an entity is intelligent or not, our argument should have 3 main elements, a IDSAI_CLAIM_BOLD, a IDSAI_WARRANT_BOLD, and some IDSAI_EVIDENCE_BOLD. By using these three, we could have a meaningful argument.</phrase>
+		</concept>
+
+		<concept label="question1_is_intelligent__without_warrant__exp">
+			<phrase>"question1_is_intelligent__without_warrant__exp"|I feel it should be intelligent too.| But according to the lecture, we need to use at least one of the definitions to prove that the entity is intelligent or not. So, based on which one of the definitions it could be intelligent?</phrase>
+		</concept>
+		<concept label="question1_is_intelligent__without_warrant__second_try__exp">
+			<phrase>"question1_is_intelligent__without_warrant__second_try__exp"|Mmmm, I could not find an evidence or a reason (the definitions) which was related to your claim.|Could you name the definitions and argue based on them?</phrase>
+		</concept>
+		<concept label="question1_is_intelligent__without_warrant__third_try__exp">
+			<phrase>"question1_is_intelligent__without_warrant__third_try__exp"|We need to prove our claim based on the definitions.|Anyway, I think it could be intelligent, because GOOGLE_SEARCH_ENGINE-AD</phrase>
+		</concept>
+		<concept label="question1_is_intelligent__without_warrant__without_evidence__end_of_dialog__exp">
+			<phrase>"question1_is_intelligent__without_warrant__without_evidence__end_of_dialog__exp"|Unfotunately, I could not undersatand based on which definitions you said the entity is intelligent. Beside warrants, I also need evidence about the warrants.|Anyways, the point is, when we want to argue why an entity is intelligent or not, our argument should have 3 main elements, a IDSAI_CLAIM_BOLD, a IDSAI_WARRANT_BOLD, and some IDSAI_EVIDENCE_BOLD. By using these three, we could have a meaningful argument.</phrase>
+		</concept>
+
+		<concept label="question1_is_not_intelligent__with_warrant__with_evidence__exp">
+			<phrase>"question1_is_not_intelligent__with_warrant__with_evidence__exp"|So that's why you think it is not intelligent. But, in my view, it could be intelligent, because GOOGLE_SEARCH_ENGINE-AD|Do you agree with me?</phrase>
+		</concept>
+		<concept label="question1_is_not_intelligent__with_warrant__without_evidence__exp">
+			<phrase>"question1_is_not_intelligent__with_warrant__without_evidence__exp"|So that's why you think it is not intelligent.|I do not understand based on which evidence or observations you choosed these warrants.|Could you explain your warrant(s) by using some evidence or observations?</phrase>
+		</concept>
+		<concept label="question1_is_not_intelligent__without_warrant__exp">
+			<phrase>"question1_is_not_intelligent__without_warrant__exp"|So you think it is not intelligent.|I could not understand that why Google search engine is not intelligent. Could you use at least one of the definitions to prove your claim?</phrase>
+		</concept>
+		<concept label="question1_is_not_intelligent__without_warrant__second_try__exp">
+			<phrase>"question1_is_not_intelligent__without_warrant__second_try__exp"|Mmmm, I could not fine an evidence or a reason (the definitions) which was related to your claim.|Could you argue based on the definitions?</phrase>
+		</concept>
+		<concept label="question1_is_not_intelligent__without_warrant__third_try__exp">
+			<phrase>"question1_is_not_intelligent__without_warrant__third_try__exp"|We need to prove our claim based on the definitions. Anyway, I think it could be intelligent, because GOOGLE_SEARCH_ENGINE-AD</phrase>
+		</concept>
+
+
+		<concept label="question1_unknown_claim__exp">
+			<phrase>"question1_unknown_claim__exp"|Mmmm, I don't get your opinion about it. Could you tell me clearly whether it is intelligent or not? And why?</phrase>
+		</concept>
+		<concept label="question1_unknown_claim__second_try__exp">
+			<phrase>"question1_unknown_claim__second_try__exp"|Unfortunately, I cannot understand what you just said. Please answer my question like this "The entity is (not) intelligent because …"</phrase>
+		</concept>
+		<concept label="question1_unknown_claim__third_try__exp">
+			<phrase>"question1_unknown_claim__third_try__exp"|It is strange that I cannot get your claim and reasons. I think we should talk later.</phrase>
+		</concept>
+
+		<concept label="question1_end_of_dialog_agreement_AD__exp">
+			<phrase>"question1_end_of_dialog_agreement_AD__exp"|Great! It was an interesting conversation.|Now both of us know that the Google search engine is intelligent because it can learn through the history of queries and this behaviour is match with one of the definitions.</phrase>
+		</concept>
+		<concept label="question1_end_of_dialog_agreement_AR__exp">
+			<phrase>"question1_end_of_dialog_agreement_AR__exp"|Perfect!Finally we conclude an agreement!|To sum up, we find out that we can call the Google search engine is intelligent because the results of our queries are relevance to the keywords we wrote. This behaviour could be considered as acting rationally which is one of the definitions of being intelligent.|It was an interesting conversation.</phrase>
+		</concept>
+		<concept label="question1_end_of_dialog__second_try__exp">
+			<phrase>"question1_end_of_dialog__second_try__exp"|Let me think more...|What about this one, we could say that it could be intelligent, because GOOGLE_SEARCH_ENGINE-AR|Do you agree with me?</phrase>
+		</concept>
+		<concept label="question1_end_of_dialog_disagreement__exp">
+			<phrase>"question1_end_of_dialog_disagreement__exp"|Uhum, I have nothing to say anymore.|It was an interesting conversation, however, we could not reach a consensus on this entity.|I need to review the lecture again ;)</phrase>
+		</concept>
+		<concept label="question1_end_of_dialog_agreement_AD__second_try__exp">
+			<phrase>"question1_end_of_dialog_agreement_AD__second_try__exp"|I do not understand whether you agree or not.|Could you tell me clearly? ("I agree or disagree.")</phrase>
+		</concept>
+		<concept label="question1_end_of_dialog_agreement_AR__second_try__exp">
+			<phrase>"question1_end_of_dialog_agreement_AR__second_try__exp"|I do not understand whether you agree or not.|Could you tell me clearly? ("I agree or disagree.")</phrase>
+		</concept>
+
+
+		<concept label="end_conversation__exp">
+			<phrase>"end_conversation__exp"|I think we need to review the slides again then talk.|The slides are IDSAI_COURSE_SLIDES.</phrase>
+		</concept>
+		
+		<!-- ================================= Question 2 ================================= -->
+		<concept label="question2">
+			<phrase>Are you personally satisfied with this decision and definition?</phrase>
+		</concept>
+		<concept label="question2_detect__exp">
+			<phrase>it has a WARRANT!!!</phrase>
+		</concept>
+		<concept label="question2_notdetect__exp">
+			<phrase>it has not a WARRANT!!!</phrase>
+		</concept>
+		<concept label="question2_unkdetect__exp">
+			<phrase>it is UNK WARRANT!!!</phrase>
+		</concept>
+		<concept label="question2_satisfied_yes__exp">
+			<phrase>Good to hear that!</phrase>
+		</concept>
+		
+		<concept label="question2_satisfied_no__exp">
+			<phrase>What would you change in the definition?</phrase>
+		</concept>		
+		<concept label="question2_change_answer__exp">
+			<phrase>What is your final answer? | Is Google search engine now intelligent or not? Why?</phrase>
+		</concept>
+		<concept label="question3">
+			<phrase>How interesting is it for you to know whether Google search engine is intelligent or not?</phrase>
+		</concept>	
+		
+		<concept label="question4">
+			<phrase> would change in your life depending on whether you see Google search engine as intelligent or not?</phrase>
+		</concept>	
+		
+		<concept label="closing">
+			<phrase>Interesting! Thanks!</phrase>
+		</concept>
+		<concept label="give_link">
+			<phrase>Please click IDSAI_ASSIGNMENT_1_LANDING_PAGE if you want to talk with me about another random entity.</phrase>
+		</concept>
+		<concept label="goodbye">
+			<phrase>See you next time :)</phrase>
+			<phrase>Have a nice day and see you soon!</phrase>
+			<phrase>And bye :-)</phrase>
+			<phrase>Until the days!</phrase>
+			<phrase>Thank you and see you next time;)</phrase>
+			<phrase>Have a nice day :)</phrase>
+			<phrase>See you soon!</phrase>
+			<phrase>See you next time!</phrase>
+		</concept>
+		
+		<concept label="temp">
+			<phrase>this is temp 1</phrase>
+			<phrase>this is temp 2</phrase>
+		</concept>
+
+
+		<concept label="question1_act_humanly__exp">
+			<phrase>question1_act_humanly__exp from python</phrase>
+		</concept>
+		
+		<!-- these match against external (MessageAnnotator) annotations. -->
+		<!-- ================================= Asking question 1 ================================= -->
+		<concept label="question1_asking_question__annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_ASKING_QUESTION</phrase>
+		</concept>
+		<!-- ================================= Question 1 ================================= -->
+
+		<concept label="question1_dont_know__annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_DONT_KNOW</phrase>
+		</concept>
+		<!-- <concept label="question1_concepts__annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_CONCEPTS</phrase>
+		</concept>
+		<concept label="question1_without_reason__annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_WITHOUT_REASON</phrase>
+		</concept>
+		<concept label="question1_act_reasonably__annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_ACT_REASONABLY</phrase>
+		</concept>
+		<concept label="question1_think_reasonably__annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_THINK_REASONABLY</phrase>
+		</concept>
+		<concept label="question1_act_humanly__annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_ACT_HUMANLY</phrase>
+		</concept>
+		<concept label="question1_think_humanly__annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_THINK_HUMANLY</phrase>
+		</concept>
+		<concept label="question1_adaption__annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_ADAPTION</phrase>
+		</concept> -->
+
+		<concept label="question1_is_intelligent__annotation" type="annotation">
+			<phrase>CLAIM_POS</phrase>
+			<phrase>IDSAI_QUESTION1_IS_INTELLIGENT</phrase>
+		</concept>
+		<concept label="question1_is_not_intelligent__annotation" type="annotation">
+			<phrase>CLAIM_NEG</phrase>
+			<phrase>IDSAI_QUESTION1_IS_NOT_INTELLIGENT</phrase>
+		</concept>
+		<concept label="question1_unknown_claim__annotation" type="annotation">
+			<phrase>CLAIM_NONE</phrase>
+		</concept>
+
+		<concept label="question1_has_warrant__annotation" type="annotation">
+			<phrase>WARRANT_WITH</phrase>
+			<phrase>IDSAI_QUESTION1_WITH_WARRANT</phrase>
+		</concept>
+		<concept label="question1_does_not_have_warrant__annotation" type="annotation">
+			<phrase>WARRANT_WITHOUT</phrase>
+			<phrase>WARRANT_NONE</phrase>
+		</concept>
+
+		<concept label="question1_with_evidence__annotation" type="annotation">
+			<phrase>WITH_EVIDENCE</phrase>
+		</concept>
+		<concept label="question1_without_evidence__annotation" type="annotation">
+			<phrase>WITHOUT_EVIDENCE</phrase>
+		</concept>
+
+		<concept label="question1_is_intelligent__with_warrant__with_evidence__annotation" type="annotation">
+			<phrase>POS_CLAIM__WITH_WARRANT__WITH_EVIDENCE</phrase>
+		</concept>
+		<concept label="question1_is_intelligent__with_warrant__without_evidence__annotation" type="annotation">
+			<phrase>POS_CLAIM__WITH_WARRANT__WITHOUT_EVIDENCE</phrase>
+		</concept>
+		
+		<!-- <concept label="question1_is_intelligent__without_warrant__with_evidence__annotation" type="annotation">
+			<phrase>POS_CLAIM__WITHOUT_WARRANT__WITH_EVIDENCE</phrase>
+		</concept>
+		<concept label="question1_is_intelligent__without_warrant__without_evidence__annotation" type="annotation">
+			<phrase>POS_CLAIM__WITHOUT_WARRANT__WITHOUT_EVIDENCE</phrase>
+		</concept> -->
+		<concept label="question1_is_intelligent__without_warrant__annotation" type="annotation">
+			<phrase>POS_CLAIM__WITHOUT_WARRANT</phrase>
+		</concept>
+		
+		<!-- <concept label="question1_is_not_intelligent__with_warrant__with_evidence__annotation" type="annotation">
+			<phrase>NEG_CLAIM__WITH_WARRANT__WITH_EVIDENCE</phrase>
+		</concept>
+		<concept label="question1_is_not_intelligent__with_warrant__without_evidence__annotation" type="annotation">
+			<phrase>NEG_CLAIM__WITH_WARRANT__WITHOUT_EVIDENCE</phrase>
+		</concept>
+		
+		<concept label="question1_is_not_intelligent__without_warrant__with_evidence__annotation" type="annotation">
+			<phrase>NEG_CLAIM__WITHOUT_WARRANT__WITH_EVIDENCE</phrase>
+		</concept>
+		<concept label="question1_is_not_intelligent__without_warrant__without_evidence__annotation" type="annotation">
+			<phrase>NEG_CLAIM__WITHOUT_WARRANT__WITHOUT_EVIDENCE</phrase>
+		</concept>
+		 -->
+		<concept label="question1_is_not_intelligent__with_warrant__with_evidence__annotation" type="annotation">
+			<phrase>NEG_CLAIM__WITH_WARRANT__WITH_EVIDENCE</phrase>
+		</concept>
+		<concept label="question1_is_not_intelligent__with_warrant__without_evidence__annotation" type="annotation">
+			<phrase>NEG_CLAIM__WITH_WARRANT__WITHOUT_EVIDENCE</phrase>
+		</concept>
+		<concept label="question1_is_not_intelligent__without_warrant__annotation" type="annotation">
+			<phrase>NEG_CLAIM__WITHOUT_WARRANT</phrase>
+		</concept>
+
+		<concept label="question1_agreement__annotation" type="annotation">
+			<phrase>AGREEMENT</phrase>
+			<phrase>IDSAI_QUESTION1_IS_INTELLIGENT</phrase>
+
+		</concept>
+		<concept label="question1_disagreement__annotation" type="annotation">
+			<phrase>DISAGREEMENT</phrase>
+			<phrase>IDSAI_QUESTION1_IS_NOT_INTELLIGENT</phrase>
+		</concept>
+		
+		
+		<concept label="question1_act_humanly__annotation" type="annotation">
+			<phrase>ACT_HUMANLY</phrase>
+		</concept>
+
+		<!-- ================================= Question 2 ================================= -->
+
+		<!--  <concept label="question1_act_reasonably_no__annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_ACT_REASONABLY_NO</phrase>
+		</concept>
+		<concept label="question1_act_reasonably_yes__annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_ACT_REASONABLY_YES</phrase>
+		</concept>
+		<concept label="question1_think_reasonably_no__annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_THINK_REASONABLY_NO</phrase>
+		</concept>
+		<concept label="question1_think_reasonably_yes__annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_THINK_REASONABLY_YES</phrase>
+		</concept>
+		<concept label="question1_act_humanly_no__annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_ACT_HUMANLY_NO</phrase>
+		</concept>
+		<concept label="question1_act_humanly_yes__annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_ACT_HUMANLY_YES</phrase>
+		</concept>
+		<concept label="question1_think_humanly_no__annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_THINK_HUMANLY_NO</phrase>
+		</concept>
+		<concept label="question1_think_humanly_yes__annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_THINK_HUMANLY_YES</phrase>
+		</concept>
+		<concept label="question1_adaption_yes__annotation" type="annotation">
+			<phrase>IDSAI_QUESTION1_ADAPTION_YES</phrase>
+		</concept> -->
+		
+		
+		<concept label="no__annotation" type="annotation">
+			<phrase>NO</phrase>
+		</concept>
+		
+		<!-- Behzad: This capital name (OPTIMISTIC) refers to the name of file (dictionary) in which a list of phrases were typed. These phrases will use to classify a response whether it is "optimistic" or not. -->
+		
+		<concept label="unanticipated-response">
+			<phrase>anything else</phrase>
+		</concept>
+		
+	</concepts>
+
+	
+	<!-- This is the meat of the hierarchical dialogue - 
+		 one main goal with multiple steps, and subgoals that it may reference. -->
+	<script>
+		<goal name="start" difficulty="1" >
+			<step>
+				<initiation>introduction</initiation>
+			</step>
+					<!-- ================================= Question 1 ================================= -->
+
+			<step >
+				<initiation>question1</initiation>
+				<!-- <response push="question1_wrong_claim">question1_wrong_claim__annotation</response>
+				<response push="question1_correct_claim">question1_correct_claim__annotation</response> -->
+				
+				<response say="question1_act_humanly__exp">question1_act_humanly__annotation</response>
+				<!-- <response push="question1_is_intelligent__with_warrant__with_evidence">question1_is_intelligent__with_warrant__with_evidence__annotation</response>
+				<response push="question1_is_intelligent__with_warrant__without_evidence">question1_is_intelligent__with_warrant__without_evidence__annotation</response>
+
+				<response push="question1_is_intelligent__without_warrant">question1_is_intelligent__without_warrant__annotation</response>
+
+				<response push="question1_is_not_intelligent__with_warrant__with_evidence">question1_is_not_intelligent__with_warrant__with_evidence__annotation</response>
+				<response push="question1_is_not_intelligent__with_warrant__without_evidence">question1_is_not_intelligent__with_warrant__without_evidence__annotation</response>
+
+				<response push="question1_is_not_intelligent__without_warrant">question1_is_not_intelligent__without_warrant__annotation</response>
+
+				<response push="question1_unknown_claim">question1_unknown_claim__annotation</response>
+				<response push="question1_dont_know">question1_dont_know__annotation</response> -->
+
+
+
+
+			<!-- <response push="question1_without_reason">question1_without_reason__annotation</response>
+				<response push="question1_dont_know">question1_dont_know__annotation</response>
+				<response push="question1_act_reasonably">question1_act_reasonably__annotation</response>				
+				<response push="question1_act_humanly">question1_act_humanly__annotation</response>
+				<response push="question1_think_reasonably">question1_think_reasonably__annotation</response>
+				<response push="question1_think_humanly">question1_think_humanly__annotation</response>
+				<response push="question1_adaption">question1_adaption__annotation</response> -->
+			
+				<!-- 
+				
+				<response push="question1_act_reasonably_no">question1_act_reasonably_no__annotation</response>
+				<response push="question1_act_reasonably_yes">question1_act_reasonably_yes__annotation</response>
+				<response push="question1_act_humanly_no">question1_act_humanly_no__annotation</response>
+				<response push="question1_act_humanly_yes">question1_act_humanly_yes__annotation</response>
+				<response push="question1_think_reasonably_no">question1_think_reasonably_no__annotation</response>
+				<response push="question1_think_reasonably_yes">question1_think_reasonably_yes__annotation</response>
+				<response push="question1_think_humanly_no">question1_think_humanly_no__annotation</response>
+				<response push="question1_think_humanly_yes">question1_think_humanly_yes__annotation</response>
+				<response push="question1_adaption_no">question1_adaption_no__annotation</response>
+				<response push="question1_adaption_yes">question1_adaption_yes__annotation</response>
+ 				-->
+			</step>
+			<!-- ================================= Question 2 ================================= -->
+
+			<!-- <step >
+				<initiation>question2</initiation>
+				<response push="question2_detect">question2_detect__annotation</response>
+				<response push="question2_notdetect">question2_notdetect__annotation</response>
+				<response push="question2_unkdetect">question2_unkdetect__annotation</response>
+				
+				
+				<response>unanticipated-response</response>
+				
+			</step> -->
+			<!-- <step>
+				<initiation>question3</initiation>
+				<response>unanticipated-response</response>
+			</step> -->
+			<!-- <step>
+				<initiation>question4</initiation>
+				<response>unanticipated-response</response>
+			</step> -->
+			<!-- <step>
+				<initiation>review_AI_essential_course</initiation>
+			</step> -->
+			<!-- Behzad -
+					Bot says what is written in "say" then go to this phase "elicitate1" 
+				<response push="elicitate1" say="response1_2">unanticipated-response</response> 
+				
+				We can use regex in phrases. It this pattern matches with a response, it is considered as label of "answer2"
+				<concept label="answer2" type="regex">
+					<phrase>pointer|arrow</phrase>
+				</concept>
+			-->
+			
+			<!-- <step>
+				<initiation>emotions</initiation>
+				<response push="emotions_positive">pos__annotation</response>
+				<response push="emotions_negative">neg__annotation</response>
+				<response push="emotions_unknown">unanticipated-response</response>
+				<response>unanticipated-response</response>
+			</step> -->
+			
+			
+			<!-- <step>
+				<initiation>closing</initiation>
+			</step> -->
+			<step>
+				<initiation>give_link</initiation>
+			</step>
+			<step>
+				<initiation>goodbye</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+
+		<!-- Behzad: Goals are referenced by their names. "difficulty" is meaningless for now. -->
+		<!-- =======================================question1_is_intelligent__with_warrant__with_evidence============================-->
+		<goal name="question1_is_intelligent__with_warrant__with_evidence" difficulty="1">
+			<step>
+				<initiation>question1_is_intelligent__with_warrant__with_evidence__exp</initiation>
+				<!-- <response push="question1_is_intelligent_without_warrant">question1_without_reason</response>
+				<response push="question1_is_intelligent_with_warrant">question1_without_reason__annotation</response>
+				
+				<response>unanticipated-response</response>-->
+			</step>
+		</goal>
+		<!-- =======================================question1_is_intelligent__with_warrant__without_evidence============================-->
+		<goal name="question1_is_intelligent__with_warrant__without_evidence" difficulty="1">
+			<step>
+				<initiation>question1_is_intelligent__with_warrant__without_evidence__exp</initiation>
+				<response push="question1_is_intelligent__with_warrant__with_evidence">question1_with_evidence__annotation</response>
+				<response push="question1_is_intelligent__with_warrant__without_evidence__second_try">unanticipated-response</response>				
+			</step>
+		</goal>
+		<goal name="question1_is_intelligent__with_warrant__without_evidence__second_try" difficulty="1">
+			<step>
+				<initiation>question1_is_intelligent__with_warrant__without_evidence__second_try__exp</initiation>
+				<response push="question1_is_intelligent__with_warrant__with_evidence">question1_with_evidence__annotation</response>
+				<response push="question1_is_intelligent__with_warrant__without_evidence__end_of_dialog">unanticipated-response</response>				
+			</step>
+		</goal>
+		<goal name="question1_is_intelligent__with_warrant__without_evidence__end_of_dialog" difficulty="1">
+			<step>
+				<initiation>question1_is_intelligent__with_warrant__without_evidence__end_of_dialog__exp</initiation>
+			</step>
+		</goal>
+
+		<!-- =======================================question1_is_intelligent__without_warrant============================-->
+		<goal name="question1_is_intelligent__without_warrant" difficulty="1">
+			<step>
+				<initiation>question1_is_intelligent__without_warrant__exp</initiation>
+				<response push="question1_is_intelligent__with_warrant__without_evidence">question1_has_warrant__annotation</response>	
+				<response push="question1_is_intelligent__without_warrant__second_try">unanticipated-response</response>	
+			</step>
+		</goal>
+		<goal name="question1_is_intelligent__without_warrant__second_try" difficulty="1">
+			<step>
+				<initiation>question1_is_intelligent__without_warrant__second_try__exp</initiation>
+				<response push="question1_is_intelligent__with_warrant__without_evidence">question1_has_warrant__annotation</response>	
+				<response push="question1_is_intelligent__without_warrant__without_evidence__end_of_dialog">unanticipated-response</response>	
+			</step>
+		</goal>
+		<goal name="question1_is_intelligent__without_warrant__without_evidence__end_of_dialog" difficulty="1">
+			<step>
+				<initiation>question1_is_intelligent__without_warrant__without_evidence__end_of_dialog__exp</initiation>
+			</step>
+		</goal>
+
+		<!-- =======================================question1_is_not_intelligent__with_warrant__with_evidence============================-->
+		<goal name="question1_is_not_intelligent__with_warrant__with_evidence" difficulty="1">
+			<step>
+				<initiation>question1_is_not_intelligent__with_warrant__with_evidence__exp</initiation>
+				<response push="question1_end_of_dialog_agreement_AD">question1_agreement__annotation</response>	
+				<response push="question1_end_of_dialog__second_try">question1_disagreement__annotation</response>
+				<response push="question1_end_of_dialog_agreement_AD__second_try">unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_end_of_dialog_agreement_AD" difficulty="1">
+			<step>
+				<initiation>question1_end_of_dialog_agreement_AD__exp</initiation>
+			</step>
+		</goal>
+		<goal name="question1_end_of_dialog__second_try" difficulty="1">
+			<step>
+				<initiation>question1_end_of_dialog__second_try__exp</initiation>
+				<response push="question1_end_of_dialog_agreement_AR">question1_agreement__annotation</response>
+				<response push="question1_end_of_dialog_disagreement">question1_disagreement__annotation</response>
+				<response push="question1_end_of_dialog_agreement_AR__second_try">unanticipated-response</response>
+
+			</step>
+		</goal>
+		<goal name="question1_end_of_dialog_agreement_AD__second_try" difficulty="1">
+			<step>
+				<initiation>question1_end_of_dialog_agreement_AD__second_try__exp</initiation>
+				<response push="question1_end_of_dialog_agreement_AD">question1_agreement__annotation</response>	
+				<response push="question1_end_of_dialog__second_try">question1_disagreement__annotation</response>
+				<response push="question1_end_of_dialog_disagreement">unanticipated-response</response>
+
+			</step>
+		</goal>
+		<goal name="question1_end_of_dialog_agreement_AR__second_try" difficulty="1">
+			<step>
+				<initiation>question1_end_of_dialog_agreement_AR__second_try__exp</initiation>
+				<response push="question1_end_of_dialog_agreement_AR">question1_agreement__annotation</response>	
+				<response push="question1_end_of_dialog_disagreement">unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_end_of_dialog_agreement_AR" difficulty="1">
+			<step>
+				<initiation>question1_end_of_dialog_agreement_AR__exp</initiation>
+			</step>
+		</goal>
+		<goal name="question1_end_of_dialog_disagreement" difficulty="1">
+			<step>
+				<initiation>question1_end_of_dialog_disagreement__exp</initiation>
+			</step>
+		</goal>
+		<!-- =======================================question1_is_not_intelligent__with_warrant__without_evidence============================-->
+		<goal name="question1_is_not_intelligent__with_warrant__without_evidence" difficulty="1">
+			<step>
+				<initiation>question1_is_not_intelligent__with_warrant__without_evidence__exp</initiation>
+				<response push="question1_is_not_intelligent__with_warrant__with_evidence">unanticipated-response</response>
+			</step>
+		</goal>
+
+		<!-- =======================================question1_is_not_intelligent__without_warrant============================-->
+		<goal name="question1_is_not_intelligent__without_warrant" difficulty="1">
+			<step>
+				<initiation>question1_is_not_intelligent__without_warrant__exp</initiation>
+				<response push="question1_is_not_intelligent__with_warrant__without_evidence">question1_has_warrant__annotation</response>	
+				<response push="question1_is_not_intelligent__without_warrant__second_try">unanticipated-response</response>	
+			</step>
+		</goal>
+		<!-- PROBLEM  -->
+		<goal name="question1_is_not_intelligent__without_warrant__second_try" difficulty="1"> 
+			<step>
+				<initiation>question1_is_not_intelligent__without_warrant__second_try__exp</initiation>
+				<response push="question1_is_not_intelligent__with_warrant__without_evidence">question1_has_warrant__annotation</response>	
+				<response push="question1_is_not_intelligent__with_warrant__with_evidence">unanticipated-response</response>	
+			</step>
+		</goal>
+		<!-- =======================================question1_unknown_claim============================-->
+
+		<goal name="question1_unknown_claim" difficulty="1">
+			<step>
+				<initiation>question1_unknown_claim__exp</initiation>
+				<response push="question1_unknown_claim__second_try">question1_unknown_claim__annotation</response>	
+				<response push="question1_is_intelligent__with_warrant__with_evidence">question1_is_intelligent__with_warrant__with_evidence__annotation</response>
+				<response push="question1_is_intelligent__with_warrant__without_evidence">question1_is_intelligent__with_warrant__without_evidence__annotation</response>
+				<response push="question1_is_intelligent__without_warrant">question1_is_intelligent__without_warrant__annotation</response>
+
+				<response push="question1_is_not_intelligent__with_warrant__with_evidence">question1_is_not_intelligent__with_warrant__with_evidence__annotation</response>
+				<response push="question1_is_not_intelligent__with_warrant__without_evidence">question1_is_not_intelligent__with_warrant__without_evidence__annotation</response>
+				<response push="question1_is_not_intelligent__without_warrant">question1_is_not_intelligent__without_warrant__annotation</response>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_unknown_claim__second_try" difficulty="1">
+			<step>
+				<initiation>question1_unknown_claim__second_try__exp</initiation>
+				<response push="question1_unknown_claim__third_try">question1_unknown_claim__annotation</response>	
+				<response push="question1_is_intelligent__with_warrant__with_evidence">question1_is_intelligent__with_warrant__with_evidence__annotation</response>
+				<response push="question1_is_intelligent__with_warrant__without_evidence">question1_is_intelligent__with_warrant__without_evidence__annotation</response>
+				<response push="question1_is_intelligent__without_warrant">question1_is_intelligent__without_warrant__annotation</response>
+
+				<response push="question1_is_not_intelligent__with_warrant__with_evidence">question1_is_not_intelligent__with_warrant__with_evidence__annotation</response>
+				<response push="question1_is_not_intelligent__with_warrant__without_evidence">question1_is_not_intelligent__with_warrant__without_evidence__annotation</response>
+				<response push="question1_is_not_intelligent__without_warrant">question1_is_not_intelligent__without_warrant__annotation</response>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_unknown_claim__third_try" difficulty="1">
+			<step>
+				<initiation>question1_unknown_claim__third_try__exp</initiation>
+			</step>
+		</goal>
+		<!-- =======================================question1_unknown_claim============================-->
+
+		<goal name="question1_dont_know" difficulty="1">
+			<step>
+				<initiation>question1_dont_know__exp</initiation>
+				<response push="end_conversation">question1_dont_know__annotation</response>
+				<response push="question1_is_intelligent__with_warrant__with_evidence">question1_is_intelligent__with_warrant__with_evidence__annotation</response>
+				<response push="question1_is_intelligent__with_warrant__without_evidence">question1_is_intelligent__with_warrant__without_evidence__annotation</response>
+				<response push="question1_is_intelligent__without_warrant">question1_is_intelligent__without_warrant__annotation</response>
+				<!-- <response push="question1_is_intelligent__without_warrant__without_evidence">question1_is_intelligent__without_warrant__without_evidence__annotation</response> -->
+				<response push="question1_is_not_intelligent__with_warrant__with_evidence">question1_is_not_intelligent__with_warrant__with_evidence__annotation</response>
+				<response push="question1_is_not_intelligent__with_warrant__without_evidence">question1_is_not_intelligent__with_warrant__without_evidence__annotation</response>
+				<response push="question1_is_not_intelligent__without_warrant">question1_is_not_intelligent__without_warrant__annotation</response>
+				<response push="question1_unknown_claim">question1_unknown_claim__annotation</response>
+			</step>
+		</goal>
+		<goal name="end_conversation" difficulty="1">
+			<step>
+				<initiation>end_conversation__exp</initiation>
+			</step>
+		</goal>
+		<!-- =======================================question1_useless============================-->
+
+		<!-- <goal name="question1_without_reason" difficulty="1">
+			<step>
+				<initiation>question1_without_reason__exp</initiation>
+				<response push="question1_act_reasonably">question1_act_reasonably__annotation</response>				
+				<response push="question1_act_humanly">question1_act_humanly__annotation</response>
+				<response push="question1_think_reasonably">question1_think_reasonably__annotation</response>
+				<response push="question1_think_humanly">question1_think_humanly__annotation</response>
+				<response push="question1_adaption">question1_adaption__annotation</response>
+				  
+				<response push="question1_act_reasonably_no">question1_act_reasonably_no__annotation</response>
+				<response push="question1_act_reasonably_yes">question1_act_reasonably_yes__annotation</response>
+				<response push="question1_act_humanly_no">question1_act_humanly_no__annotation</response>
+				<response push="question1_act_humanly_yes">question1_act_humanly_yes__annotation</response>
+				<response push="question1_think_reasonably_no">question1_think_reasonably_no__annotation</response>
+				<response push="question1_think_reasonably_yes">question1_think_reasonably_yes__annotation</response>
+				<response push="question1_think_humanly_no">question1_think_humanly_no__annotation</response>
+				<response push="question1_think_humanly_yes">question1_think_humanly_yes__annotation</response>
+				<response push="question1_adaption_no">question1_adaption_no__annotation</response>
+				<response push="question1_adaption_yes">question1_adaption_yes__annotation</response>
+				 
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_act_reasonably" difficulty="1">
+			<step>
+				<initiation>question1_act_reasonably__exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_act_humanly" difficulty="1">
+			<step>
+				<initiation>question1_act_humanly__exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_think_reasonably" difficulty="1">
+			<step>
+				<initiation>question1_think_reasonably__exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_think_humanly" difficulty="1">
+			<step>
+				<initiation>question1_think_humanly__exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_adaption" difficulty="1">
+			<step>
+				<initiation>question1_adaption__exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		
+		
+		
+		<goal name="question1_act_reasonably_no" difficulty="1">
+			<step>
+				<initiation>question1_act_reasonably_no__exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_act_reasonably_yes" difficulty="1">
+			<step>
+				<initiation>question1_act_reasonably_yes__exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_act_humanly_no" difficulty="1">
+			<step>
+				<initiation>question1_act_humanly_no__exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_act_humanly_yes" difficulty="1">
+			<step>
+				<initiation>question1_act_humanly_yes__exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_think_reasonably_no" difficulty="1">
+			<step>
+				<initiation>question1_think_reasonably_no__exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_think_reasonably_yes" difficulty="1">
+			<step>
+				<initiation>question1_think_reasonably_yes__exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_think_humanly_no" difficulty="1">
+			<step>
+				<initiation>question1_think_humanly_no__exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_think_humanly_yes" difficulty="1">
+			<step>
+				<initiation>question1_think_humanly_yes__exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_adaption_yes" difficulty="1">
+			<step>
+				<initiation>question1_adaption_yes__exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question1_adaption_no" difficulty="1">
+			<step>
+				<initiation>question1_adaption_no__exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+
+
+		<goal name="question2_detect" difficulty="1">
+			<step>
+				<initiation>question2_detect__exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question2_notdetect" difficulty="1">
+			<step>
+				<initiation>question2_notdetect__exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question2_unkdetect" difficulty="1">
+			<step>
+				<initiation>question2_unkdetect__exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question2_satisfied_no" difficulty="1">
+			<step>
+				<initiation>question2_satisfied_no__exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question2_change_answer" difficulty="1">
+			<step>
+				<initiation>question2_change_answer__exp</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		<goal name="question2_satisfied_yes" difficulty="1">
+			<step>
+				<initiation>question2_satisfied_yes__exp</initiation>
+			</step>
+		</goal> -->
+		
+	</script>
+
+</scenario>
