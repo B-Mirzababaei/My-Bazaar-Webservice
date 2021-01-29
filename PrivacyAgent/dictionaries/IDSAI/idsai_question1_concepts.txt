@@ -1,0 +1,18 @@
+/(this|that|it|they|he|she) think(s)?/
+/(it|he|she) (does|doesnt|doesn't) (think(s)?|act(s)?)/
+/they (dont|don't) (think(s)?|act(s)?)/
+/brain(s)?/
+rational
+goal-oriented
+/human(s)?/
+like us
+/act(s)?/
+behaviour
+reasonable
+behave
+/goal(s)?/
+thinking
+person
+acting
+rationally
+humanly

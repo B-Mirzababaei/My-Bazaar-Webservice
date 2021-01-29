@@ -1,0 +1,18 @@
+/yes+/
+yeah
+ok
+good
+satisfied
+yea
+aye
+yup
+definitely
+/ok+/
+/^(?!.*\bnot\b)(?!.*n't\b)(?!.*\bdis).*agree/
+uhum
+aha
+/zes+/
+sure
+i\s?('m|am|do|does)\.?$
+/^(I\s)?agree$/
+have agreement

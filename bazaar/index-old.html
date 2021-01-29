@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <!-- <meta HTTP-EQUIV="REFRESH" content="0; url=http://example.com/index.html"> -->
+
+    <title id="title_el">Chatbot</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/rebo.css" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type=""></script>
+    <script type="text/javascript" src="/scripts/sortable.js"></script>
+    <script type="text/javascript" src="/scripts/colors.js"></script>
+    <script type="text/javascript" src="/bazsocket/socket.io.js"></script>
+</head>
+
+<!-- <body onload="checkFirstVisit()"> -->
+<body>
+
+    <script>
+        // window.onbeforeunload = closingCode;
+        // function closingCode(){
+        // // do something...
+        // socket.emit('show_this_in_console', "------------landing_page_idsai_assignment_1-------------------------");
+
+        // alert('ssssssssss');
+        // return null;
+        // };
+        var root_page = '';
+        // function rootpage(){
+            
+        //     if(localStorage.getItem("landing_page_idsai_assignment_1")) {
+        //         socket.emit('show_this_in_console', "------------landing_page_idsai_assignment_1-------------------------");
+        //         root_page = "/bazaar/landing_page/idsai_assignment_1";
+    
+        //         //localStorage.removeItem("landing_page_idsai_assignment_1");
+
+        //     }
+        //     else if(localStorage.getItem("landing_page_random")) {
+        //         socket.emit('show_this_in_console', "-----------landing_page_random-------------");
+        //         root_page = "/bazaar/random_landing_page";
+    
+        //         //localStorage.removeItem("landing_page_random");
+
+        //     }
+
+        // }
+        // var refreshes = parseInt(sessionStorage.getItem('refreshes'), 10) || 0;
+        // function checkFirstVisit() {
+
+        //     sessionStorage.setItem('refreshes', ++refreshes);
+        //     if(document.cookie.indexOf('mycookie')==-1) {
+        //         // cookie doesn't exist, create it now
+        //         document.cookie = 'mycookie=1';
+        //     }
+        //     else {
+        //         socket.emit('show_this_in_console', "The page is reloaded. Redirected to the login page");
+        //         number_of_revisit = number_of_revisit + 1;
+        //         socket.emit('show_this_in_console', "refreshes: " + refreshes);
+        //         groups = /\/(chat|observe|code)(\/tmp)?(?:\/([^\/]+)?)(?:\/([^\/]*))(?:\/([^\/]*))(?:\/([^\/]*))?/.exec(location.pathname);
+
+        //         live_chat = groups[1] == "chat";
+        //         temp = groups[2] || temp;
+        //         room = groups[3] || room;
+        //         type = groups[4] || type;
+        //         user = groups[5] || user;
+        //         perspective = groups[6] || perspective;
+        //         // not first visit, so alert
+        //         //window.location.replace(host_url + "/bazaar/random_landing_page");
+        //         if (!(type === 'chatroom')){
+        //             location.href = host_url + "/bazaar/random_landing_page";
+
+        //         }
+                
+        //         //window.location = host_url + "/bazaar/random_landing_page";
+        //         //document.location.href = host_url + "/bazaar/random_landing_page";
+                
+        //     }
+        // }
+        var windowHasFocus = true;
+        var unreadMessages = 0;
+        var lastDate = null;
+        const host_url = "http://127.0.0.1";
+        //const host_url = "http://rebo4ai.know-center.tugraz.at";
+
+        var entityMap = {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;",
+            "/": "&#x2F;",
+        };
+
+        // window.onbeforeunload = function() {
+        //     return "Are you really sure?\nI don't know why anyone would want to leave my beautiful website!";
+        // };
+
+        // window.onbeforeunload = closingCode;
+        // function closingCode(){
+        //     socket.emit('show_this_in_console', "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+
+            // do something...  
+            //window.location.replace(host_url + "/bazaar/random_landing_page");
+            //location.href = host_url + "/bazaar/random_landing_page";
+            // similar behavior as clicking on a link
+            //window.location = host_url + "/bazaar/random_landing_page";
+            // document.location.href = host_url + "/bazaar/random_landing_page";
+            // var evTypep=window.performance.getEntriesByType("navigation")[0].type;
+            // socket.emit('show_this_in_console', "evTypep " + evTypep);
+
+            // location.href = host + "/bazaar/random_landing_page";
+            
+            // return null;
+        // };
+
+        function escapeHTML(string) {
+            return String(string).replace(/[&<>"'\/]/g, function (s) {
+                return entityMap[s];
+            });
+        }
+
+
+
+        var submitted_essay = false;
+        function sendMessage() {
+            // var confirm = true;
+
+            // if(type === "essay") {
+            //     confirm = window.confirm("Do you really want to submit your essay?");
+            // }
+
+            // if(confirm == true) {
+
+            var message = $('#data').val();
+            message = message.trim();
+            // socket.emit('show_this_in_cocnsole', message);
+            if (message.length == 0){
+                document.getElementById("data").value = "";
+
+                return 
+            }
+            //$('#data').val('');
+
+            message = escapeHTML(message)
+            // socket.emit('show_this_in_console', message);
+            // socket.emit('show_this_in_console', message.length);
+
+            //Behzad Submit button
+            if(type === "essay") {
+                console.log("Confirm the ending of essay");
+                // socket.emit('show_this_in_console', 'Confirm the ending of essay');
+                if (submitted_essay === false) {
+                    var confirm = window.confirm("Do you really want to submit your essay?");
+                    if(confirm == true) {
+                        document.getElementById("data").disabled = true;
+
+                        //essayFinished();
+
+                        // BEhzad write the essay in the database
+                        socket.emit('essaySend', message);   
+
+                        submitted_essay = true; 
+                        socket.emit('show_this_in_console', 'submitted_essay becomes True');
+                        
+                        //Behzad ask them to go to Rebo4AI page
+                        // if(window.confirm("Thank you for writing a reflective essay.\nWith many thanks, we now invite you to have a discussion with our chatbot Rebo4AI. The link is in hint section.")) {
+                        //         location.href = host_url + '/bazaar/landing-page/chatbot-landing-page';
+                        // }
+                        document.getElementById("hints_of_IDSAI_essay_hint4").style.visibility = "visible";
+                        alert("Thank you for writing a reflective essay.\nWith many thanks, we now invite you to have a discussion with our chatbot, Rebo4AI.\nPlease, click the link in the hint section.");
+                    }
+                        
+                }
+                        // alert("Thank you for writing a reflective essay :)");            
+            
+            } else if (message && message.length > 0) {
+                // socket.emit('show_this_in_console', 'socket.emit(sendchat, message);');
+                $('#data').val('');
+                socket.emit('sendchat', message);
+            }
+
+            $('#conversation_container').stop().animate({ scrollTop: $("#conversation_container")[0].scrollHeight }, 500);
+            //}
+        }
+
+        function sign_out() {
+           
+            
+
+            if (type === "essay"){
+                socket.emit('show_this_in_console', "sign_out------------- " + root_page);
+                // if(window.confirm("Do you really want to go back to the login page?\nPlease, press 'Cancel' if you do not submit your essay.")) {
+
+                //     //sendMessage();
+                //     // location.href = host_url + "/bazaar/random_landing_page";
+                //     location.href = host_url + root_page;
+                // }
+                sendMessage();
+                
+            }
+            if (type === "chatbot"){
+                if(window.confirm("Do you really want to submit this conversation and go back to the login page?")) {
+                    // location.href = host_url + "/bazaar/random_landing_page";
+                    location.href = host_url + root_page;
+                }
+            }
+            if (type === "chatroom"){
+                if(window.confirm("The chatroom will be locked for all users.\nDo you really want to finish the conversation?")) {
+                    // document.getElementById("hints_of_IDSAI_chatroom_hint4").style.visibility = "visible";
+                    socket.emit('chatroom_end_of_conversation_button', room);
+                    // document.getElementById("close_button").disabled = true;
+
+
+                }
+            }
+           
+        };
+        function showConvText() {
+            res = "";
+            if (type === "essay"){
+                res += document.getElementById("essay_intro").innerText
+                res += "\n\nYour Essay:\n\n";
+                res += document.getElementById('data').value;
+
+            }
+            else {
+                conv = document.getElementById("conversation");
+                for (var i = 0; i < conv.childNodes.length; i++) {
+                    if (conv.childNodes[i].className.indexOf("message_line") == -1) continue;
+                    var user = conv.childNodes[i].getElementsByClassName("user");
+                    var timestamp = conv.childNodes[i].getElementsByClassName("date");
+                    var message = conv.childNodes[i].getElementsByClassName("message");
+                    for (var j = 0; j < user.length; j++) res += user[j].textContent + " ";
+                    if (timestamp.length > 0) res += "(" + timestamp[0].textContent + ")";
+                    if (message.length > 0) res += ": " + message[0].textContent.replace("\n", " ");
+                    res += "\n";
+                }
+            }
+            
+            document.getElementById("conversation_text").value = res;
+
+            // Highlight
+            if (document.body.createTextRange) {
+                range = document.body.createTextRange();
+                range.moveToElementText(document.getElementById("conversation_text"));
+                range.select();
+            } else if (window.getSelection) {
+                selection = window.getSelection();
+                range = document.createRange();
+                range.selectNodeContents(document.getElementById("conversation_text"));
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+
+            document.getElementById("conversation_text_div").style.display = "block";
+        }
+
+        function hideConvText() {
+            document.getElementById("conversation_text_div").style.display = "none";
+        }
+
+        function appendMessage(timestamp, username, text, color) {
+
+
+            if (!color) {
+                color = getUserColor(username);
+            }
+            /*
+            <div class="message_line">
+                <div class="info" style="background-color:rgba(191,64,64,0.6)">
+                    <div class="user">wd;a2</div>
+                    <div class="date">5:12:40 PM</div>
+                </div>
+                <div class="message">dssada</div>
+            </div>
+            */
+            //socket.emit('show_this_in_console', "username: " + username + ' user: ' + user + ' message: ' + text);
+
+            $('#conversation').append(
+                '<div class="message_line' + (username != user ? ' rebo' : '') + '">'
+                + '<div class="info" ' + (color ? 'style="background-color:' + color + '"' : '') + '>'
+                + '<div class="user">' + username + '</div>'
+                + '<div class="date">' + (timestamp.toLocaleTimeString()) + '</div>'
+                + '</div>'
+                + '<div class="message">' + text + '</div>'
+                //+'<div class="date">'+ (timestamp.toLocaleTimeString()) +'</div>'
+                //+'</div>'
+                + '</div><br/>');
+            noticeNewMessage()
+            if (lastDate > timestamp)
+                lastDate = timestamp;
+        }
+
+        function appendNote(timestamp, username, text, color) {
+
+            if (!color) {
+                color = getUserColor(username);
+            }
+
+            $('#conversation').append(
+                '<div class="message_line">'
+                + '<div class="info" ' + (color ? 'style="background-color:' + color + '"' : '') + '>'
+                + '<div class="user">' + username + '</div>'
+                + '<div class="user" style="padding-left:5px">' + text + '</div>'
+                + '<div class="date">' + (timestamp.toLocaleTimeString()) + '</div>'
+                + '</div>'
+                + '</div><br/>');
+            noticeNewMessage()
+            if (lastDate > timestamp)
+                lastDate = timestamp;
+        }
+
+        const socket = io({
+            path: '/bazsocket'
+        });
+
+        var users = {};
+        var user = 'Anonymous';
+        var room = 'Here';
+        var type = 'chatbot';
+        var temp = 1;
+        var perspective = 1;
+
+        
+
+        socket.on('handel_similar_username', function (username) {
+            // socket.emit('show_this_in_console', "change the username to:" + username);
+            // alert('Your username will be changed to ' + username);
+            user = username;
+        });
+        // on connection to server, ask for user's name with an anonymous callback
+        socket.on('connect', function () {
+            //Behzad When you refresh the page, the "dicsonnected" is called then 'conncet' will
+            //Behzad When to go to the this URL, this function is executed.
+            socket.emit('show_this_in_console', "CLIENT: Calling socket.on('connect')");
+
+            // call the server-side function 'adduser' and send one parameter (value of prompt)
+            groups = /\/(chat|observe|code)(\/tmp)?(?:\/([^\/]+)?)(?:\/([^\/]*))(?:\/([^\/]*))(?:\/([^\/]*))?/.exec(location.pathname);
+            live_chat = groups[1] == "chat";
+            temp = groups[2] || temp;
+            room = groups[3] || room;
+            type = groups[4] || type;
+            user = groups[5] || user;
+            
+            root_page = '/bazaar/landing-page/' + room.split("_")[0];
+            //root_page = '';
+            //=======================================
+            //Behzad Find out that which page sent you here
+
+            //==========================================
+            // socket.emit('show_this_in_console', "temp " + temp);
+            // socket.emit('show_this_in_console', "room " + room);
+            // socket.emit('show_this_in_console', "type " + type);
+            // socket.emit('show_this_in_console', "user " + user);
+            perspective = groups[6] || perspective;
+            // Behzad check the room is available or not, if it is available, do not call 'adduser'
+            socket.emit('check_room_is_avalable', room, type, function(is_available, result){
+                
+                if(is_available){
+                    socket.emit('show_this_in_console', "The room is available: " + is_available);
+                    // socket.emit('show_this_in_console', "result[1].name: " + result.name);
+                    // socket.emit('show_this_in_console', "result[1].num_users: " + result.num_users);
+                    // socket.emit('show_this_in_console', "result[1].available_for_chatroom: " + result.available_for_chatroom);
+                    // socket.emit('show_this_in_console', "Redirect to the random landing page.");
+
+                    //location.href = host_url + "/bazaar/random_landing_page";
+                   //localStorage.removeItem("landing_page_idsai_assignment_1");
+                    //localStorage.removeItem("landing_page_random");
+
+                    location.href = host_url + root_page; //"/bazaar/landing_page/idsai_assignment_1";
+                    return false;
+                    // socket.emit('show_this_in_console', "after return dose not executed");
+
+                }
+                else{
+                    // socket.emit('show_this_in_console', "1111");
+                    // socket.emit('show_this_in_console', "22222");
+                    //----------------------------------------
+                    /* BEHZAD do whatever you want about UI */
+                    document.getElementById("conversation_header").innerHTML = type[0].toUpperCase() + type.slice(1);
+                    document.getElementById("title_el").innerHTML = type[0].toUpperCase() + type.slice(1);
+                    
+                    // if(type === 'chatroom'){
+
+                    // }
+                    // if(type === 'chatbot'){
+                    // }
+                    // if(type === "essay") {
+                    // }	
+                    //----------------------------------------
+                    
+                    if (live_chat) {
+                        // if (user === "Anonymous")
+                        //     user = prompt("Hi! please enter your name (first name and last initial) to continue.", "");
+                        //socket.emit('show_this_in_console', "just before adduser:" +user);
+                        socket.emit('adduser', room, user, false, type, perspective, root_page);
+                    }
+                    else {
+                        socket.emit('snoop', room, type);
+                        $('input,textarea').prop('disabled', true);
+                    }
+                    $('#roomname').text(room);
+                    //document.getElementById('myIframe').src = "https://docs.google.com/document/d/1uONLY0NEAMBN5d-4NKNkqVrxU_LfQQORFEO5E9rkg0M/edit?usp=sharing";
+
+                    if(type === "essay") {
+                        console.log("Hide chat for essay");
+                        hideChatForEssay();
+                    }
+                }
+            });
+            //alert('Please read the hint section first.'); 
+        });
+
+
+        // listener, whenever the server emits 'updatechat', this updates the chat body
+        socket.on('updatechat', function (username, data) {
+            appendMessage(new Date(), username, data);
+            $('#conversation_container').stop().animate({ scrollTop: $("#conversation_container")[0].scrollHeight }, 500);
+        });
+        socket.on('updatechat_essay', function (data) {
+            document.getElementById("essay_intro").innerHTML = data;
+            
+        });
+        socket.on('dump_history', function (backlog) {
+            for (i = 0; i < backlog.length; i++) {
+                entry = backlog[i];
+                stamp = new Date(entry["timestamp"]);
+                if (stamp < lastDate)
+                    continue;
+                if (entry["type"] == "image") {
+                    anchor = appendImage(new Date(entry["timestamp"]), entry["username"], entry["content"]);
+                    appendNote(new Date(entry["timestamp"]), entry["username"], 'has shared an <a href="#' + anchor + '">image/URL.</a>');
+                }
+                else if (entry["type"] == "html") {
+                    anchor = appendHTML(new Date(entry["timestamp"]), entry["username"], entry["content"]);
+                    appendNote(new Date(entry["timestamp"]), entry["username"], 'has shared an <a href="#' + anchor + '">item.</a>');
+                }
+                else if (entry.type == "presence")
+                    appendNote(new Date(entry.timestamp), entry.username, (entry.content == "leave" ? " has disconnected." : " has joined the chat."));
+                else if (entry.type == "ready")
+                    ;
+                //appendNote(new Date(entry.timestamp), entry.username, (entry.content == "ready")?"thinks the team is ready.":"isn't ready yet.");
+                else if (entry.type == "private")
+                    appendMessage(new Date(entry["timestamp"]), entry.username + " (Private Message)", entry["content"], getUserColor(entry.username));
+                else
+                    appendMessage(new Date(entry["timestamp"]), entry.username, entry["content"]);
+            }
+
+            $('#conversation_container').stop().animate({ scrollTop: $("#conversation_container")[0].scrollHeight }, 500);
+
+            lastDate = new Date();
+        });
+
+        // listener, whenever the server emits 'updaterooms', this updates the room list
+        socket.on('updaterooms', function (rooms, my_room) {
+            $('#roomname').text(my_room);
+        });
+
+        // listener, whenever the server emits 'updateimage', this updates the user list
+        socket.on('updateusers', function (my_users) {
+            users = my_users;
+            console.log(users);
+        });
+
+        // listener, whenever the server emits 'updatepresence', this updates the image list
+        socket.on('updatepresence', function (username, data) {
+            appendNote(new Date(), username, (data == "leave" ? " has disconnected." : " has joined the chat."));
+            //  if(username === 'Rebo4AI' && data === 'leave'){
+            //      appendMessage(new Date(), 'INFO', "You can save the conversation by clicking 'Download Chat Log' button.");
+            //      appendMessage(new Date(), 'INFO', "Please close the tab or click 'Close dialogue' button.");
+
+            //  }
+
+            $('#conversation_container').stop().animate({ scrollTop: $("#conversation_container")[0].scrollHeight }, 500);          
+        });
+
+        // listener, whenever the server emits 'updatechat', this updates the chat body
+        socket.on('update_global_ready', function (ready_state) {
+            if (ready_state == 'unready') {
+                $('#ready_button').removeClass("toggled");
+            }
+        });
+
+        // listener, whenever the server emits 'updatechat', this updates the chat body
+        socket.on('update_private_chat', function (username, data) {
+            appendMessage(new Date(), username + ' (Private Message)', data, getUserColor(username));
+            $('#conversation_container').stop().animate({ scrollTop: $("#conversation_container")[0].scrollHeight }, 500);
+        });
+
+        socket.on('chatroom_end_of_conversation_button_change_view', function(){
+            document.getElementById("hints_of_IDSAI_chatroom_hint4").style.visibility = "visible";
+            document.getElementById("close_button").disabled = true;
+
+        });
+        
+        socket.on('lockTextArea', function(data){
+            console.log("Got lockTextArea");
+            //console.log(data);
+            //$('input,textarea').prop('disabled', true);
+            $('textarea').prop('disabled', true);
+
+        });
+        
+
+        socket.on('essayTypeMode', function(data){
+            console.log("Got essayTypeMode");
+            hideChatForEssay();
+        });
+
+        socket.on('essayFinished', function(data){
+            console.log("Essay Finished => locked chat");
+            essayFinished();
+        });
+		socket.on('chatbotTypeMode', function(data){
+            console.log("Got essayTypeMode");
+            chatbotTypeMode();
+        });
+		socket.on('chatroomTypeMode', function(data){
+            console.log("Got essayTypeMode");
+            chatroomTypeMode();
+        });
+
+		function chatbotTypeMode() {
+            document.getElementById("hints_of_IDSAI_chatroom").style.visibility = "hidden";
+            document.getElementById("hints_of_IDSAI_chatbot").style.visibility = "visible";
+            document.getElementById("hints_of_IDSAI_essay").style.visibility = "hidden";
+            document.getElementById("essay_intro").style.display = "none";
+
+        }
+		function chatroomTypeMode() {
+			document.getElementById("hints_of_IDSAI_chatroom").style.visibility = "visible";
+            document.getElementById("hints_of_IDSAI_chatbot").style.visibility = "hidden";
+            document.getElementById("hints_of_IDSAI_essay").style.visibility = "hidden";
+            document.getElementById("essay_intro").style.display = "none";
+            document.getElementById("close_button").value = "End of conversation";
+            document.getElementById("hints_of_IDSAI_chatroom_hint4").style.visibility = "hidden";
+
+
+        }
+
+        function hideChatForEssay() {
+			document.getElementById("hints_of_IDSAI_chatroom").style.visibility = "hidden";
+            document.getElementById("hints_of_IDSAI_chatbot").style.visibility = "hidden";
+            document.getElementById("hints_of_IDSAI_essay").style.visibility = "visible";
+            document.getElementById("hints_of_IDSAI_essay_hint4").style.visibility = "hidden";
+
+            //document.getElementById("datasend").value = "Submit";
+            document.getElementById("datasend").style.display = "none";
+            document.getElementById("conv_message").value = "Download Your Essay";
+            document.getElementById("close_button").value = "Submit";
+
+            
+
+
+            
+
+            document.getElementById("conversation_container").style.visibility = "hidden";
+            document.getElementById("controls").style.top = "50px";
+            document.getElementById("controls").style.height = "731px";
+            document.getElementById("data").style.height = "500px";
+            document.getElementById("conversation_header").value = "Essay";
+            document.getElementById("title_el").value = "Essay";
+
+            //document.getElementById("submitbutton_div").style.top = "690px";
+
+
+        }
+
+        function essayFinished() {
+            document.getElementById("conversation_container").style.visibility = "visible";
+            document.getElementById("controls").style.top = "auto";
+            document.getElementById("controls").style.height = "120px";
+            document.getElementById("data").style.height = "60px";
+            document.getElementById("conversation_header").value = "Essay";
+            document.getElementById("title_el").value = "Essay";
+
+            $('input,textarea').prop('disabled', true);
+        }
+
+        function switchRoom(room) {
+            socket.emit('switchRoom', room);
+        }
+
+        function sendReady(is_ready) {
+            socket.emit('ready', is_ready ? 'ready' : 'unready'); //'ready' or 'unready'
+        }
+
+        
+
+        function shareImage() {
+            var imageurl = $('#image_url_input').val();
+
+            $('#image_url_input').val('');
+
+            if (imageurl && imageurl.length > 0) {
+                match = /http(s)?:\/\//.exec(imageurl)
+                console.log(match)
+                if (match == null || match.index != 0) {
+                    imageurl = "http://" + imageurl;
+                }
+                socket.emit('sendimage', imageurl);
+
+                $('#conversation_container').stop().animate({ scrollTop: $("#conversation_container")[0].scrollHeight }, 500);
+            }
+        }
+
+        
+        $(function () {
+            // when the client clicks SEND
+            $('#datasend').click(function () {
+                sendMessage();
+            });
+
+            // when the client hits ENTER on their keyboard
+           $('#data').keypress(function (e) {
+				if (e.which == 13 && !(e.altKey || e.shiftKey) && (type === "chatbot" || type === "chatroom")) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+
+        });
+
+        $(window).focus(function () {
+            windowHasFocus = true;
+            unreadMessages = 0;
+            updateTitle();
+        });
+
+        //listen for browser events so we know to update the document title
+        $(window).blur(function () {
+            windowHasFocus = false;
+            updateTitle();
+        });
+
+        //we want to show a count of unread messages when the window does not have focus
+        function updateTitle() {
+            if (unreadMessages) {
+                document.title = "(" + unreadMessages.toString() + ") Chat Room " + room;
+            }
+            else {
+                document.title = "Chat Room " + room;
+            }
+        }
+
+        function noticeNewMessage() {
+            if (!windowHasFocus) {
+                unreadMessages++;
+
+                updateTitle();
+            }
+        }
+
+
+    </script>
+
+    <IMG id=logo SRC="/logo/reboLogo.png" ALT="Rebo Logo" WIDTH=8%>
+    <div id="hints"><b>Hints</b>:
+		<ul id="hints_of_IDSAI_chatbot">
+			  <li id="hints_of_IDSAI_chatbot_hint1">You can write your responses in several lines by adding '...' at the end of your responses except the last one.</li>
+              <li id="hints_of_IDSAI_chatbot_hint2">Bug warning: Sometimes Rebo4AI disconnects without saying goodbye. Sorry for this! We're working on finding the error.</li>
+              <li id="hints_of_IDSAI_chatbot_hint3">You can save the conversation by clicking <strong>'Download Chat Log'</strong> button. (Optional)</li>
+              <li id="hints_of_IDSAI_chatbot_hint4">To finish the conversation, please close the tab or click on <strong>'Sign Out'</strong> button.</strong></li>
+              <li id="hints_of_IDSAI_chatbot_hint5">You can talk to <b>Rebo4AI</b> by clicking <a href='http://rebo4ai.know-center.tugraz.at/bazaar/landing-page/chatbot-landing-page/?suffix=chatbot'>here</a>.</li>
+              <!-- <li id="hint">You can talk to <b>Rebo4AI</b> by clicking <a href='http://127.0.0.1/bazaar/landing-page/chatbot-landing-page/?suffix=chatbot'>here</a>.</li> -->
+
+		</ul>
+		<ul id="hints_of_IDSAI_essay">
+            <li id="hints_of_IDSAI_essay_hint1">You can save the essay by clicking 'Download Your Essay' button. (Optional)</li>
+            <li id="hints_of_IDSAI_essay_hint2">To submit your essay, please click the <strong>'Submit'</strong> button.</li>
+            <li id="hints_of_IDSAI_essay_hint3">To sign out and come back to the login page, please click the <strong>'Sign Out'</strong> button.</li>
+            <li id="hints_of_IDSAI_essay_hint4">You can talk to <b>Rebo4AI</b> by clicking <a href='http://rebo4ai.know-center.tugraz.at/bazaar/landing-page/chatbot-landing-page/?suffix=essay'>here</a>.</li>
+            <!-- <li id="hint">You can talk to <b>Rebo4AI</b> by clicking <a href='http://127.0.0.1/bazaar/landing-page/chatbot-landing-page/?suffix=essay'>here</a>.</li> -->
+            
+		</ul>
+    	<ul id="hints_of_IDSAI_chatroom">
+            <li id="hints_of_IDSAI_chatroom_hint1"><strong>If a user disconnects or signs out, the chatroom will be locked for all other users.</strong></li>
+            <li id="hints_of_IDSAI_chatroom_hint2">You can save the conversation by clicking <strong>'Download Chat Log'</strong> button (Optional)</li>
+            <li id="hints_of_IDSAI_chatroom_hint3">To sign out and come back to the login page, please click the <strong>'Sign Out'</strong> button.</li>
+            <li id="hints_of_IDSAI_chatroom_hint4">You can talk to <b>Rebo4AI</b> by clicking <a href='http://rebo4ai.know-center.tugraz.at/bazaar/landing-page/chatbot-landing-page/?suffix=chatroom'>here</a>.</li>
+            <!-- <li id="hint">You can talk to <b>Rebo4AI</b> by clicking <a href='http://127.0.0.1/bazaar/landing-page/chatbot-landing-page/?suffix=chatroom'>here</a>.</li> -->
+        </ul>
+        
+	</div>
+    <div id="everything">
+
+        <div id="conversation_column">
+            <h2 id="conversation_header" class="header">Chatbot</h2>
+            <div id="conversation_container" class="container">
+                <div id="conversation" class="scrollable"></div>
+            </div>
+            <div id="controls" class="control">
+                <div id="message_div">
+                    <p id="essay_intro" align="justify"></p> 
+                    <textarea id="data"></textarea>
+                </div>
+                <div id="messagebutton_div">
+                    <input class="button" type="button" id="datasend" value="Send Message" />
+                    <!-- <input class="button" type="button" id="ready_button" value="I'm Ready" /> -->
+                </div>
+                <!-- <div class="blinker">Click the "I'm Ready" button when you are ready to move on to the next step.</div> -->
+                <div id="submitbutton_div">
+                    <input class="button" type="button" id="conv_message" value="Download Chat Log" onClick="showConvText();" />
+                    <input class="button" type="button" id="close_button" value="Sign Out" onclick="sign_out();">
+                </div>
+            </div>
+        </div>
+
+        <h2 id="roomname"></h2>
+
+
+    </div>
+
+    <div id="conversation_text_div">
+        <button type="button" onclick="hideConvText();">X</button>
+        <h3>You can copy and paste this log to a separate file to save.</h3>
+        <textarea id="conversation_text" readonly="readonly"></textarea>
+    </div>
+
+</body>
+
+</html>

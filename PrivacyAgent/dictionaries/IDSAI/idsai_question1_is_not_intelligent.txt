@@ -1,0 +1,6 @@
+/\b(no|No|no ,|No ,)?( )?(ENT|it|they) (isn't|is not|aren't|are not)( intell?igence| intell?igent| \.)\b/
+/\bdo( not|n't)\s?(think|believe|consider)\s?(that)?\s?(ENT|it|they)\s?(is|are|'s|'re)\s?(intell?igence|intell?igent)\b/
+/\bthink\s?(ENT|it|they)\s?(is|are|'s|'re)\s?(n't|not)\s?(intell?igence|intell?igent)\b/
+/\bdo( not|n't)\s?(think|believe|consider)\s?(that)?\s?(ENT|it|they)\s?((is|are|can be)\s*(intell?igent|intell?igence))\b/
+/\bdo( not|n't)\s?(think|believe|consider)\s?(that)?\s?(ENT|it|they)\s?(is|are)\s((?!not\b)\b\w+\s?){0,3}\s?intell?igen/
+/^[Nn][Oo][Tt]?$/

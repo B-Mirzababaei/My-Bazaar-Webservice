@@ -166,6 +166,14 @@ app.get('/bazaar/idsai-landing_page', function (req, res) {
 //     res.sendfile(landing_page + '.html');
 // });
 
+app.get('/bazaar/landing_page/privacy_landing_page*', function (req, res) {
+    var landing_page = 'privacy-landing-page';
+
+    if (req.query.html != undefined)
+        landing_page = req.query.html;
+
+    res.sendfile(landing_page + '.html');
+});
 
 app.get('/bazaar/landing_page/chatbot_landing_page*', function (req, res) {
     var landing_page = 'chatbot-landing-page';
@@ -223,6 +231,21 @@ app.get('/bazaar/landing_page/idsai_assignment_1', function (req, res) {
         landing_page = req.query.html;
 
     res.sendfile(landing_page + '.html');
+});
+
+app.get('/bazaar/PRIVACY/*', function (req, res) {
+
+    groups = /bazaar\/PRIVACY\/([^\/]+)\/([^\/]+)\/([^\/]+)/.exec(req.url)
+    room_name = groups[1];
+    room_type = groups[2];
+    username = groups[3];
+
+    var html_page = 'privacy-index-' + room_type;
+
+    if (req.query.html != undefined)
+        html_page = req.query.html;
+
+    res.sendfile(html_page + '.html');
 });
 
 app.get('/bazaar/IDSAI/*', function (req, res) {
@@ -536,12 +559,12 @@ function logMessage(socket, content, type, user) {
         u = connection.escape(socket.username);
     else
         u = connection.escape(user);
-
+    console.log(query)
     query = 'insert into nodechat.message (roomid, username, useraddress, userid, content, type, timestamp)'
         + ' values ((select id from nodechat.room where name=' + connection.escape(socket.room) + '), '
         + '' + u + ', ' + connection.escape(endpoint.address + ':' + endpoint.port) + ', '
         + connection.escape(socket.Id) + ', ' + connection.escape(content) + ', ' + connection.escape(type) + ', now());';
-
+    console.log("QUERY::::::::::::::" + query)
     connection.query(query, function (err, rows, fields) {
         if (err)
             console.log(err);
@@ -693,11 +716,16 @@ function find_a_proper_room(sender, prefix_room, suffix_room, manner_or_roomtype
         }
 
     }
-    else if (manner_or_roomtype === 'CHATBOT') {
+    else if (manner_or_roomtype === 'PRIVACY') {
+        // console.log('SERVER:*****PRIVACY ROOM******* sender= ' + sender);
+        // console.log('SERVER:*****PRIVACY ROOM******* prefix_room= ' + prefix_room);
+        // console.log('SERVER:*****PRIVACY ROOM******* splitter= ' + splitter);
+        // console.log('SERVER:*****PRIVACY ROOM******* suffix_room= ' + suffix_room);
+        // console.log('SERVER:*****PRIVACY ROOM******* all= ' + sender + prefix_room + splitter + makeid(15) + suffix_room + '/privacy/');
         callback(sender + prefix_room + splitter + makeid(15) + suffix_room + '/chatbot/');
     }
-    else if (manner_or_roomtype === 'CHATBOT_TEMP') {
-        callback(sender + prefix_room + splitter + makeid(15) + suffix_room + '/chatbot_temp/');
+    else if (manner_or_roomtype === 'CHATBOT') {
+        callback(sender + prefix_room + splitter + makeid(15) + suffix_room + '/chatbot/');
     }
     else if (manner_or_roomtype === 'ESSAY') {
         callback(sender + prefix_room + splitter + makeid(15) + suffix_room + '/essay/');
@@ -776,7 +804,7 @@ io.sockets.on('connection', function (socket) { //This socket parameter is the s
     });
 
     // when the client emits 'adduser', this listens and executes
-    socket.on('adduser', function (room, username, temporary, type, perspective, root_page) {
+    socket.on('adduser', function (room, username, temporary, type, perspective, root_page, agent_name) {
 
 
         console.log('room ' + room);
@@ -845,157 +873,183 @@ io.sockets.on('connection', function (socket) { //This socket parameter is the s
         //console.log('+++++++++++++++++++line 824 adduser');        
         loadHistory(socket, false);
         //console.log('usernames[socket.room], ' + usernames[socket.room] + ', user_perspectives[socket.room]: '+ user_perspectives[socket.room])
+        if (agent_name == "IDSAI")
+        {
+            if (username != "Rebo4AI") {
+                if (room in numUsers) {
+                    console.log("numUsers[room] is increased by 1");
+                    numUsers[room] = numUsers[room] + 1;
+                }
+                else {
+                    console.log("numUsers[room] is set to 1");
 
-        if (username != "Rebo4AI") {
-            if (room in numUsers) {
-                console.log("numUsers[room] is increased by 1");
-                numUsers[room] = numUsers[room] + 1;
+                    numUsers[room] = 1;
+                }
+                console.log("numUsers[room]: " + numUsers[room]);
+
+                connection.query('update nodechat.room set modified=now(), num_users=num_users+1 where room.name=\'' + room + '\';', function (err, results) {
+                    //console.log(results.affectedRows + " record(s) updated");
+                    if (err)
+                        console.log(err);
+                });
+                if (type == "chatroom") {
+                    io.sockets.in(socket.room).emit('chatroomTypeMode');
+
+                    console.log('Username of ' + username + ' is joined to room:' + room + '. The mode is ' + type);
+                    console.log('number of users in this room,' + room + ', is ' + numUsers[room] + '. The mode is ' + type);
+                    // update the num_users in the room table: num_users++
+                    //console.log('update nodechat.room set modified=now(), num_users=num_users+1 where room.name=\''+room+'\';');
+
+                    //connection.query('update nodechat.room set modified=now(), num_users=num_users+1 where room.name= \''+room+'\';', function(err, results)
+
+                    var count = 0;
+                    checkFirstJoin(room, function (result) {
+                        count = result.length;
+                    });
+
+                } else if (type == "chatbot") {
+                    io.sockets.in(socket.room).emit('chatbotTypeMode');
+
+                    console.log('Username of ' + username + ' is added to room:' + room + '. The mode is ' + type);
+                    var count = 0;
+                    console.log('checkFirstJoin(room)-------------- ' + room);
+                    console.log('checkFirstJoin(socket.room)-------------- ' + socket.room);
+                    checkFirstJoin(room, function (result) {
+                        count = result.length;
+
+                        /* const fs = require('fs');
+                        fs.writeFile('rebologforcount.log', count, (err) => {
+                            if (err) throw err;
+                        }); */
+
+                        /* Behzad
+                        * For debugging my agent, which is in my local computer, I need to connect my agent to a chatroom in server.
+                        * Since the agent on the server will be executed automatically whenever a user join the room, I have to add this condition !room.startsWith("debug")
+                        * in order to prevent the server agent from joining the room. 
+                        * In other words, if a chatroom's name starts with "debug", the agent located on the server will not execute. Thus, I can connect to the room with my local agent. 
+                        */
+                        if (count < 2 && !room.startsWith("debug")) {
+                            /* Behzad
+                            *    You need to change this address whenever you want to run your agent 
+                            */
+                            var script = 'sh ../Rebo4aiAgent/launch_agent.sh ';
+                            var command = script.concat(room);
+                            exec(command, (error, stdout, stderr) => {
+                                if (error) {
+                                    console.error(`exec error: ${error}`);
+                                    /* console.log('384'); */
+                                    return;
+                                }
+                                /* console.log('387'); */
+                                console.log(`stdout: ${stdout}`);
+                                console.log(`stderr: ${stderr}`);
+                            });
+                            console.log("A new instance of our agent will be started. Room:" + room + ' username:' + username);
+                        }
+                        else {
+                            console.log("Entering debugging mode OR more than one entity in a room. Room:" + room + ' username:' + username);
+                        }
+                    });
+
+                    checkChatbotFinished(room, function (results) {
+                        if (results.length > 0 && !room.startsWith("debug")) {
+                            io.sockets.in(socket.room).emit('lockTextArea', results);
+                            chatroom_locked = true;
+                        }
+                    });
+                } else if (type == "essay") {
+                    console.log('Username of ' + username + ' attended to write an essay in this room:' + room + '. The mode is ' + type);
+                    checkEssayAlreadyWritten(room, function (results) {
+                        if (results.length == null || results.length == 0) {
+                            io.sockets.in(socket.room).emit('essayTypeMode', room);
+                        } else if (results.length > 0) {
+                            io.sockets.in(socket.room).emit('essayFinished', room);
+                            chatroom_locked = true;
+                        }
+                    });
+                }
+
+
             }
             else {
-                console.log("numUsers[room] is set to 1");
-
-                numUsers[room] = 1;
+                console.log('Username of ' + username + ' is added to room:' + room);
             }
-            console.log("numUsers[room]: " + numUsers[room]);
+        }
+        if (agent_name == "PRIVACY")
+        {
+            if (username != "Rebo4AI") {
+                if (room in numUsers) {
+                    console.log("numUsers[room] is increased by 1");
+                    numUsers[room] = numUsers[room] + 1;
+                }
+                else {
+                    console.log("numUsers[room] is set to 1");
 
-            connection.query('update nodechat.room set modified=now(), num_users=num_users+1 where room.name=\'' + room + '\';', function (err, results) {
-                //console.log(results.affectedRows + " record(s) updated");
-                if (err)
-                    console.log(err);
-            });
-            if (type == "chatroom") {
-                io.sockets.in(socket.room).emit('chatroomTypeMode');
+                    numUsers[room] = 1;
+                }
+                console.log("numUsers[room]: " + numUsers[room]);
 
-                console.log('Username of ' + username + ' is joined to room:' + room + '. The mode is ' + type);
-                console.log('number of users in this room,' + room + ', is ' + numUsers[room] + '. The mode is ' + type);
-                // update the num_users in the room table: num_users++
-                //console.log('update nodechat.room set modified=now(), num_users=num_users+1 where room.name=\''+room+'\';');
-
-                //connection.query('update nodechat.room set modified=now(), num_users=num_users+1 where room.name= \''+room+'\';', function(err, results)
-
-                var count = 0;
-                checkFirstJoin(room, function (result) {
-                    count = result.length;
+                connection.query('update nodechat.room set modified=now(), num_users=num_users+1 where room.name=\'' + room + '\';', function (err, results) {
+                    //console.log(results.affectedRows + " record(s) updated");
+                    if (err)
+                        console.log(err);
                 });
+                if (type == "chatbot") {
+                    io.sockets.in(socket.room).emit('chatbotTypeMode');
 
-            } else if (type == "chatbot_temp") {
-                io.sockets.in(socket.room).emit('chatbotTypeMode');
+                    console.log('Username of ' + username + ' is added to room:' + room + '. The mode is ' + type);
+                    var count = 0;
+                    console.log('checkFirstJoin(room)-------------- ' + room);
+                    console.log('checkFirstJoin(socket.room)-------------- ' + socket.room);
+                    checkFirstJoin(room, function (result) {
+                        count = result.length;
 
-                console.log('Username of ' + username + ' is added to room:' + room + '. The mode is ' + type);
-                var count = 0;
-                console.log('checkFirstJoin(room)-------------- ' + room);
-                console.log('checkFirstJoin(socket.room)-------------- ' + socket.room);
-                checkFirstJoin(room, function (result) {
-                    count = result.length;
+                        /* const fs = require('fs');
+                        fs.writeFile('rebologforcount.log', count, (err) => {
+                            if (err) throw err;
+                        }); */
 
-					/* const fs = require('fs');
-					fs.writeFile('rebologforcount.log', count, (err) => {
-						if (err) throw err;
-					}); */
+                        /* Behzad
+                        * For debugging my agent, which is in my local computer, I need to connect my agent to a chatroom in server.
+                        * Since the agent on the server will be executed automatically whenever a user join the room, I have to add this condition !room.startsWith("debug")
+                        * in order to prevent the server agent from joining the room. 
+                        * In other words, if a chatroom's name starts with "debug", the agent located on the server will not execute. Thus, I can connect to the room with my local agent. 
+                        */
+                        if (count < 2 && !room.startsWith("debug")) {
+                            /* Behzad
+                            *    You need to change this address whenever you want to run your agent 
+                            */
+                            var script = 'sh ../PrivacyAgent/launch_agent.sh ';
+                            var command = script.concat(room);
+                            exec(command, (error, stdout, stderr) => {
+                                if (error) {
+                                    console.error(`exec error: ${error}`);
+                                    /* console.log('384'); */
+                                    return;
+                                }
+                                /* console.log('387'); */
+                                console.log(`stdout: ${stdout}`);
+                                console.log(`stderr: ${stderr}`);
+                            });
+                            console.log("A new instance of our agent will be started. Room:" + room + ' username:' + username);
+                        }
+                        else {
+                            console.log("Entering debugging mode OR more than one entity in a room. Room:" + room + ' username:' + username);
+                        }
+                    });
 
-					/* Behzad
-					* For debugging my agent, which is in my local computer, I need to connect my agent to a chatroom in server.
-					* Since the agent on the server will be executed automatically whenever a user join the room, I have to add this condition !room.startsWith("debug")
-					* in order to prevent the server agent from joining the room. 
-					* In other words, if a chatroom's name starts with "debug", the agent located on the server will not execute. Thus, I can connect to the room with my local agent. 
-					*/
-                    if (count < 2 && !room.startsWith("debug")) {
-						/* Behzad
-						*    You need to change this address whenever you want to run your agent 
-						*/
-                        var script = 'sh ../Rebo4aiAgent/launch_agent.sh ';
-                        var command = script.concat(room);
-                        exec(command, (error, stdout, stderr) => {
-                            if (error) {
-                                console.error(`exec error: ${error}`);
-                                /* console.log('384'); */
-                                return;
-                            }
-                            /* console.log('387'); */
-                            console.log(`stdout: ${stdout}`);
-                            console.log(`stderr: ${stderr}`);
-                        });
-                        console.log("A new instance of our agent will be started. Room:" + room + ' username:' + username);
-                    }
-                    else {
-                        console.log("Entering debugging mode OR more than one entity in a room. Room:" + room + ' username:' + username);
-                    }
-                });
-
-                checkChatbotFinished(room, function (results) {
-                    if (results.length > 0 && !room.startsWith("debug")) {
-                        io.sockets.in(socket.room).emit('lockTextArea', results);
-                        chatroom_locked = true;
-                    }
-                });
-            } else if (type == "chatbot") {
-                io.sockets.in(socket.room).emit('chatbotTypeMode');
-
-                console.log('Username of ' + username + ' is added to room:' + room + '. The mode is ' + type);
-                var count = 0;
-                console.log('checkFirstJoin(room)-------------- ' + room);
-                console.log('checkFirstJoin(socket.room)-------------- ' + socket.room);
-                checkFirstJoin(room, function (result) {
-                    count = result.length;
-
-					/* const fs = require('fs');
-					fs.writeFile('rebologforcount.log', count, (err) => {
-						if (err) throw err;
-					}); */
-
-					/* Behzad
-					* For debugging my agent, which is in my local computer, I need to connect my agent to a chatroom in server.
-					* Since the agent on the server will be executed automatically whenever a user join the room, I have to add this condition !room.startsWith("debug")
-					* in order to prevent the server agent from joining the room. 
-					* In other words, if a chatroom's name starts with "debug", the agent located on the server will not execute. Thus, I can connect to the room with my local agent. 
-					*/
-                    if (count < 2 && !room.startsWith("debug")) {
-						/* Behzad
-						*    You need to change this address whenever you want to run your agent 
-						*/
-                        var script = 'sh ../IDSAIAgent/launch_agent.sh ';
-                        var command = script.concat(room);
-                        exec(command, (error, stdout, stderr) => {
-                            if (error) {
-                                console.error(`exec error: ${error}`);
-                                /* console.log('384'); */
-                                return;
-                            }
-                            /* console.log('387'); */
-                            console.log(`stdout: ${stdout}`);
-                            console.log(`stderr: ${stderr}`);
-                        });
-                        console.log("A new instance of our agent will be started. Room:" + room + ' username:' + username);
-                    }
-                    else {
-                        console.log("Entering debugging mode OR more than one entity in a room. Room:" + room + ' username:' + username);
-                    }
-                });
-
-                checkChatbotFinished(room, function (results) {
-                    if (results.length > 0 && !room.startsWith("debug")) {
-                        io.sockets.in(socket.room).emit('lockTextArea', results);
-                        chatroom_locked = true;
-                    }
-                });
-            } else if (type == "essay") {
-                console.log('Username of ' + username + ' attended to write an essay in this room:' + room + '. The mode is ' + type);
-                checkEssayAlreadyWritten(room, function (results) {
-                    if (results.length == null || results.length == 0) {
-                        io.sockets.in(socket.room).emit('essayTypeMode', room);
-                    } else if (results.length > 0) {
-                        io.sockets.in(socket.room).emit('essayFinished', room);
-                        chatroom_locked = true;
-                    }
-                });
+                    checkChatbotFinished(room, function (results) {
+                        if (results.length > 0 && !room.startsWith("debug")) {
+                            io.sockets.in(socket.room).emit('lockTextArea', results);
+                            chatroom_locked = true;
+                        }
+                    });
+                } 
             }
-
-
+            else {
+                console.log('Username of ' + username + ' is added to room:' + room);
+            }
         }
-        else {
-            console.log('Username of ' + username + ' is added to room:' + room);
-        }
-
         io.sockets.in(socket.room).emit('updateusers', usernames[socket.room], user_perspectives[socket.room], "update");
     });
 

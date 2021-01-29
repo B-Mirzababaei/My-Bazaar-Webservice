@@ -1,0 +1,1 @@
+/(think(s)?|thought|interpret).*?\s(reason(s|able|ably)?|rational(ly|y)?|logic(al|ally|aly)?|intellectual(ly|y)?|wise(ly)?|)/

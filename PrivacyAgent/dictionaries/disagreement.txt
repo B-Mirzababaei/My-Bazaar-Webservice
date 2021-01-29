@@ -1,0 +1,6 @@
+i('m)? (am|do|does)n['o]?t\.?$
+/that(')s not right/
+/^no(pe)?$/
+/^no+$/
+/^(?!.*\bnot\b)(?!.*n't\b).*disagree/
+/^(I\s)?disagree$/
