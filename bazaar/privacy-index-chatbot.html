@@ -13,11 +13,23 @@
     <script type="text/javascript" src="/bazsocket/socket.io.js"></script>
     <script type="text/javascript" src="/scripts/config.js"></script>
 </head>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
 
+table.center {
+  margin-left: auto; 
+  margin-right: auto;
+}
+
+</style>
 <!-- <body onload="checkFirstVisit()"> -->
 <body>
 
     <script>
+        
         var root_page = '';
         var windowHasFocus = true;
         var unreadMessages = 0;
@@ -40,6 +52,20 @@
                 return entityMap[s];
             });
         }
+        function class_q1_create_answer()
+        {
+            var checkboxes = document.getElementsByClassName('q1');
+            var result = document.getElementById('data');
+            result.value = "";
+            for (var i = 0; i < checkboxes.length; i++)
+            {
+                if (checkboxes[i].checked == true) {
+                    result.value += checkboxes[i].value +  "__";
+                }
+            }
+        
+        }
+
         function sendMessage() {
             var message = $('#data').val();
             message = message.trim();
@@ -104,8 +130,19 @@
         function hideConvText() {
             document.getElementById("conversation_text_div").style.display = "none";
         }
+        function pause(x) {
+            // Oder Schalfen Sleep
+            // it is not working
+            socket.emit('show_this_in_console', "CLIENT: before PAUSE");
+
+            window.setTimeout(() => {
+            }, x);
+            socket.emit('show_this_in_console', "CLIENT: after PAUSE");
+
+        }
 
         function appendMessage(timestamp, username, text, color) {
+            // pause(5000)
             if (!color) {
                 color = getUserColor(username);
             }
@@ -118,13 +155,14 @@
                 + '<div class="message">' + text + '</div>'
                 //+'<div class="date">'+ (timestamp.toLocaleTimeString()) +'</div>'
                 //+'</div>'
-                + '</div><br/>');
+                + '</div>');
             noticeNewMessage()
             if (lastDate > timestamp)
                 lastDate = timestamp;
         }
 
         function appendNote(timestamp, username, text, color) {
+
             if (!color) {
                 color = getUserColor(username);
             }
@@ -135,7 +173,7 @@
                 + '<div class="user" style="padding-left:5px">' + text + '</div>'
                 + '<div class="date">' + (timestamp.toLocaleTimeString()) + '</div>'
                 + '</div>'
-                + '</div><br/>');
+                + '</div>');
             noticeNewMessage()
             if (lastDate > timestamp)
                 lastDate = timestamp;
@@ -174,8 +212,41 @@
             //alert('Please read the hint section first.'); 
         });
 
+        function class_q1_create_answer()
+        {
+            var checkboxes = document.getElementsByClassName('q1');
+            var result = document.getElementById('data');
+            result.value = "Selected columns: Nothing";
+            for (var i = 0; i < checkboxes.length; i++)
+            {
+                if (checkboxes[i].checked == true) {
+                    result.value = result.value.replace("Nothing", "");
+                    result.value += checkboxes[i].value +  "__";
+                }
+            }
+        
+        }
+
+        function change_ui_based_on_message(message) {
+            var n = message.search("privacy__q1");
+            if (n > -1) {
+                socket.emit('show_this_in_console', "Lock the textbox");
+                //console.log(data);
+                //$('input,textarea').prop('disabled', true);
+                var result = document.getElementById('data');
+                result.value = "Selected columns: Nothing";
+                $('textarea').prop('readonly', true);           
+            } else {
+                socket.emit('show_this_in_console', "Unlocking the textbox");
+                $('textarea').prop('readonly', false);  
+            }
+        }
         // listener, whenever the server emits 'updatechat', this updates the chat body
         socket.on('updatechat', function (username, data) {
+            socket.emit('show_this_in_console', "CLIENT: updatechat");
+            // socket.emit('show_this_in_console', data);
+            change_ui_based_on_message(data);
+
             appendMessage(new Date(), username, data);
             $('#conversation_container').stop().animate({ scrollTop: $("#conversation_container")[0].scrollHeight }, 500);
         });
@@ -235,9 +306,21 @@
 
         });
 
+        function change_ui_after_clicking_sending_message() {
+            
+            var textbox = document.getElementById("data").value
+            if (textbox.startsWith("Selected columns:")) {
+                var checkboxes = document.getElementsByClassName('q1');
+                for (var i = 0; i < checkboxes.length; i++)
+                {
+                    checkboxes[i].disabled = true;
+                }
+            }
+        }
         $(function () {
             // when the client clicks SEND
             $('#datasend').click(function () {
+                change_ui_after_clicking_sending_message()
                 sendMessage();
             });
 

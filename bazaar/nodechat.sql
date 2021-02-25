@@ -10,7 +10,7 @@ CREATE TABLE `message` (
   `useraddress` varchar(100) DEFAULT NULL COMMENT 'some sort of tracking value for the chat user, maybe ip address.',
   `userid` varchar(100) DEFAULT NULL COMMENT 'unique id for a user',
   PRIMARY KEY (`id`)
-) AUTO_INCREMENT=423 DEFAULT CHARSET=utf8;
+) AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `room` (
@@ -25,7 +25,21 @@ CREATE TABLE `room` (
   `created_by` varchar(100) NOT NULL COMMENT 'the landing page that creates this room',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)
-) AUTO_INCREMENT=316 DEFAULT CHARSET=utf8;
+) AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `student_id` varchar(100) NOT NULL,
+  `password` varchar(20) NOT NULL,
+  `login_timestamp` timestamp COMMENT 'The first time this user was used the passeord.', 
+  `group` int(5) NOT NULL DEFAULT 0 COMMENT '1 means A, 2 means B',
+  `number_of_tries` int(5) NOT NULL DEFAULT 0 COMMENT 'if becomes 1 if the user starts the tasks',
+  `comment` varchar(10000) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `student_id_UNIQUE` (`student_id`),
+  UNIQUE KEY `password_UNIQUE` (`password`)
+) AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `consent` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -33,4 +47,4 @@ CREATE TABLE `consent` (
   `userid` varchar(100) NOT NULL,
   `consent` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) AUTO_INCREMENT=425 DEFAULT CHARSET=utf8;
+) AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

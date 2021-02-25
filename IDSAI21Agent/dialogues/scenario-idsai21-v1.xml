@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE scenario SYSTEM "TuTalkScenario.dtd">
+<scenario default-language="en" scenario-name="scenario-idsai-v1">
+	<configuration>
+		
+		
+		<!-- It *is* possible to hook up a LightSide classifier to TuTalk, 
+		such that the predicted labels are treated as concepts. 
+		but not today. -->
+			
+		<!-- 	
+		<module kind="model" name="animals"
+			classname="edu.cmu.cs.lti.tutalk.module.SidePredictor">
+			<param key="path" value="models/animals.ser" />
+		</module> 
+		-->
+
+	</configuration>
+
+	<!-- I'm not entirely sure what these are used for. -->
+	<transitions>
+		<transition ack-type="agree" floor-status="neutral">
+			<tphrase> yes </tphrase>
+			<tphrase> okay </tphrase>
+		</transition>
+	
+		<transition ack-type="none">
+			<tphrase> moving on... </tphrase>
+		</transition>
+	</transitions>
+	
+	<!-- 'Concepts' define things that students might say,
+	     AND things that the tutor might say back. 
+	     Tutor concepts should take the form of phrase lists.
+		 Student concepts can be phrase lists, 
+		 regular expressions, or lists of annotations,
+	     but only one of these at a time. -->
+		
+	<concepts>
+	
+		<concept label="introduction">
+			<phrase>IDSAI21_WILL_BE_CHANGED_ON_SERVER_SIDE1|According to different definitions, something or someone would be called intelligent if it IDSAI_TH, IDSAI_AH, IDSAI_TR, IDSAI_AR; or if it is IDSAI_AB to a changing environment in order to achieve its goals.|I have this information from the TU Graz lecture "IDSAI_COURSE_TITLE" IDSAI_COURSE_SLIDES. But, I'm not sure I completely understand.</phrase>
+		</concept>
+		<!-- ================================= Question 1 ================================= -->
+		<!-- ================================================================================ -->
+		<!--                                     EXP SECTION                      -->
+		<!-- ================================================================================ -->
+		<concept label="question1">
+			<phrase>"question1"|I'm curious: Is ENTITY__RANDOM_EXAMPLE now intelligent or not? - Please tell me whether you think it is intelligent or not, which definition you use in your claim, and which evidence or background knowledge you use to decide that ENTITY_THE__RANDOM_EXAMPLE fits your chosen definition.</phrase>
+		</concept>
+		
+		<concept label="question1__with_positive_claim__with_warrant__with_evidence__exp">
+			<phrase>"question1__with_positive_claim__with_warrant__with_evidence__exp"|OK, that makes sense. My developer is already working on giving me more knowledge, in this case about what makes ENTITY__RANDOM_EXAMPLE intelligent or not. So in the future I will be ab le to discuss more about what intelligence is, and in what sense different pieces of AI-based technology are intelligent.</phrase>
+		</concept>
+		<concept label="question1__with_negative_claim__with_warrant__with_evidence__exp">
+			<phrase>"question1__with_negative_claim__with_warrant__with_evidence__exp"|OK, that makes sense. My developer is already working on giving me more knowledge, in this case about what makes ENTITY__RANDOM_EXAMPLE intelligent or not. So in the future I will be ab le to discuss more about what intelligence is, and in what sense different pieces of AI-based technology are intelligent.</phrase>
+		</concept>
+
+		<concept label="question1__with_positive_claim__with_warrant__without_evidence__exp">
+			<phrase>"question1__with_positive_claim__with_warrant__without_evidence__exp"|Great! I think I understand already a lot of what you’re saying – one thing isn’t clear yet: I don't understand which evidence or background knowledge you use in order to decide that ENTITY__RANDOM_EXAMPLE fits the definition of intelligence you used above. Could you explain why you think like this?</phrase>
+		</concept>
+		<concept label="question1__with_negative_claim__with_warrant__without_evidence__exp">
+			<phrase>"question1__with_negative_claim__with_warrant__without_evidence__exp"|Great! I think I understand already a lot of what you’re saying – one thing isn’t clear yet: I don't understand which evidence or background knowledge you use in order to decide that ENTITY__RANDOM_EXAMPLE fits to the definition of intelligence you used above.|Could you explain why you think like this?</phrase>
+		</concept>
+
+		<concept label="question1__with_positive_claim__with_warrant__without_evidence__second_try__exp">
+			<phrase>"question1__with_positive_claim__with_warrant__without_evidence__second_try__exp"|Mmmm, I’m sorry, I still don’t understand how you argue that ENTITY_THE__RANDOM_EXAMPLE fits to the definitions.|For instance, you can say monkey can act rationally because they know how to take care of themselves. Or they can make tools which is related to learn new things to achieve goals.|So, how do you justify the mentioned definitions fit to ENTITY_THE__RANDOM_EXAMPLE?</phrase>
+		</concept>
+		<concept label="question1__with_negative_claim__with_warrant__without_evidence__second_try__exp">
+			<phrase>"question1__with_negative_claim__with_warrant__without_evidence__second_try__exp"|Mmmm, I’m sorry, I still don’t understand how you argue that ENTITY_THE__RANDOM_EXAMPLE doesn’t fit to the definitions.| For instance, you can say since a pen is an inanimate object, it cannot act or think. That is why a pen cannot be called intelligent.|So, how do you justify the mentioned definitions doesn't fit to ENTITY_THE__RANDOM_EXAMPLE?</phrase>
+		</concept>
+		
+		<concept label="question1__with_positive_claim__with_warrant__without_evidence__finishing_conversation__exp">
+			<phrase>"question1__with_positive_claim__with_warrant__without_evidence__finishing_conversation__exp"|Unfortunately, I could not understand your evidence or observation related to the definitions of intelligence you used.|Anyways, my developer is already working on giving me more knowledge, so in the future I will be able to discuss more about what intelligence is, and in what sense different pieces of AI-based technology are intelligent.</phrase>
+		</concept>	
+		<concept label="question1__with_negative_claim__with_warrant__without_evidence__finishing_conversation__exp">
+			<phrase>"question1__with_negative_claim__with_warrant__without_evidence__finishing_conversation__exp"|Unfortunately, I could not understand your evidence or observation related to the definitions of intelligence you used.|Anyways, my developer is already working on giving me more knowledge, so in the future I will be able to discuss more about what intelligence is, and in what sense different pieces of AI-based technology are intelligent.</phrase>
+		</concept>
+
+		<concept label="question1__with_positive_claim__without_warrant__exp">
+			<phrase>"question1__with_positive_claim__without_warrant__exp"|POSITIVE_CLAIM_RANDOM_EXAMPLE|But I couldn't understand to which of the five definitions of intelligence you refer to. Please use at least one of these definitions explicitly when arguing why ENTITY__RANDOM_EXAMPLE WITHOUT_WARRANT_INTELLIGENT__RANDOM_EXAMPLE: thinking/acting humanly/rationally or being able to adapt behavior to a changing environment in order to achieve its goals.</phrase>
+		</concept>
+		<concept label="question1__with_negative_claim__without_warrant__exp">
+			<phrase>"question1__with_negative_claim__without_warrant__exp"|NEGATIVE_CLAIM_RANDOM_EXAMPLE|But I couldn't understand to which of the five definitions of intelligence you refer to. Please use at least one of these definitions explicitly when arguing why ENTITY__RANDOM_EXAMPLE WITHOUT_WARRANT_NOINTELLIGENT__RANDOM_EXAMPLE: thinking/acting humanly/rationally or being able to adapt behavior to a changing environment in order to achieve its goals.</phrase>
+		</concept>
+
+		<concept label="question1__with_positive_claim__without_warrant__second_try__exp">
+			<phrase>"question1__with_positive_claim__without_warrant__second_try__exp"|Mmmm, I’m sorry, I still don’t understand which of the five definitions you refer to.|Could you please try and phrase your answer like this: “The entity is intelligent in the sense of being able to act or think rationally."|You should mention some of the definitions and then explain why they fit to the entity.</phrase>
+		</concept>
+		<concept label="question1__with_negative_claim__without_warrant__second_try__exp">
+			<phrase>"question1__with_negative_claim__without_warrant__second_try__exp"|Mmmm, I’m sorry, I still don’t understand which of the five definitions you refer to.|Could you please try and phrase your answer like this: “The entity is not intelligent in the sense of not being able to act or think rationally."|You should mention some of the definitions and then explain why they don't fit to the entity.</phrase>
+		</concept>
+		
+		<concept label="question1__with_positive_claim__without_warrant__finishing_conversation__exp">
+			<phrase>"question1__with_positive_claim__without_warrant__finishing_conversation__exp"|Unfortunately, I could not understand based on which definitions you said the entity is intelligent.|Anyway, my developer is already working on giving me more knowledge, so in the future I will be able to discuss more about what intelligence is, and in what sense different pieces of AI-based technology are intelligent.</phrase>
+		</concept>
+		<concept label="question1__with_negative_claim__without_warrant__finishing_conversation__exp">
+			<phrase>"question1__with_negative_claim__without_warrant__finishing_conversation__exp"|Unfortunately, I could not understand based on which definitions you said the entity is not intelligent.|Anyways, my developer is already working on giving me more knowledge, so in the future I will be able to discuss more about what intelligence is, and in what sense different pieces of AI-based technology are intelligent..</phrase>
+		</concept>
+		
+		<concept label="question1__without_claim__exp">
+			<phrase>"question1__without_claim__exp"|Mmmm, I don't get your opinion about it. Could you tell me clearly whether it is intelligent or not? And why?</phrase>
+		</concept>
+		<concept label="question1__without_claim__second_try__exp">
+			<phrase>"question1__without_claim__second_try__exp"|Unfortunately, I cannot understand what you just said.|Please try to answer the original question of whether "an entity" is intelligent or not, and why, by starting the argumentation with: "The entity is (not) intelligent because …"</phrase>
+		</concept>
+		<concept label="question1__without_claim__finishing_conversation__exp">
+			<phrase>"question1__without_claim__finishing_conversation__exp"|I could not understand your assertion regarding the entity. I think I need to improve my understanding to find out what you are saying. So, let's talk later.</phrase>
+		</concept>
+
+		<concept label="end_conversation__exp">
+			<!-- end_conversation__exp -->
+			<phrase>I think we need to review the slides again then talk.|The slides are IDSAI_COURSE_SLIDES.</phrase>
+		</concept>
+		
+		<concept label="closing">
+			<phrase>Interesting! Thanks!</phrase>
+		</concept>
+		
+		<concept label="give_link">
+			<phrase>Please click IDSAI_ASSIGNMENT_1_LANDING_PAGE if you want to talk with me about another random entity.</phrase>
+		</concept>
+		
+		<concept label="goodbye">
+			<phrase>See you next time :)</phrase>
+			<phrase>Have a nice day and see you soon!</phrase>
+			<phrase>And bye :-)</phrase>
+			<phrase>Until the days!</phrase>
+			<phrase>Thank you and see you next time;)</phrase>
+			<phrase>Have a nice day :)</phrase>
+			<phrase>See you soon!</phrase>
+			<phrase>See you next time!</phrase>
+		</concept>
+		
+		<!-- these match against external (MessageAnnotator) annotations. -->
+		<!-- ================================================================================= -->
+		<!-- ================================= ANNOTATIONS question 1 =========================-->
+		<!-- ================================================================================= -->
+		<concept label="question1__with_positive_claim__with_warrant__with_evidence__annotation" type="annotation">
+			<phrase>POS_CLAIM__WITH_WARRANT__WITH_EVIDENCE</phrase>
+		</concept>
+		<concept label="question1__with_negative_claim__with_warrant__with_evidence__annotation" type="annotation">
+			<phrase>NEG_CLAIM__WITH_WARRANT__WITH_EVIDENCE</phrase>
+		</concept>
+
+		<concept label="question1__with_positive_claim__with_warrant__without_evidence__annotation" type="annotation">
+			<phrase>POS_CLAIM__WITH_WARRANT__WITHOUT_EVIDENCE</phrase>
+		</concept>
+		<concept label="question1__with_negative_claim__with_warrant__without_evidence__annotation" type="annotation">
+			<phrase>NEG_CLAIM__WITH_WARRANT__WITHOUT_EVIDENCE</phrase>
+		</concept>
+
+		<concept label="question1__with_positive_claim__without_warrant__annotation" type="annotation">
+			<phrase>POS_CLAIM__WITHOUT_WARRANT__WITH_EVIDENCE</phrase>
+			<phrase>POS_CLAIM__WITHOUT_WARRANT__WITHOUT_EVIDENCE</phrase>
+		</concept>
+		<concept label="question1__with_negative_claim__without_warrant__annotation" type="annotation">
+			<phrase>NEG_CLAIM__WITHOUT_WARRANT__WITH_EVIDENCE</phrase>
+			<phrase>NEG_CLAIM__WITHOUT_WARRANT__WITHOUT_EVIDENCE</phrase>
+		</concept>
+
+		
+		<concept label="question1__with_warrant__with__evidence__annotation" type="annotation">
+			<phrase>POS_CLAIM__WITH_WARRANT__WITH_EVIDENCE</phrase>
+			<phrase>NEG_CLAIM__WITH_WARRANT__WITH_EVIDENCE</phrase>
+			<phrase>UNK_CLAIM__WITH_WARRANT__WITH_EVIDENCE</phrase>
+		</concept>
+
+		<concept label="question1__with_warrant__without__evidence__annotation" type="annotation">
+			<phrase>POS_CLAIM__WITH_WARRANT__WITHOUT_EVIDENCE</phrase>
+			<phrase>NEG_CLAIM__WITH_WARRANT__WITHOUT_EVIDENCE</phrase>
+			<phrase>UNK_CLAIM__WITH_WARRANT__WITHOUT_EVIDENCE</phrase>
+		</concept>
+
+		<concept label="question1__without_claim__annotation" type="annotation">
+			<phrase>UNK_CLAIM</phrase>
+		</concept>
+		<concept label="question1__with_evidence__annotation" type="annotation">
+			<phrase>WITH_EVIDENCE</phrase>
+		</concept>
+
+		<concept label="question1__agreement__annotation" type="annotation">
+			<phrase>AGREEMENT</phrase>
+			<phrase>IDSAI_QUESTION1_IS_INTELLIGENT</phrase>
+
+		</concept>
+		<concept label="question1__disagreement__annotation" type="annotation">
+			<phrase>DISAGREEMENT</phrase>
+			<phrase>IDSAI_QUESTION1_IS_NOT_INTELLIGENT</phrase>
+		</concept>
+		
+		<concept label="no__annotation" type="annotation">
+			<phrase>NO</phrase>
+		</concept>
+		
+		<!-- Behzad: This capital name (OPTIMISTIC) refers to the name of file (dictionary) in which a list of phrases were typed. These phrases will use to classify a response whether it is "optimistic" or not. -->
+		
+		<concept label="unanticipated-response">
+			<phrase>anything else</phrase>
+		</concept>
+		
+	</concepts>
+
+	<!-- ================================================================================= -->
+	<!-- ================================= DIALOG - BRANCHES =========================-->
+	<!-- ================================================================================= -->
+	<!-- This is the meat of the hierarchical dialogue - 
+		 one main goal with multiple steps, and subgoals that it may reference. -->
+	<script>
+		<goal name="start" difficulty="1" >
+			<step>
+				<initiation>introduction</initiation>
+			</step>
+					<!-- ================================= Question 1 ================================= -->
+
+			<step >
+				<initiation>question1</initiation>
+				<response push="question1__with_positive_claim__with_warrant__with_evidence">question1__with_positive_claim__with_warrant__with_evidence__annotation</response>
+				<response push="question1__with_negative_claim__with_warrant__with_evidence">question1__with_negative_claim__with_warrant__with_evidence__annotation</response>
+				
+				<response push="question1__with_positive_claim__with_warrant__without_evidence">question1__with_positive_claim__with_warrant__without_evidence__annotation</response>
+				<response push="question1__with_negative_claim__with_warrant__without_evidence">question1__with_negative_claim__with_warrant__without_evidence__annotation</response>
+				
+				<response push="question1__with_positive_claim__without_warrant">question1__with_positive_claim__without_warrant__annotation</response>
+				<response push="question1__with_negative_claim__without_warrant">question1__with_negative_claim__without_warrant__annotation</response>
+				
+				<response push="question1__without_claim">question1__without_claim__annotation</response>
+			</step>
+
+			<step>
+				<initiation>give_link</initiation>
+			</step>
+			<step>
+				<initiation>goodbye</initiation>
+				<response>unanticipated-response</response>
+			</step>
+		</goal>
+		
+		<goal name="question1__with_positive_claim__with_warrant__with_evidence" difficulty="1">
+			<step>
+				<initiation>question1__with_positive_claim__with_warrant__with_evidence__exp</initiation>
+			</step>
+		</goal>
+		<goal name="question1__with_negative_claim__with_warrant__with_evidence" difficulty="1">
+			<step>
+				<initiation>question1__with_negative_claim__with_warrant__with_evidence__exp</initiation>
+			</step>
+		</goal>
+
+		<goal name="question1__with_positive_claim__with_warrant__without_evidence" difficulty="1">
+			<step>
+				<initiation>question1__with_positive_claim__with_warrant__without_evidence__exp</initiation>
+				<response push="question1__with_positive_claim__with_warrant__with_evidence">question1__with_evidence__annotation</response>
+				<response push="question1__with_positive_claim__with_warrant__without_evidence__second_try">unanticipated-response</response>				
+			</step>
+		</goal>
+		<goal name="question1__with_negative_claim__with_warrant__without_evidence" difficulty="1">
+			<step>
+				<initiation>question1__with_negative_claim__with_warrant__without_evidence__exp</initiation>
+				<response push="question1__with_negative_claim__with_warrant__with_evidence">question1__with_evidence__annotation</response>
+				<response push="question1__with_negative_claim__with_warrant__without_evidence__second_try">unanticipated-response</response>				
+			</step>
+		</goal>
+		
+		
+		<goal name="question1__with_positive_claim__with_warrant__without_evidence__second_try" difficulty="1">
+			<step>
+				<initiation>question1__with_positive_claim__with_warrant__without_evidence__second_try__exp</initiation>
+				<response push="question1__with_positive_claim__with_warrant__with_evidence">question1__with_evidence__annotation</response>
+				<response push="question1__with_positive_claim__with_warrant__without_evidence__finishing_conversation">unanticipated-response</response>				
+			</step>
+		</goal>
+		<goal name="question1__with_negative_claim__with_warrant__without_evidence__second_try" difficulty="1">
+			<step>
+				<initiation>question1__with_negative_claim__with_warrant__without_evidence__second_try__exp</initiation>
+				<response push="question1__with_negative_claim__with_warrant__with_evidence">question1__with_evidence__annotation</response>
+				<response push="question1__with_negative_claim__with_warrant__without_evidence__finishing_conversation">unanticipated-response</response>				
+			</step>
+		</goal>
+
+		<goal name="question1__with_positive_claim__with_warrant__without_evidence__finishing_conversation" difficulty="1">
+			<step>
+				<initiation>question1__with_positive_claim__with_warrant__without_evidence__finishing_conversation__exp</initiation>
+			</step>
+		</goal>
+		<goal name="question1__with_negative_claim__with_warrant__without_evidence__finishing_conversation" difficulty="1">
+			<step>
+				<initiation>question1__with_negative_claim__with_warrant__without_evidence__finishing_conversation__exp</initiation>
+			</step>
+		</goal>
+
+		<goal name="question1__with_positive_claim__without_warrant" difficulty="1">
+			<step>
+				<initiation>question1__with_positive_claim__without_warrant__exp</initiation>
+				<response push="question1__with_positive_claim__with_warrant__with_evidence">question1__with_warrant__with__evidence__annotation</response>
+				<response push="question1__with_positive_claim__with_warrant__without_evidence">question1__with_warrant__without__evidence__annotation</response>
+				<response push="question1__with_positive_claim__without_warrant__second_try">unanticipated-response</response>				
+			</step>
+		</goal>
+		<goal name="question1__with_negative_claim__without_warrant" difficulty="1">
+			<step>
+				<initiation>question1__with_negative_claim__without_warrant__exp</initiation>
+				<response push="question1__with_negative_claim__with_warrant__with_evidence">question1__with_warrant__with__evidence__annotation</response>
+				<response push="question1__with_negative_claim__with_warrant__without_evidence">question1__with_warrant__without__evidence__annotation</response>
+				<response push="question1__with_negative_claim__without_warrant__second_try">unanticipated-response</response>				
+			</step>
+		</goal>
+
+		<goal name="question1__with_positive_claim__without_warrant__second_try" difficulty="1">
+			<step>
+				<initiation>question1__with_positive_claim__without_warrant__second_try__exp</initiation>
+				<response push="question1__with_positive_claim__with_warrant__with_evidence">question1__with_warrant__with__evidence__annotation</response>
+				<response push="question1__with_positive_claim__with_warrant__without_evidence">question1__with_warrant__without__evidence__annotation</response>
+				<response push="question1__with_positive_claim__without_warrant__finishing_conversation">unanticipated-response</response>				
+			</step>
+		</goal>
+		<goal name="question1__with_negative_claim__without_warrant__second_try" difficulty="1">
+			<step>
+				<initiation>question1__with_negative_claim__without_warrant__second_try__exp</initiation>
+				<response push="question1__with_negative_claim__with_warrant__with_evidence">question1__with_warrant__with__evidence__annotation</response>
+				<response push="question1__with_negative_claim__with_warrant__without_evidence">question1__with_warrant__without__evidence__annotation</response>
+				<response push="question1__with_negative_claim__without_warrant__finishing_conversation">unanticipated-response</response>				
+			</step>
+		</goal>
+
+		
+		<goal name="question1__with_positive_claim__without_warrant__finishing_conversation" difficulty="1">
+			<step>
+				<initiation>question1__with_positive_claim__without_warrant__finishing_conversation__exp</initiation>
+			</step>
+		</goal>
+		<goal name="question1__with_negative_claim__without_warrant__finishing_conversation" difficulty="1">
+			<step>
+				<initiation>question1__with_negative_claim__without_warrant__finishing_conversation__exp</initiation>
+			</step>
+		</goal>
+
+		<goal name="question1__without_claim" difficulty="1">
+			<step>
+				<initiation>question1__without_claim__exp</initiation>
+				<response push="question1__with_positive_claim__with_warrant__with_evidence">question1__with_positive_claim__with_warrant__with_evidence__annotation</response>
+				<response push="question1__with_negative_claim__with_warrant__with_evidence">question1__with_negative_claim__with_warrant__with_evidence__annotation</response>
+				<response push="question1__with_positive_claim__with_warrant__without_evidence">question1__with_positive_claim__with_warrant__without_evidence__annotation</response>
+				<response push="question1__with_negative_claim__with_warrant__without_evidence">question1__with_negative_claim__with_warrant__without_evidence__annotation</response>
+				<response push="question1__with_positive_claim__without_warrant">question1__with_positive_claim__without_warrant__annotation</response>
+				<response push="question1__with_negative_claim__without_warrant">question1__with_negative_claim__without_warrant__annotation</response>
+				<response push="question1__without_claim__second_try">question1__without_claim__annotation</response>
+			</step>
+		</goal>
+
+
+		<goal name="question1__without_claim__second_try" difficulty="1">
+			<step>
+				<initiation>question1__without_claim__second_try__exp</initiation>
+				<response push="question1__with_positive_claim__with_warrant__with_evidence">question1__with_positive_claim__with_warrant__with_evidence__annotation</response>
+				<response push="question1__with_negative_claim__with_warrant__with_evidence">question1__with_negative_claim__with_warrant__with_evidence__annotation</response>
+				<response push="question1__with_positive_claim__with_warrant__without_evidence">question1__with_positive_claim__with_warrant__without_evidence__annotation</response>
+				<response push="question1__with_negative_claim__with_warrant__without_evidence">question1__with_negative_claim__with_warrant__without_evidence__annotation</response>
+				<response push="question1__with_positive_claim__without_warrant">question1__with_positive_claim__without_warrant__annotation</response>
+				<response push="question1__with_negative_claim__without_warrant">question1__with_negative_claim__without_warrant__annotation</response>
+				<response push="question1__without_claim__finishing_conversation">question1__without_claim__annotation</response>
+			</step>
+		</goal>
+
+
+		<goal name="question1__without_claim__finishing_conversation" difficulty="1">
+			<step>
+				<initiation>question1__without_claim__finishing_conversation__exp</initiation>
+			</step>
+		</goal>
+
+		<!-- ========================================================================================================================-->
+
+	</script>
+
+</scenario>

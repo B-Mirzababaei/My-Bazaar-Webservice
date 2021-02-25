@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>IDSAI21</title>
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type=""></script>
+  <script type="text/javascript" src="/scripts/sortable.js"></script>
+  <script type="text/javascript" src="/scripts/colors.js"></script>
+  <script type="text/javascript" src="/bazsocket/socket.io.js"></script>
+  <script type="text/javascript" src="/scripts/config.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" />
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/templatemo-style.css" />
+
+
+<!--
+Verticard Template
+https://templatemo.com/tm-533-verticard
+-->
+</head>
+<style>
+.button {
+  background-color: rgb(47, 173, 223);
+  border: none;
+  color: white;
+  padding: 7px 63px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px 5px 5px 5px;
+  cursor: pointer;
+  border-radius: 12px;
+  width: 260px;
+}
+.textbox {
+  margin: 5px 5px 5px 5px;
+  width: 260px;
+}
+.text {
+transition: all 0.5s ease;
+    border: 1px solid #c8c8c8;
+    color: #777;
+    font: 13px Helvetica, Arial, sans-serif;
+    margin: 0 0 10px;
+    padding: 15px 10px 15px 40px;
+    width: 80%;
+}
+p {
+  text-align: justify;
+  text-justify: inter-word;
+}
+</style>
+<body>
+  <div class="tm-page-container mx-auto">
+    <header class="tm-header text-center">
+      <!-- <h1 class="tm-title text-uppercase">GDPR</h1>
+      <p class="tm-primary-color"><i>General Data Protection Regulation</i></p> -->
+    </header>
+
+    <section class="tm-section">
+      <nav class="tm-nav">
+        <ul>
+          <li class="active">
+            <a href="IDSAI21-landing-page-1.html"><span class="tm-nav-deco"></span>Home</a>
+          </li>
+          <li>
+            <a href="https://www.know-center.tugraz.at/en/"><span class="tm-nav-deco"></span>Know-Center</a>
+          </li>
+          <li>
+            <a href="https://www.tugraz.at/home/"><span class="tm-nav-deco"></span>TU Graz</a>
+          </li>
+        </ul>
+      </nav>
+      <div class="tm-content-container">
+        <figure class="mb-0"  style="text-align:-webkit-center">
+          <img src="/img/Rebo4AI-IDSAI21.PNG" alt="Image" class="img-fluid tm-img" />
+        </figure>
+        <div class="tm-content">
+          <h2 class="tm-page-title">Welcome to the research study.</h2>
+          <p class="mb-4">    
+            In this study, you need to complete three different tasks. But first, you need to read the content below. It is the summary of what you already learn in the course,"Introduction to Data Science and Artificial Intelligence". You are allowed to download the content as a PDF file, so you don't need to keep them in your mind during the research study. <br>After Reading the content, you can find two textboxes, in which you need to enter an arbitrary username and the password sent to you, and a button. After entering your username and password, you need to click the button to commence the tasks. The three tasks that are needed to complete sequentially are:
+            <ol>
+              <li>
+                Having a conversation about with Rebo4AI (a conversational agent),
+              </li>
+              <li>
+                Answering a question about intelligence in a textfield, 
+              </li>
+              <li>
+                Answering a question about an ethical dilemma in a textfield. 
+              </li>
+            </ol>
+            Please keep this in your mind that <strong>you have only one chance to finish the tasks.</strong> In other word, your password will be expired after the first use. If you encounter any problem during the experiment, please send an email with this title <strong><i>IDSAI21 + [YOUR PASSWORD]</i></strong> to <strong></i>bmirzababaei [AT] know-center [DOT] at</i></strong>.
+          </p>
+
+        
+          <h2 class="tm-page-title">What does an entity need to be intelligent?</h2>
+          <p class="mb-4" >    
+            First of all, an entity needs to perceive, think and act. These three features are the building blocks of an intelligent entity. These functionalities are achieved differently in living or digital entities. For example, humans and animals perceive the surrounding environment by the organs that used for seeing, hearing, tasting, and touching, thinking by their brain, and acting by their body. But in digital entity such as Google search engine perceives the world by keywords that we enter as inputs, thinks by using the knowledge that Google's programmers import to the system as databases, indexes, and graphs, and acts by suggesting the most relevant webpages to users. 
+            
+            However, these three abilities aren't enough to call an entity intelligent. In addition to them, to call an entity intelligent, the entity needs to: 
+            <ol>
+              <li>
+                Act rationally,
+              </li>
+              <li>
+                Think rationally,
+              </li>
+              <li>
+                Act humanly,
+              </li>
+              <li>
+                Think humanly,
+              </li>
+              <li>
+                Have the capability of leaning from experience.
+              </li>
+            </ol>
+          </p>
+          <h2 class="tm-page-title">How can we reasonably claim that something is intelligent or not? 
+          </h2>
+
+          <p class="mb-4"> 
+            To call whether an entity is intelligent or not, first of all, our assertion needs to be explicitly mentioned. Then, we should refer to some of the entity's behaviors or actions that match with the definitions of intelligence. For instance, if somebody asks us "<i>Is Google search engine intelligent or not? Why?</i>", we can simply say "<i>yes</i>" or "<i>no</i>" but in this case, we didn't answer the "why" part of question. So, to tackle the "why" part, we need to add something to our answer which refers to entity's behaviors or actions and in the end, use the definitions of intelligent as a bridge to connect our assertion to our explanation. That's how we can have a good argument.
+            <br>
+            
+
+            <!-- To call whether an entity is intelligent or not, we need to think about the entity's behavior and connect them to one of the definitions of intelligence. For instance, if somebody asks us "<i>Is Google search engine intelligent or not? Why?</i>", we can simply say "<i>yes</i>" or "<i>no</i>" but in this case, we didn't answer the "why" part of question. To reply the question in a better way, we should refer to our own experiences with the entity that depict the entity is intelligent or not. For instance, the better response to the question could be something like this, "<i>To me, it is intelligent, because most of the time it suggests relevant webpages. Also, the entity learns what I'm looking for through the time.</i>". 
+            
+            The latter reply is better than the former but we can also improve it more. There is still a missing part in the latter response. We need to justify that how the mentioned experiences are relevant to our assertion that the entity is intelligent. To connect them together, we need to use the definitions of intelligence. Thus, the better response could be like this, "<i>I think Google search engine is intelligent</i>"   -->
+
+          </p>
+          <h2 class="tm-page-title">Toulmin's model of argument 
+          </h2>
+
+          <p class="mb-4"> 
+            Toulmin's model of argument is a style of argumentation that breaks down an argument into 6 different components:
+            <ul>
+              <li><strong>Claim</strong>: the conclusion being made,</li>
+              <li><strong>Data, Evidence, or Ground</strong>: is offered to support the claim,</li>
+              <li><strong>Warrant</strong>: logically connects the data to the claim,</li>
+              <li><strong>Qualifier</strong>: shows the strength of the claim,</li>
+              <li><strong>Rebuttal</strong>: exception to the claim,</li>
+              <li><strong>Backing</strong>: supports the warrant.</li>
+            </ul>
+            Here you can see how they are connected to each other.
+            <figure class="mb-0"  style="text-align:-webkit-center">
+              <img src="/img/Toulmin.png" alt="Image" class="img-fluid tm-img" />
+            </figure>
+          </p>
+
+          <p class="mb-4">    
+            As you can see in this figure, the main components are the claim, warrant, and data or evidence. So, when we need to pick a side and need to justify it, we can use this model to offer more structural argument. As you notice, the focus of the model is on the structure of a good argument. Besides that, out argumentation needs to be meaningful and valid which related to our background knowledge.
+          </p>
+          <br>
+          <br>
+          <p class="mb-4">    
+            Now it's time to begin the tasks. To recap:
+            <ul>
+              <li>You only have one chance to finished the tasks.</li>
+              <li>If you encounter a bug or a problem, please send en email with this title <strong><i>IDSAI21 + [YOUR PASSWORD]</i></strong> to <strong></i>bmirzababaei [AT] know-center [DOT] at</i></strong>.</li>
+              <li>The password will be expired after the first use.</li>
+              <li>The username is arbitrary.</li>
+              <li>Do not share your password with other peers.</li>
+              <li>You can access the content during the experiment by downloading these files: <a target="_blank" rel="noopener noreferrer" href="http://rebo4ai.know-center.tugraz.at/bazaar/data/IDSAI/1a_Introduction.pdf" download="http://rebo4ai.know-center.tugraz.at/bazaar/data/IDSAI/1a_Introduction.pdf">SLIDES</a>, <a target="_blank" rel="noopener noreferrer" href="http://rebo4ai.know-center.tugraz.at/bazaar/data/IDSAI/1a_Introduction.pdf" download="http://rebo4ai.know-center.tugraz.at/bazaar/data/IDSAI/1a_Introduction.pdf">CONTENT</a>.</li>
+            </ul> 
+          </p>
+
+          <input type="text" class="textbox" id="textbox_name" placeholder="Please enter a name." required=""/>
+          <br>
+          <input type="text" class="textbox" id="textbox_pass" placeholder="Please enter your password." required=""/>
+          <br>
+          <!-- <input type="text" id="textbox" placeholder="Please enter a name TEMP" required=""/> -->
+          <input type="button" class="button" id="myButton" value="Let's begin!">
+
+        </div>
+
+      </div>
+      
+    </section>
+    
+    <footer>
+      <span>Copyright 2019 Simple Profile</span>
+      <span>designed by TemplateMo</span>
+    </footer>
+  </div>
+</body>
+<script>
+  var pathArray = window.location.pathname.split('/');
+  //http://127.0.0.1/bazaar/IDSAI21/content_page/2/p4 ->  1 bazaar, 2 IDSAI21, 3 content_page, 4 2, 5 p4
+  var group_study = 1; // 1 == A , 2 == B
+  var room_type = 'chatbot';
+  const sender =  'IDSAI21_landing_page_1';//path.split("/").pop();
+
+    //const host = "http://127.0.0.1";
+    //const host = "http://rebo4ai.know-center.tugraz.at";
+    const host = config_hostURL;
+    const manner_or_roomtype = 'IDSAI21';
+
+    const socket = io({
+            path: '/bazsocket'
+        });
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    // const sender =  'chatbot_landing_page_temp';//path.split("/").pop();
+
+
+    if (urlParams.has('prefix')){
+        var tmp = '_' + urlParams.get('prefix');
+    }
+    else {
+        var tmp = '';
+    }
+    const prefix_room = tmp;
+
+    if (urlParams.has('suffix')){
+        var tmp = '_' + urlParams.get('suffix');
+    }
+    else {
+        var tmp = '';
+    }
+    const suffix_room = tmp;
+    // const manner_or_roomtype = 'CHATBOT_TEMP'; 
+ 
+
+// function makeid(length) {
+//    var result           = '';
+//    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+//    var charactersLength = characters.length;
+//    for ( var i = 0; i < length; i++ ) {
+//       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+//    }
+//    return result;
+// };
+
+
+
+
+    function redirect(){
+        socket.emit('show_this_in_console', '------ CLIENT: NEW REQUEST ------');
+        var name = document.getElementById('textbox_name').value.trim();
+        var pass = document.getElementById('textbox_pass').value.trim();
+
+        if((name).length==0){
+            alert ('You need to have a name.');
+            return false
+        }
+        if((name).toLowerCase() == 'rebo4ai'){
+            alert ('Please select another name.');
+            return false
+        }
+
+        if((pass).length==0){
+            alert ('The password is incorrect!');
+            return false
+        }
+
+        checking_validity(pass);
+        // join_into_this_room();
+        //Behzad the 3 means the page is called from a hyperlink in essay room or chatroom. NOT from random pages 
+        //location.href = host + "/bazaar/chat/IDSAI_CHATBOT_"+makeid(15)+ "-3" + "/chatbot/"+document.getElementById("textbox").value.trim();
+
+    };
+
+    function checking_validity(password) {
+        //Behzad: here you emit a request to the server to check the password and the number of tries.
+        socket.emit('checking_validity_of_user', sender, prefix_room, suffix_room, password, group_study, function(result){
+          socket.emit('show_this_in_console', 'CLIENT: Get the result from server: message ' + result);
+          // location.href = host + "/bazaar/IDSAI/" + result + document.getElementById("textbox").value.trim();
+          //join_into_this_room(message);
+          // if (result == 'The password is incorrect!')
+          // var room = password + "_" + group_study;
+          // var address =  host + "/bazaar/IDSAI21/" + "IDSAI21A-" + room + "/" + room_type + "/" + document.getElementById("textbox_name").value.trim();
+          if (typeof result == 'object') {
+            // socket.emit('show_this_in_console', 'CLIENT: Got there: ' +  address);
+            // location.href = address;
+            join_into_this_room();
+            // location.href = host + "/bazaar/IDSAI21/content_page/" + result.group + "/" + result.password;
+          }
+          else {
+            // socket.emit('show_this_in_console', '-----CLIENT: Got there: ' +  address);
+            alert(result);
+          }
+      });
+
+
+    };
+    function join_into_this_room (){
+      var tmp = manner_or_roomtype + "_" + room_type +"_" +document.getElementById('textbox_pass').value.trim();
+        socket.emit('find_a_proper_room', sender, prefix_room, suffix_room, tmp, function(roomname_and_type){
+            socket.emit('show_this_in_console', 'CLIENT: Get the result from server: message ' + roomname_and_type);
+            //socket.emit('show_this_in_console', 'CLIENT: Get the result from server: message[0] ' + message[0]);
+            //localStorage.setItem("landing_page_idsai_assignment_1","1");
+            //socket.emit('show_this_in_console', message);
+            // Behzad IMPORTANT : the "2" in the url means that we redirect to location.href from this html
+            // this helps us that when refresh or backward, the correct page will be shown. 
+            // sometimes , we need to back to landing_page_random.html and some other times we need to back to landing_page_idsai_assignment_1.html
+            // this number or id is added to the end of the roomname 
+            //random_part = random_part.substring(0, random_part.indexOf('/')) + '-2' + random_part.substring(random_part.indexOf('/'))
+            socket.emit('show_this_in_console', 'CLIENT:redirect '+ document.getElementById("textbox_name").value.trim() + ' to this room: '+ roomname_and_type);
+
+            location.href = host + "/bazaar/IDSAI21/" + roomname_and_type + document.getElementById("textbox_name").value.trim();
+            //callback(sender + prefix_room + splitter + room_name + suffix_room + '/' + room_type + '/');
+
+            //join_into_this_room(message);
+        });
+        //Behzad the 3 means the page is called from a hyperlink in essay room or chatroom. NOT from random pages 
+        //location.href = host + "/bazaar/chat/IDSAI_CHATBOT_"+makeid(15)+ "-3" + "/chatbot/"+document.getElementById("textbox").value.trim();
+
+    };
+
+    document.getElementById("textbox_pass")
+        .addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+          // manner_or_roomtype = manner_or_roomtype + "_" + room_type +"_" +document.getElementById('textbox_pass').value.trim();
+
+            redirect();
+        }
+    });
+
+
+    document.getElementById("myButton").onclick = function () {
+      // manner_or_roomtype = manner_or_roomtype + "_" + room_type +"_" +document.getElementById('textbox_pass').value.trim();
+      redirect();
+    };
+
+</script>
+</html>

@@ -61,7 +61,9 @@ function handleDisconnect() {
 }
 
 handleDisconnect();
-
+var global_group = 1;
+var global_room_type = '';
+var global_task_number = 0;
 var numUsers = {};
 var chatroom_locked = false;
 var room_usernames = {};
@@ -144,7 +146,7 @@ app.get('/bazaar/observe/*', function (req, res) {
 
 app.get('/bazaar/data/IDSAI/1a_Introduction.pdf', function (req, res) {
 
-    res.sendfile("1a - IDSAI 2020 Introduction.pdf");
+    res.sendfile("1a - IDSAI 2021 Introduction.pdf");
 });
 
 app.get('/bazaar/idsai-landing_page', function (req, res) {
@@ -165,6 +167,24 @@ app.get('/bazaar/idsai-landing_page', function (req, res) {
 
 //     res.sendfile(landing_page + '.html');
 // });
+
+app.get('/bazaar/landing_page/IDSAI21_landing_page_1*', function (req, res) {
+    var landing_page = 'IDSAI21-landing-page-1';
+
+    if (req.query.html != undefined)
+        landing_page = req.query.html;
+
+    res.sendfile(landing_page + '.html');
+});
+
+app.get('/bazaar/landing_page/IDSAI21_landing_page_2*', function (req, res) {
+    var landing_page = 'IDSAI21-landing-page-2';
+    if (req.query.html != undefined)
+        landing_page = req.query.html;
+
+    res.sendfile(landing_page + '.html');
+});
+
 
 app.get('/bazaar/landing_page/privacy_landing_page*', function (req, res) {
     var landing_page = 'privacy-landing-page';
@@ -248,6 +268,41 @@ app.get('/bazaar/PRIVACY/*', function (req, res) {
     res.sendfile(html_page + '.html');
 });
 
+app.get('/bazaar/IDSAI21/*', function (req, res) {
+
+    groups = /bazaar\/IDSAI21\/([^\/]+)\/([^\/]+)\/([^\/]+)/.exec(req.url)
+    console.log("SERVER GET A NEW URL req.url: " + req.url)
+
+    room_name = groups[1];
+    room_type = groups[2];
+    username = groups[3];
+    
+    global_group = room_name.split("-")[0].split("_")[3];
+    global_room_type = room_type;
+    global_task_number = room_name.split("-")[3];
+
+    console.log("SERVER global_group:" + global_group);
+    console.log("SERVER global_task_type:" + global_room_type);
+    console.log("SERVER global_task_number:" + global_task_number);
+
+    // var html_page = "";
+    // if (global_group == '1') {
+    //     html_page = 'IDSAI21-index-' + room_type;
+    // } else {
+    //     html_page = 'IDSAI21-index-' + room_type;
+    // }
+    
+    var html_page = 'IDSAI21-index-' + global_room_type + '-' + global_task_number;
+    console.log("SERVER ____++++++_____ html_page:  " + html_page);
+    // if (room_type == "essay") {
+    //     html_page += "-" + global_group;
+    // }
+
+    if (req.query.html != undefined)
+        html_page = req.query.html;
+
+    res.sendfile(html_page + '.html');
+});
 app.get('/bazaar/IDSAI/*', function (req, res) {
 
     groups = /bazaar\/IDSAI\/([^\/]+)\/([^\/]+)\/([^\/]+)/.exec(req.url)
@@ -485,12 +540,30 @@ function loadHistory(socket, secret) {
                             }
                             //else if (socket.room.substring(0, 12) === 'IDSAI_ESSAY_') {
                             else if (socket.type === 'essay') {
-                                console.log('531 ---------------');
+                                console.log("SERVER ESSAY QUESTION: ");
+                                console.log(socket.type);
+                                console.log(socket.username);
+                                console.log(socket.room);
+                                console.log(socket.root_page);
+                                console.log(socket.room.includes("IDSAI21"));
+                                console.log(socket.room.includes("-essay-2"));
+                                console.log(socket.room.includes("IDSAI21") && socket.room.includes("-essay-2"));
 
-                                var rand_entity = select_a_random_entity();
-                                var tmp = "In the TUGraz lecture 'Introduction to Data Science and Artificial Intelligence (IDSA)', different definitions of intelligence have been discussed. According to different definitions, something or someone would be called intelligent if it <strong>thinks humanly, acts humanly, thinks rationally, acts rationally</strong>; or if it is <strong>able to adapt behaviour</strong> to a changing environment in order to achieve its goals. This information is also available <a target='_blank' rel='noopener noreferrer'  href='http://rebo4ai.know-center.tugraz.at/bazaar/data/IDSAI/1a_Introduction.pdf' download='http://rebo4ai.know-center.tugraz.at/bazaar/data/IDSAI/1a_Introduction.pdf'>here</a>.<br><br>Please reflect below on whether <b>" + rand_entity + "</b> would be considered intelligent or not. In your reflections, use and refer to the above discussions. Please also consider how satisfied you are with your conclusion; and whether you want to change anything in the definition. When you are finished press the submit button, please.";
-                                logMessage(socket, tmp, "INFO", 'INFO');
-                                io.sockets.in(socket.room).emit('Show_question_of_essay', tmp);
+                                if (socket.room.includes("IDSAI21") && socket.room.includes("-essay-2")) {
+                                    //BEHZAD: Here you send the question of the essay.
+                                    // var tmp = "You and your family love the beach and decide to spend a weekend at an isolated beach cabin. Your teenage daughter often gets bored on your getaways, so you make plans to take your niece along. As soon as you arrive, a storm is looming on the horizon and the water looks rough. You tell the girls they can get ready to swim, but to come back and help unload the car. They are so excited, they do not pay attention to the last part of what you say and run down to the beach to swim. <br><br>You do not realize they have done so until you hear your daughter scream. You realize they are both caught in a strong current and might be swept out to sea. You are a good swimmer and know you can save one of them. You have a difficult choice to make. Do you:<br><ul><li>Save your niece first as she is a poor swimmer and will not be able to last as long as your daughter?</li><li>Save your daughter first, because, although she is a strong swimmer and may be able to last long enough for you to come back after saving your niece, you cannot stand the idea of losing her?</li></ul>"
+                                    var tmp = "There is a trolley coming down the tracks and ahead, there are five people tied to the tracks and are unable to move. The trolley will continue coming and will kill the five people. There is nothing you can do to rescue the five people EXCEPT that there is a lever. If you pull the lever, the train will be directed to another track, which has ONE person tied to it.<br><br>What do you do? Please, justify your claim.<br>"
+                                    logMessage(socket, tmp, "INFO", 'INFO');
+                                    io.sockets.in(socket.room).emit('Show_question_of_essay', tmp);
+                                } else {
+                                    console.log('531 ---------------');
+                                    //BEHZAD: Here you send the question of the essay.
+                                    var rand_entity = select_a_random_entity();
+                                    var tmp = "In the TUGraz lecture 'Introduction to Data Science and Artificial Intelligence (IDSA)', different definitions of intelligence have been discussed. According to different definitions, something or someone would be called intelligent if it <strong>thinks humanly, acts humanly, thinks rationally, acts rationally</strong>; or if it is <strong>able to adapt behaviour</strong> to a changing environment in order to achieve its goals. This information is also available <a target='_blank' rel='noopener noreferrer'  href='http://rebo4ai.know-center.tugraz.at/bazaar/data/IDSAI/1a_Introduction.pdf' download='http://rebo4ai.know-center.tugraz.at/bazaar/data/IDSAI/1a_Introduction.pdf'>here</a>.<br><br>Please reflect below on whether <b>" + rand_entity + "</b> would be considered intelligent or not. In your reflections, use and refer to the above discussions. Please also consider how satisfied you are with your conclusion; and whether you want to change anything in the definition. When you are finished press the submit button, please.";
+                                    logMessage(socket, tmp, "INFO", 'INFO');
+                                    io.sockets.in(socket.room).emit('Show_question_of_essay', tmp);
+                                }
+                                
                             }
                             //#endregion
                             // console.log('------------------------------------------------------');
@@ -559,12 +632,12 @@ function logMessage(socket, content, type, user) {
         u = connection.escape(socket.username);
     else
         u = connection.escape(user);
-    console.log(query)
+
     query = 'insert into nodechat.message (roomid, username, useraddress, userid, content, type, timestamp)'
         + ' values ((select id from nodechat.room where name=' + connection.escape(socket.room) + '), '
         + '' + u + ', ' + connection.escape(endpoint.address + ':' + endpoint.port) + ', '
         + connection.escape(socket.Id) + ', ' + connection.escape(content) + ', ' + connection.escape(type) + ', now());';
-    console.log("QUERY::::::::::::::" + query)
+
     connection.query(query, function (err, rows, fields) {
         if (err)
             console.log(err);
@@ -663,6 +736,70 @@ function chatroom_end_of_conversation_button(socket) {
 };
 
 
+function checking_validity_of_user(sender, prefix_room, suffix_room, password, group_study, callback) {
+    //Behzad: Here you need to check the password and also this should be the first try of the user
+
+    // console.log('find_a_proper_room ----> ')
+    // console.log(sender);
+    // console.log(prefix_room);
+    // console.log(suffix_room);
+    var connection = mysql.createConnection(mysql_auth);
+    var query = 'SELECT * from nodechat.user WHERE user.group = \'' + connection.escape(group_study) +'\' and user.password=' + connection.escape(password);
+    console.log('SERVER: IDSAI21 query: ' + query);
+
+    var user_id;
+    var user_student_id;
+    var user_password;
+    var user_login_timestamp;
+    var user_group;
+    var user_number_of_tries;
+    var user_comment; 
+    //console.log(query);
+    connection.query(query, function (err, rows) {
+        if (err) {
+            console.log(err);
+            res.send(500, "<body><h2>Error</h2><p>Couldn't fetch data</p></body>");
+        } else if (rows.length > 0) {
+            console.log('SERVER: IDSAI21 rows: ' + rows);
+            console.log('SERVER: IDSAI21 row[0]: ' + rows[0]);
+            user_id = rows[0].id;
+            user_student_id = rows[0].student_id;
+            user_password = rows[0].password;
+            user_login_timestamp = rows[0].login_timestamp;
+            user_group = rows[0].group;
+            user_number_of_tries = rows[0].number_of_tries;
+            user_comment = rows[0].comment;   
+            console.log('SERVER: IDSAI21 id: ' + user_id);
+            console.log('SERVER: IDSAI21 password: ' + user_password);
+            console.log('SERVER: IDSAI21 tries: ' + user_number_of_tries);
+            console.log('SERVER: IDSAI21 user_login_timestamp: ' + user_login_timestamp);
+            // console.log(typeof rows);
+            if (user_number_of_tries == 0) {
+                var query = 'update nodechat.user set number_of_tries = number_of_tries+1, login_timestamp=now() where password=\"' + user_password + '\" and id=' + connection.escape(user_id) + ';'
+                console.log('SERVER: IDSAI21 query: ' + query);
+                connection.query(query, function (err) {
+                    if (err)
+                        console.log(err);
+                    else
+                        console.log('SERVER: IDSAI21 THIS IS THE FIRST TRY');
+                });
+                var results = {group:user_group, password:user_password};   
+                
+
+                callback(results);
+            }
+            else {
+                console.log('SERVER: IDSAI21 user_number_of_tries: ' + user_number_of_tries);
+                callback('This password is already used. Please send an email to \"bmirzababaei AT know-center DOT at\" if it\'s not used by you.');
+            }
+        }
+        else {
+            console.log('SERVER: IDSAI21 The password is incorrect!');
+            callback('The password is incorrect!')
+        }
+    });
+    
+}
 function find_a_proper_room(sender, prefix_room, suffix_room, manner_or_roomtype, callback) {
     //    location.href = host + "/bazaar/chat/IDSAI_"+makeid(15)+"/chatbot/"+document.getElementById("textbox").value;
     //const room_order = ['chatbot','essay','chatroom','chatroom']; 
@@ -716,12 +853,25 @@ function find_a_proper_room(sender, prefix_room, suffix_room, manner_or_roomtype
         }
 
     }
+    else if (manner_or_roomtype.startsWith("IDSAI21")) {
+        var tmp = manner_or_roomtype.split("_");
+        var room_name = tmp[2];
+        var room_type = tmp[1];
+        console.log('SERVER:*****IDSAI21 ROOM******* manner_or_roomtype= ' + manner_or_roomtype);
+        console.log('SERVER:*****IDSAI21 ROOM******* sender= ' + sender);
+        console.log('SERVER:*****IDSAI21 ROOM******* room_type= ' + room_type);
+        console.log('SERVER:*****IDSAI21 ROOM******* prefix_room= ' + prefix_room);
+        console.log('SERVER:*****IDSAI21 ROOM******* splitter= ' + splitter);
+        console.log('SERVER:*****IDSAI21 ROOM******* suffix_room= ' + suffix_room);
+        console.log('SERVER:*****IDSAI21 ROOM******* all= ' + sender + prefix_room + splitter + room_name + suffix_room + '/' + room_type + '/');
+        callback(sender + prefix_room + splitter + room_name + "-" + room_type + '-1' + suffix_room + '/' + room_type + '/');
+    }
     else if (manner_or_roomtype === 'PRIVACY') {
-        // console.log('SERVER:*****PRIVACY ROOM******* sender= ' + sender);
-        // console.log('SERVER:*****PRIVACY ROOM******* prefix_room= ' + prefix_room);
-        // console.log('SERVER:*****PRIVACY ROOM******* splitter= ' + splitter);
-        // console.log('SERVER:*****PRIVACY ROOM******* suffix_room= ' + suffix_room);
-        // console.log('SERVER:*****PRIVACY ROOM******* all= ' + sender + prefix_room + splitter + makeid(15) + suffix_room + '/privacy/');
+        console.log('SERVER:*****PRIVACY ROOM******* sender= ' + sender);
+        console.log('SERVER:*****PRIVACY ROOM******* prefix_room= ' + prefix_room);
+        console.log('SERVER:*****PRIVACY ROOM******* splitter= ' + splitter);
+        console.log('SERVER:*****PRIVACY ROOM******* suffix_room= ' + suffix_room);
+        console.log('SERVER:*****PRIVACY ROOM******* all= ' + sender + prefix_room + splitter + makeid(15) + suffix_room + '/privacy/');
         callback(sender + prefix_room + splitter + makeid(15) + suffix_room + '/chatbot/');
     }
     else if (manner_or_roomtype === 'CHATBOT') {
@@ -873,6 +1023,108 @@ io.sockets.on('connection', function (socket) { //This socket parameter is the s
         //console.log('+++++++++++++++++++line 824 adduser');        
         loadHistory(socket, false);
         //console.log('usernames[socket.room], ' + usernames[socket.room] + ', user_perspectives[socket.room]: '+ user_perspectives[socket.room])
+        if (agent_name == "IDSAI21")
+        {
+            if (username != "Rebo4AI") {
+                if (room in numUsers) {
+                    console.log("numUsers[room] is increased by 1");
+                    numUsers[room] = numUsers[room] + 1;
+                }
+                else {
+                    console.log("numUsers[room] is set to 1");
+
+                    numUsers[room] = 1;
+                }
+                console.log("numUsers[room]: " + numUsers[room]);
+
+                connection.query('update nodechat.room set modified=now(), num_users=num_users+1 where room.name=\'' + room + '\';', function (err, results) {
+                    //console.log(results.affectedRows + " record(s) updated");
+                    if (err)
+                        console.log(err);
+                });
+                if (type == "chatroom") {
+                    io.sockets.in(socket.room).emit('chatroomTypeMode');
+
+                    console.log('Username of ' + username + ' is joined to room:' + room + '. The mode is ' + type);
+                    console.log('number of users in this room,' + room + ', is ' + numUsers[room] + '. The mode is ' + type);
+                    // update the num_users in the room table: num_users++
+                    //console.log('update nodechat.room set modified=now(), num_users=num_users+1 where room.name=\''+room+'\';');
+
+                    //connection.query('update nodechat.room set modified=now(), num_users=num_users+1 where room.name= \''+room+'\';', function(err, results)
+
+                    var count = 0;
+                    checkFirstJoin(room, function (result) {
+                        count = result.length;
+                    });
+
+                } else if (type == "chatbot") {
+                    io.sockets.in(socket.room).emit('chatbotTypeMode');
+
+                    console.log('Username of ' + username + ' is added to room:' + room + '. The mode is ' + type);
+                    var count = 0;
+                    console.log('checkFirstJoin(room)-------------- ' + room);
+                    console.log('checkFirstJoin(socket.room)-------------- ' + socket.room);
+                    checkFirstJoin(room, function (result) {
+                        count = result.length;
+
+                        /* const fs = require('fs');
+                        fs.writeFile('rebologforcount.log', count, (err) => {
+                            if (err) throw err;
+                        }); */
+
+                        /* Behzad
+                        * For debugging my agent, which is in my local computer, I need to connect my agent to a chatroom in server.
+                        * Since the agent on the server will be executed automatically whenever a user join the room, I have to add this condition !room.startsWith("debug")
+                        * in order to prevent the server agent from joining the room. 
+                        * In other words, if a chatroom's name starts with "debug", the agent located on the server will not execute. Thus, I can connect to the room with my local agent. 
+                        */
+                        if (count < 2 && !room.startsWith("debug")) {
+                            /* Behzad
+                            *    You need to change this address whenever you want to run your agent 
+                            */
+                            var script = 'sh ../IDSAI21Agent/launch_agent.sh ';
+                            var command = script.concat(room);
+                            exec(command, (error, stdout, stderr) => {
+                                if (error) {
+                                    console.error(`exec error: ${error}`);
+                                    /* console.log('384'); */
+                                    return;
+                                }
+                                /* console.log('387'); */
+                                console.log(`stdout: ${stdout}`);
+                                console.log(`stderr: ${stderr}`);
+                            });
+                            console.log("A new instance of our agent will be started. Room:" + room + ' username:' + username);
+                        }
+                        else {
+                            console.log("Entering debugging mode OR more than one entity in a room. Room:" + room + ' username:' + username);
+                        }
+                    });
+
+                    checkChatbotFinished(room, function (results) {
+                        if (results.length > 0 && !room.startsWith("debug")) {
+                            io.sockets.in(socket.room).emit('lockTextArea', results);
+                            chatroom_locked = true;
+                        }
+                    });
+                } else if (type == "essay") {
+                    console.log('Username of ' + username + ' attended to write an essay in this room:' + room + '. The mode is ' + type);
+                    checkEssayAlreadyWritten(room, function (results) {
+                        if (results.length == null || results.length == 0) {
+                            io.sockets.in(socket.room).emit('essayTypeMode', room);
+                        } else if (results.length > 0) {
+                            io.sockets.in(socket.room).emit('essayFinished', room);
+                            chatroom_locked = true;
+                        }
+                    });
+                }
+
+
+            }
+            else {
+                console.log('Username of ' + username + ' is added to room:' + room);
+            }
+        }
         if (agent_name == "IDSAI")
         {
             if (username != "Rebo4AI") {
@@ -1052,7 +1304,16 @@ io.sockets.on('connection', function (socket) { //This socket parameter is the s
         }
         io.sockets.in(socket.room).emit('updateusers', usernames[socket.room], user_perspectives[socket.room], "update");
     });
+    function pause(x, data) {
+        // Oder Schalfen Sleep
+        // it is not working
+        socket.emit('show_this_in_console', "CLIENT: before PAUSE");
+        setTimeout(function(){
+            io.sockets.in(socket.room).emit('updatechat', socket.username, data);
+                }, 2000);
+        socket.emit('show_this_in_console', "CLIENT: after PAUSE");
 
+    }
     socket.on('sendchat', function (data) {
         console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
         console.log(socket.username);
@@ -1060,10 +1321,15 @@ io.sockets.on('connection', function (socket) { //This socket parameter is the s
         console.log(socket.room);
         console.log(socket.id);
         console.log(socket.root_page);
-
+        // console.log(data);
         console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
+
         logMessage(socket, data, "text", '');
+        // console.log('$$$$$$$$$$$$$$$$$BEFORE SLEEP$$$$$$$$$$$$$$$$$$$$$$');
+        // pause(5000, data)
         io.sockets.in(socket.room).emit('updatechat', socket.username, data);
+        // console.log('$$$$$$$$$$$$$$$$$After SLEEP$$$$$$$$$$$$$$$$$$$$$$');
+
     });
 
     socket.on('show_this_in_console', function (data) {
@@ -1230,5 +1496,11 @@ io.sockets.on('connection', function (socket) { //This socket parameter is the s
 
         // console.log("window.location.href = host_url + '/bazaar/random-landing-page';");
         // document.location.href = host_url + '/bazaar/random-landing-page';
+    });
+
+    socket.on('checking_validity_of_user', function (sender, prefix_room, suffix_room, password, group_study, callback) {
+        checking_validity_of_user(sender, prefix_room, suffix_room, password, group_study, function (results) {
+            callback(results);
+        });
     });
 });

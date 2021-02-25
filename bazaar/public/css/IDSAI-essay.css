@@ -178,6 +178,7 @@ h2
     overflow-y: auto;   
     border-radius: 3px;
     display: initial;
+    color: white;
 }
 
 #messagebutton_div 

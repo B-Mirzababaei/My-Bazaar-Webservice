@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>IDSAI21</title>
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type=""></script>
+  <script type="text/javascript" src="/scripts/sortable.js"></script>
+  <script type="text/javascript" src="/scripts/colors.js"></script>
+  <script type="text/javascript" src="/bazsocket/socket.io.js"></script>
+  <script type="text/javascript" src="/scripts/config.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" />
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="/css/templatemo-style.css" />
+
+
+<!--
+Verticard Template
+https://templatemo.com/tm-533-verticard
+-->
+</head>
+<style>
+.button {
+  background-color: rgb(47, 173, 223);
+  border: none;
+  color: white;
+  padding: 7px 63px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px 5px 5px 5px;
+  cursor: pointer;
+  border-radius: 12px;
+  width: 260px;
+}
+.textbox {
+  margin: 5px 5px 5px 5px;
+  width: 260px;
+}
+.text {
+transition: all 0.5s ease;
+    border: 1px solid #c8c8c8;
+    color: #777;
+    font: 13px Helvetica, Arial, sans-serif;
+    margin: 0 0 10px;
+    padding: 15px 10px 15px 40px;
+    width: 80%;
+}
+p {
+  text-align: justify;
+  text-justify: inter-word;
+}
+</style>
+<body>
+  <div class="tm-page-container mx-auto">
+    <header class="tm-header text-center">
+      <!-- <h1 class="tm-title text-uppercase">GDPR</h1>
+      <p class="tm-primary-color"><i>General Data Protection Regulation</i></p> -->
+    </header>
+
+    <section class="tm-section">
+      <nav class="tm-nav">
+        <ul>
+          <li class="active">
+            <a href="privacy_landing_page.html"><span class="tm-nav-deco"></span>Home</a>
+          </li>
+          <li>
+            <a href="https://www.know-center.tugraz.at/en/"><span class="tm-nav-deco"></span>Know-Center</a>
+          </li>
+          <li>
+            <a href="https://www.tugraz.at/home/"><span class="tm-nav-deco"></span>TU Graz</a>
+          </li>
+        </ul>
+      </nav>
+      <div class="tm-content-container">
+        <figure class="mb-0"  style="text-align:-webkit-center">
+          <img src="/img/Rebo4AI-IDSAI21.PNG" alt="Image" class="img-fluid tm-img" />
+        </figure>
+        <div class="tm-content">
+          <h2 class="tm-page-title">Thank you :)</h2>
+        </div>
+
+      </div>
+      
+    </section>
+    
+    <footer>
+      <span>Copyright 2019 Simple Profile</span>
+      <span>designed by TemplateMo</span>
+    </footer>
+  </div>
+</body>
+<script>
+  var pathArray = window.location.pathname.split('/');
+  //http://127.0.0.1/bazaar/IDSAI21/content_page/2/p4 ->  1 bazaar, 2 IDSAI21, 3 content_page, 4 2, 5 p4
+  var group_study = 1; // 1 == A , 2 == B
+  var room_type = 'chatbot';
+    //const host = "http://127.0.0.1";
+    //const host = "http://rebo4ai.know-center.tugraz.at";
+    const host = config_hostURL;
+    const manner_or_roomtype = 'IDSAI21';
+
+    const socket = io({
+            path: '/bazsocket'
+        });
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    const sender =  'IDSAI21_landing_page_1';//path.split("/").pop();
+    // const sender =  'chatbot_landing_page_temp';//path.split("/").pop();
+
+
+    if (urlParams.has('prefix')){
+        var tmp = '_' + urlParams.get('prefix');
+    }
+    else {
+        var tmp = '';
+    }
+    const prefix_room = tmp;
+
+    if (urlParams.has('suffix')){
+        var tmp = '_' + urlParams.get('suffix');
+    }
+    else {
+        var tmp = '';
+    }
+    const suffix_room = tmp;
+    // const manner_or_roomtype = 'CHATBOT_TEMP'; 
+ 
+
+// function makeid(length) {
+//    var result           = '';
+//    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+//    var charactersLength = characters.length;
+//    for ( var i = 0; i < length; i++ ) {
+//       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+//    }
+//    return result;
+// };
+
+
+
+
+    function redirect(){
+        socket.emit('show_this_in_console', '------ CLIENT: NEW REQUEST ------');
+        var name = document.getElementById('textbox_name').value.trim();
+        var pass = document.getElementById('textbox_pass').value.trim();
+
+        if((name).length==0){
+            alert ('You need to have a name.');
+            return false
+        }
+        if((name).toLowerCase() == 'rebo4ai'){
+            alert ('Please select another name.');
+            return false
+        }
+
+        if((pass).length==0){
+            alert ('The password is incorrect!');
+            return false
+        }
+
+        checking_validity(pass);
+        // join_into_this_room();
+        //Behzad the 3 means the page is called from a hyperlink in essay room or chatroom. NOT from random pages 
+        //location.href = host + "/bazaar/chat/IDSAI_CHATBOT_"+makeid(15)+ "-3" + "/chatbot/"+document.getElementById("textbox").value.trim();
+
+    };
+
+    function checking_validity(password) {
+        //Behzad: here you emit a request to the server to check the password and the number of tries.
+        socket.emit('checking_validity_of_user', sender, prefix_room, suffix_room, password, group_study, function(result){
+          socket.emit('show_this_in_console', 'CLIENT: Get the result from server: message ' + result);
+          // location.href = host + "/bazaar/IDSAI/" + result + document.getElementById("textbox").value.trim();
+          //join_into_this_room(message);
+          // if (result == 'The password is incorrect!')
+          // var room = password + "_" + group_study;
+          // var address =  host + "/bazaar/IDSAI21/" + "IDSAI21A-" + room + "/" + room_type + "/" + document.getElementById("textbox_name").value.trim();
+          if (typeof result == 'object') {
+            // socket.emit('show_this_in_console', 'CLIENT: Got there: ' +  address);
+            // location.href = address;
+            join_into_this_room();
+            // location.href = host + "/bazaar/IDSAI21/content_page/" + result.group + "/" + result.password;
+          }
+          else {
+            // socket.emit('show_this_in_console', '-----CLIENT: Got there: ' +  address);
+            alert(result);
+          }
+      });
+
+
+    };
+    function join_into_this_room (){
+      var tmp = manner_or_roomtype + "_" + room_type +"_" +document.getElementById('textbox_pass').value.trim();
+        socket.emit('find_a_proper_room', sender, prefix_room, suffix_room, tmp, function(roomname_and_type){
+            socket.emit('show_this_in_console', 'CLIENT: Get the result from server: message ' + roomname_and_type);
+            //socket.emit('show_this_in_console', 'CLIENT: Get the result from server: message[0] ' + message[0]);
+            //localStorage.setItem("landing_page_idsai_assignment_1","1");
+            //socket.emit('show_this_in_console', message);
+            // Behzad IMPORTANT : the "2" in the url means that we redirect to location.href from this html
+            // this helps us that when refresh or backward, the correct page will be shown. 
+            // sometimes , we need to back to landing_page_random.html and some other times we need to back to landing_page_idsai_assignment_1.html
+            // this number or id is added to the end of the roomname 
+            //random_part = random_part.substring(0, random_part.indexOf('/')) + '-2' + random_part.substring(random_part.indexOf('/'))
+            socket.emit('show_this_in_console', 'CLIENT:redirect '+ document.getElementById("textbox_name").value.trim() + ' to this room: '+ roomname_and_type);
+
+            location.href = host + "/bazaar/IDSAI21/" + roomname_and_type + document.getElementById("textbox_name").value.trim();
+            //callback(sender + prefix_room + splitter + room_name + suffix_room + '/' + room_type + '/');
+
+            //join_into_this_room(message);
+        });
+        //Behzad the 3 means the page is called from a hyperlink in essay room or chatroom. NOT from random pages 
+        //location.href = host + "/bazaar/chat/IDSAI_CHATBOT_"+makeid(15)+ "-3" + "/chatbot/"+document.getElementById("textbox").value.trim();
+
+    };
+
+    document.getElementById("textbox_pass")
+        .addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+          // manner_or_roomtype = manner_or_roomtype + "_" + room_type +"_" +document.getElementById('textbox_pass').value.trim();
+
+            redirect();
+        }
+    });
+
+
+    document.getElementById("myButton").onclick = function () {
+      // manner_or_roomtype = manner_or_roomtype + "_" + room_type +"_" +document.getElementById('textbox_pass').value.trim();
+      redirect();
+    };
+
+</script>
+</html>
