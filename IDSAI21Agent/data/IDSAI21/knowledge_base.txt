@@ -11,8 +11,8 @@ REASON1_WARRANT__SELF_DRIVING_CARS	Trying to avoid dangerous situations can be c
 REASON2_AGREEMENT_INTRO__SELF_DRIVING_CARS	To sum up, we find out that we can call self-driving cars intelligent
 REASON2__SELF_DRIVING_CARS	self-driving cars can act or think in a way that is similar to human drivers. They do whatever drivers do (not exactly) when they sit on the driver seat. So, to me, self-driving cars can act and think similar to humans
 REASON2_WARRANT__SELF_DRIVING_CARS	This behavior could be considered as acting humanly which is one of the definitions of being intelligent.
-WITHOUT_WARRANT_INTELIGENT__SELF_DRIVING_CARS	is intelligent
-WITHOUT_WARRANT_NOINTELIGENT__SELF_DRIVING_CARS	isn’t fit to the definitions
+WITHOUT_WARRANT_INTELLIGENT__SELF_DRIVING_CARS	is intelligent
+WITHOUT_WARRANT_NOINTELLIGENT__SELF_DRIVING_CARS	doesn't fit to the definitions
 =============GOOGLE_SEARCH_ENGINE==============
 ENTITY__GOOGLE_SEARCH_ENGINE	Google search engine
 ENTITY_THE__GOOGLE_SEARCH_ENGINE	Google search engine

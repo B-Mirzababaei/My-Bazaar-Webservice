@@ -556,9 +556,9 @@ function loadHistory(socket, secret) {
                                     logMessage(socket, tmp, "INFO", 'INFO');
                                     io.sockets.in(socket.room).emit('Show_question_of_essay', tmp);
                                 } else {
-                                    console.log('531 ---------------');
                                     //BEHZAD: Here you send the question of the essay.
-                                    var rand_entity = select_a_random_entity();
+                                    //var rand_entity = select_a_random_entity();
+                                    var rand_entity = "a self-driving car";
                                     var tmp = "In the TUGraz lecture 'Introduction to Data Science and Artificial Intelligence (IDSA)', different definitions of intelligence have been discussed. According to different definitions, something or someone would be called intelligent if it <strong>thinks humanly, acts humanly, thinks rationally, acts rationally</strong>; or if it is <strong>able to adapt behaviour</strong> to a changing environment in order to achieve its goals. This information is also available <a target='_blank' rel='noopener noreferrer'  href='http://rebo4ai.know-center.tugraz.at/bazaar/data/IDSAI/1a_Introduction.pdf' download='http://rebo4ai.know-center.tugraz.at/bazaar/data/IDSAI/1a_Introduction.pdf'>here</a>.<br><br>Please reflect below on whether <b>" + rand_entity + "</b> would be considered intelligent or not. In your reflections, use and refer to the above discussions. Please also consider how satisfied you are with your conclusion; and whether you want to change anything in the definition. When you are finished press the submit button, please.";
                                     logMessage(socket, tmp, "INFO", 'INFO');
                                     io.sockets.in(socket.room).emit('Show_question_of_essay', tmp);
@@ -864,7 +864,17 @@ function find_a_proper_room(sender, prefix_room, suffix_room, manner_or_roomtype
         console.log('SERVER:*****IDSAI21 ROOM******* splitter= ' + splitter);
         console.log('SERVER:*****IDSAI21 ROOM******* suffix_room= ' + suffix_room);
         console.log('SERVER:*****IDSAI21 ROOM******* all= ' + sender + prefix_room + splitter + room_name + suffix_room + '/' + room_type + '/');
-        callback(sender + prefix_room + splitter + room_name + "-" + room_type + '-1' + suffix_room + '/' + room_type + '/');
+        if(Math.random() >= 0.5) {
+            callback(sender + prefix_room + splitter + room_name + "-" + room_type + '-1-AN' + suffix_room + '/' + room_type + '/');
+
+        }
+        else {
+            callback(sender + prefix_room + splitter + room_name + "-" + room_type + '-1-AI' + suffix_room + '/' + room_type + '/');
+
+        }
+        
+
+        // callback(sender + prefix_room + splitter + room_name + "-" + room_type + '-1' + suffix_room + '/' + room_type + '/');
     }
     else if (manner_or_roomtype === 'PRIVACY') {
         console.log('SERVER:*****PRIVACY ROOM******* sender= ' + sender);
@@ -1084,6 +1094,7 @@ io.sockets.on('connection', function (socket) { //This socket parameter is the s
                             */
                             var script = 'sh ../IDSAI21Agent/launch_agent.sh ';
                             var command = script.concat(room);
+                            console.log("SERVER SH COMMAND -----_-_-_-_------: " + command);
                             exec(command, (error, stdout, stderr) => {
                                 if (error) {
                                     console.error(`exec error: ${error}`);

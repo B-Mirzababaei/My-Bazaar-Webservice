@@ -10,3 +10,4 @@ IDSAI_ASSIGNMENT_1_LANDING_PAGE	<a href="http://rebo4ai.know-center.tugraz.at/ba
 IDSAI_CLAIM_BOLD	<b>claim</b>
 IDSAI_EVIDENCE_BOLD	<b>evidence</b>
 IDSAI_WARRANT_BOLD	<b>one of the definitions of intelligence</b>
+IDSAI21_GROUP1_ESSAY1 	IDSAI21_GROUP1_ESSAY1

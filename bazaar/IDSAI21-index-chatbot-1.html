@@ -197,9 +197,10 @@
                 }
                 $('textarea').prop('readonly', true);
             }
-            else
-                socket.emit('show_this_in_console', "CLIENT tmp IDSAI21_WILL_BE_CHANGED_ON_SERVER_SIDE1 ELSE");
-
+            else if (data.includes("SELECTED_ENTITY")) {
+                socket.emit('show_this_in_console', "CLIENT tmp SELECTED_ENTITY");
+                socket.selected_entity = "";
+            }
             return data;
         }
         // listener, whenever the server emits 'updatechat', this updates the chat body
